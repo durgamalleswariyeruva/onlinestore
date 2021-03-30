@@ -1,0 +1,55 @@
+<div *ngIf="username==null">
+    <div clas="container">
+    
+            <div class="row">
+                <div class="col-sm-3 m-3">
+                    <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-shopping-cart" aria-hidden="true"></i>User cart</h1>
+                </div>
+            
+            </div>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4 m-3">
+                    <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"  width="100%" height="100%">
+            </div>
+            <div class="col-sm-4"></div>
+                </div>
+            <h6 class="display-6 text-center" >Missing Cart Items?</h6>
+        <p class="text-center">Login to see the items you add previously here</p>
+        <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;">Login</button>
+    
+        <hr>
+        
+    
+    </div>
+    </div>
+    
+    <!--If user exists-->
+    <div *ngIf="username!=null">
+    
+    
+    <div class="container-fluid" style="background-image: url('');height: 100%;">
+        <p class="display-4 text-dark text-center mt-3">Products in Cart of {{username}}</p>
+        
+        <div class="card mb-3 mx-auto" *ngFor="let p of cart, let i=index" style="max-width: 700px;max-height: 100%;">
+            <div class="row">
+              <div class="col-md-4">
+                <img [src]=p.productImgLink class="card-img-top" style="width: 100%;" alt="..."> 
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{p.productname}}</h5>
+                  <p class="card-title">Product ID : {{p.productID}}</p> 
+                  <p class="card-title">Colour : {{p.colour}}</p> 
+                  <p class="card-title">Manufacturing date : {{p.mfddate}}</p> 
+                  <p class="card-title">Cost : {{(p.cost)| currency:"INR"}}</p> 
+                  <p class="card-title">Product Description : {{p.description}}</p> 
+                  <td class="text-center"><button class="btn btn-danger" (click)="delete(i)">delete</button></td>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+    
+    </div>
+    </div>

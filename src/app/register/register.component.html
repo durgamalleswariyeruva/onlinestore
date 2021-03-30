@@ -1,0 +1,115 @@
+<div style=" background-image: url('https://i.postimg.cc/ht3jnNt7/bg.jpg');background-size: cover;background-repeat: no-repeat; ">
+    <div class="container">
+      <div class="row">
+        <div class="card col-sm-6 shadow d-block mx-auto m-5 p-4">
+          <div class="modal-body">
+            <form [formGroup] ="registerForm"  (ngSubmit)="onSubmit()">
+                 
+            <section class="row col-sm-12">
+                <h2 class="text-primary mt-3 d-block mx-auto" style="text-align: center;"> Register </h2>
+
+               <div class="row col-sm-7">
+                   <!--username-->
+
+                 <div class="form-group">
+    
+                   <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Username" 
+                   style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;"
+                   formControlName="username" required>
+                   <div *ngIf =" getControls().username.touched|| submitted && (getControls().username.dirty||getControls().username.invalid)" >
+
+                    <p *ngIf="getControls().username.errors?.required" class="text-danger"> Name is Requied*</p>
+                     </div>
+
+                </div>
+        
+        
+                <!--firstname-->
+
+
+                    <div class="form-group">
+
+                   <input class="form-control p-1 m-1 ml-2" type="text" placeholder="First Name" 
+                   style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;"
+                   formControlName="fname" required>
+                   <div *ngIf =" getControls().fname.touched|| submitted && (getControls().fname.dirty||getControls().fname.invalid)" >
+
+                    <p *ngIf="getControls().fname.errors?.required" class="text-danger"> First name is Requied*</p>
+                     </div>
+                  </div>
+              <!--lastname-->
+
+                 <div class="form-group">
+
+                   <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Last Name" 
+                      style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;" 
+                       formControlName="lname" required>
+                       <div *ngIf =" getControls().lname.touched|| submitted && (getControls().lname.dirty||getControls().lname.invalid)" >
+
+                        <p *ngIf="getControls().lname.errors?.required" class="text-danger"> Lastname is Requied*</p>
+                         </div>
+                </div>
+
+                <!---Email-->
+
+                <div class="form-group">
+
+                  <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Email" 
+                     style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;" 
+                      formControlName="email" required>
+                      <div *ngIf =" getControls().email.touched|| submitted && (getControls().email.dirty||getControls().email.invalid)" >
+
+                       <p *ngIf="getControls().email.errors?.required" class="text-danger"> Lastname is Requied*</p>
+                        </div>
+               </div>
+
+                <!--Password-->
+    
+                   <div class="form-group">
+
+                   <input class="form-control p-1 m-1 ml-2" type="password" placeholder="Password" 
+                   style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;"
+                   formControlName="password" required >
+
+                   <div *ngIf =" getControls().password.touched|| submitted && (getControls().password.dirty||getControls().password.invalid)" >
+
+                    <span class="text-danger"
+                        *ngIf="getControls().password.errors?.required">
+                        Password is required *
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="getControls().password.errors?.minlength">
+                        minimum length should be 6 
+                    </span>
+                    <div class="text-danger mt-1" *ngIf="getControls().password.errors?.pattern">
+                        password should have at least 1 uppercase letter and 1 number
+                    </div>
+                </div>
+                   
+                  </div>
+    
+                   <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;">Register</button>
+                   
+    
+       </div>
+
+               <div class="row col-sm-5 m-2">
+                 <img class="mt-3 mb-3 pt-3 pb-3 " src="https://i.postimg.cc/7LBNwtrG/flipkart-logo-3-F33927-DAA-seeklogo-com.png" width="100%" >
+    
+               </div>
+    
+             </section>
+    
+                 <div class="" style="display: flex;"></div>
+            
+                   <div class=" text-primary mt-4 mb-3" style="display: flex;" > Already Have an Account ?<a href="#" class=" text-primary" style="text-decoration: none;" data-bs-target="#mdl" data-bs-toggle="modal" (click)="onLogin()">Click here to Login</a></div>
+    
+         </form>
+                </div>
+          
+    
+    
+        </div>
+      </div>
+    </div>
+</div>
