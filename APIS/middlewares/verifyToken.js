@@ -15,7 +15,7 @@ const verifyToken=(req,res,next)=>{
         let token=tokenWithBearer.slice(7,tokenWithBearer.length)
 
         //verify with secret key
-        jwt.verify(token,"abcd",(err,decoded)=>{
+        jwt.verify(token,process.env.secretKey,(err,decoded)=>{
 
             if(err){
                 return res.send({message:"Session expired..plz relogin to continue"})

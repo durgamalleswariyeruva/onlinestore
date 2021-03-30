@@ -1,6 +1,6 @@
 const exp=require("express")
 const app=exp();
-
+require("dotenv").config();
 const mc=require("mongodb").MongoClient;
 
 //import .env file
@@ -20,7 +20,7 @@ app.use("/admin",adminApiObj)
 
 //dburl
 //const dburl="mongodb+srv://CDB37:CDB37@express-mongo.mrv93.mongodb.net/ProjectDatabase?retryWrites=true&w=majority";
-const dburl="mongodb+srv://sandilya:sandilya@mangodb-cluster.fmmnm.mongodb.net/projectDatabase?retryWrites=true&w=majority";
+const dburl=process.env.dburl;
 //db connectivity
 mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(client=>{
