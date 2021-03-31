@@ -85,15 +85,18 @@ adminApiObj.get("/allproducts",asyncHandler(async(req,res,next)=>{
 
     let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
     let products = await adminProductCollectionObj.find().toArray();
-    console.log("products are",products)
+    //console.log("products are",products)
     res.send({message:products})
 }))
 
 //get one products
-adminApiObj.get("/oneproduct/:productname",asyncHandler(async(req,res,next)=>{
+adminApiObj.get("/oneproduct/:pCategory",asyncHandler(async(req,res,next)=>{
     
-    let productCollectionObj = req.app.get("productCollectionObj");
-    let products = await productCollectionObj.findOne({productname:req.params.productname});
+    let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
+    //console.log(adminProductCollectionObj)
+    let products = await adminProductCollectionObj.find({pCategory :req.params.pCategory}).toArray();
+    //console.log("products are",products)
+
     res.send({message:products})
 }))
 

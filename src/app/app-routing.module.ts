@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetComponent } from './reset/reset.component';
+import { RouteGuard } from './route.guard';
+import { UserdashboardComponent } from './users/userdashboard/userdashboard.component';
 
 
 const routes: Routes = [
@@ -14,10 +16,12 @@ const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"home", component:HomeComponent},
+  {path:"userdashboard",component:UserdashboardComponent,canActivate :[RouteGuard]},
   {path:"footer", component:FooterComponent},
   {path:"logout",component:LogoutComponent},
   {path:"reset",component:ResetComponent},
-  {path:"", redirectTo:"/register", pathMatch:"full"}
+  {path:"", redirectTo:"/home", pathMatch:"full"},
+  { path: 'admindashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
 ];
 
 @NgModule({

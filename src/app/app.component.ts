@@ -10,6 +10,7 @@ import { UserService } from './user.service';
 export class AppComponent implements OnInit {
   title = 'project';
   username:any;
+  username1:any;
   products:any=[];
   searchTerm:any;
   userCartSize:number=0;
@@ -22,12 +23,12 @@ export class AppComponent implements OnInit {
 
   }
   onRegister(){
-    this.rt.navigateByUrl("/register")
+    this.rt.navigateByUrl("/home")
  }
  getAllProducts(){
   this.us.getProducts().subscribe(
     res=>{
-      this.products=res["message"]
+      this.products=res.message
     },
     err=>{
       alert("Something went wrong in getting all products")
@@ -45,8 +46,16 @@ additem(i:any){
 
  logout(){
    localStorage.clear();
-   window.location.reload()
-   this.rt.navigateByUrl("/login");
+   
+   this.rt.navigateByUrl("/home")
+            .then(() => {
+              window.location.reload();
+            });
+   
+
+ }
+ cart(){
+   this.rt.navigateByUrl("users/usercart")
  }
  cartStatus(){
   this.us.getCartSize(this.username).subscribe(

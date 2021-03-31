@@ -40,18 +40,16 @@ export class UserService {
   viewItem(obj:any):Observable<any>{
     return this.hc.post("/admin/viewitem",obj)
   }
-  /*getItem(obj:any):Observable<any>{
-    //console.log("in US ",obj)
-    return this.hc.get("/admin/oneproduct/"+obj);
-  }*/
+  getItem(pCategory:any):Observable<any>{
+    console.log("in US ",pCategory)
+    return this.hc.get("/admin/oneproduct/"+pCategory);
+  }
   
   getInitialCartSize(username:any){
     return this.hc.get("/user/getsize/"+username);
   }
 
   
-
-
   cartsize=0;
   private cartSubject: BehaviorSubject<any> = new BehaviorSubject(this.cartsize);
 

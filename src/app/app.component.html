@@ -5,7 +5,7 @@
   <a class="navbar-brand  "  routerLink="home" routerLinkActive="active" style="color: cornsilk;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 30px; padding-left: 3%; ">Online Shopping 
     <img src="https://tse4.mm.bing.net/th?id=OIP.SH2rt-Ivx6ONeEopEDbbzAHaHa&pid=Api&P=0&w=300&h=300" alt="..." height="30px" width="30px"></a>
 
-  <div class="nav-item search-icon ml-5 mr-5" >
+  <div class="col-sm-3 nav-item search-icon ml-5 mr-5" >
     <input type="search"  placeholder=" Search for products,brands and more" [(ngModel)]="searchTerm">
     <label class="icon"><a routerLink="home" class="search-btn"  >
      <i class="fa fa-search  " aria-hidden="true"></i></a></label>
@@ -26,17 +26,17 @@
       
        <!--home-->
       <li class="nav-item">
-        <a class="nav-link mt-3 text-white ml-5"  routerLink="home" routerLinkActive="active"><i class="fa fa-home pl-1" aria-hidden="true"></i> Home </a>
+        <a class="nav-link mt-2 text-white ml-5"  routerLink="home" routerLinkActive="active"><i class="fa fa-home pl-1" aria-hidden="true" ></i> Home </a>
       </li>
       <!--Cart-->
       <li class="nav-item">
-        <a class="nav-link mt-3 mr-2 ml-5 text-white"  routerLink="users/usercart" routerLinkActive="active" *ngIf="username==null" >
+        <a class="nav-link mt-2 mr-2 ml-5 text-white"  routerLink="users/usercart" routerLinkActive="active" *ngIf="username==null" >
           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 
      Cart 
       <button type="button" class="btn btn-white bg-white" style="border-radius: 10px;">0</button> </a>
 
-      <a class="nav-link mt-3 mr-2 ml-5 text-white" href="#" routerLink="users/usercart" routerLinkActive="active" *ngIf="username!=null">
+      <a class="nav-link mt-2 mr-2 ml-5 text-white" href="#" routerLink="users/usercart" routerLinkActive="active" *ngIf="username!=null">
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         Cart 
          <button type="button" class="btn btn-white bg-white" style="border-radius: 10px;" (click)="cartStatus()"> 
@@ -46,36 +46,35 @@
     </li>
  <!--login-->
       <li class="nav-item" >
-        <a class="nav-link mt-3 ml-5 text-white" href="#" routerLink="login" routerLinkActive="active" *ngIf="username==null" >
+        
+        <a class="nav-link mt-2 ml-5 text-white" href="#" routerLink="login" routerLinkActive="active" *ngIf="username==null" >
           <i class="fa fa-sign-in" aria-hidden="true"></i> Login </a> 
-          <a class="nav-link mt-3 ml-5 text-white"  href="#" routerLink="" routerLinkActive="active"  *ngIf="username!=null" data-bs-target="#mdl" data-bs-toggle="modal" >
+          <a class="nav-link mt-2 ml-5 text-white"  href="#" routerLink="" routerLinkActive="active"  *ngIf="username!=null" data-bs-target="#mdl" data-bs-toggle="modal" >
             <!--<img width="8%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxsaW5lYXJHcmFkaWVudCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJTVkdJRF8xXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIyNTYiIHgyPSIyNTYiIHkxPSI1MTIiIHkyPSIwIj48c3RvcCBzdG9wLW9wYWNpdHk9IjEiIHN0b3AtY29sb3I9IiM1NTU4ZmYiIG9mZnNldD0iMCI+PC9zdG9wPjxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0iIzAzMDBmZiIgb2Zmc2V0PSIwLjA1MDE5MzA1MDE5MzA1MDE5Ij48L3N0b3A+PHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSIjMDMwMGZmIiBvZmZzZXQ9IjAuMTUwNTc5MTUwNTc5MTUwNTgiPjwvc3RvcD48c3RvcCBzdG9wLW9wYWNpdHk9IjEiIHN0b3AtY29sb3I9IiNmY2ZmMDAiIG9mZnNldD0iMC4yMDQ2MzMyMDQ2MzMyMDQ2NCI+PC9zdG9wPjxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0iIzAzMDBmZiIgb2Zmc2V0PSIwLjQwNTQwNTQwNTQwNTQwNTQzIj48L3N0b3A+PHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSIjZmNmZjAwIiBvZmZzZXQ9IjEiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJTVkdJRF8yXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIyNTYiIHgyPSIyNTYiIHkxPSI0NTIiIHkyPSI5MSI+PHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSIjYWRkY2ZmIiBvZmZzZXQ9IjAiPjwvc3RvcD48c3RvcCBzdG9wLW9wYWNpdHk9IjEiIHN0b3AtY29sb3I9IiNlYWY2ZmYiIG9mZnNldD0iMC41MDI4Ij48L3N0b3A+PHN0b3Agc3RvcC1vcGFjaXR5PSIxIiBzdG9wLWNvbG9yPSIjMjg4ZGQ5IiBvZmZzZXQ9IjEiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PGc+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiBmaWxsPSJ1cmwoI1NWR0lEXzFfKSIgcj0iMjU2IiBkYXRhLW9yaWdpbmFsPSJ1cmwoI1NWR0lEXzFfKSIgc3R5bGU9IiI+PC9jaXJjbGU+PC9nPjwvZz48Zz48Zz48cGF0aCBkPSJtMzMxIDE2NmMwLTQxLjM1NS0zMy42NDUtNzUtNzUtNzVzLTc1IDMzLjY0NS03NSA3NSAzMy42NDUgNzUgNzUgNzUgNzUtMzMuNjQ1IDc1LTc1em0tNzUgNzVjLTc0LjQzOSAwLTEzNSA2MC41NjEtMTM1IDEzNXYxNC4wNThjMCA0LjI2NCAxLjgxNCA4LjMyNiA0Ljk5IDExLjE3MSAzNi41MzggMzIuNzQgODIuNzEgNTAuNzcxIDEzMC4wMSA1MC43NzEgNDcuMzAxIDAgOTMuNDczLTE4LjAzMSAxMzAuMDEtNTAuNzcxIDMuMTc2LTIuODQ1IDQuOTktNi45MDggNC45OS0xMS4xNzF2LTE0LjA1OGMwLTc0LjQzOS02MC41NjEtMTM1LTEzNS0xMzV6IiBmaWxsPSJ1cmwoI1NWR0lEXzJfKSIgZGF0YS1vcmlnaW5hbD0idXJsKCNTVkdJRF8yXykiIHN0eWxlPSIiPjwvcGF0aD48L2c+PC9nPjwvZz48L2c+PC9zdmc+" >-->
-            <i class="fa fa-user" aria-hidden="true"></i>
-            {{username}} 
-            <div class="container ">
-              <div class="row" >
-          
-                <div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="modalExampleLabel" id="mdl" data-bs-backdrop="static">
-          
-                    <div class="modal-dialog modal-dialo-centered">
-          
-                        <div class="modal-content">
-                            <div class="modal-header text-dark"><h3> Hello {{username}}</h3> 
-                                <button class="btn btn-danger " data-bs-dismiss="modal" (click)=onRegister()>x</button>
-                            </div>
-                            <div class="modal-body text-primary p-2"  style="border-bottom: 1px solid blue;">
+            <div class="col-sm-6">
+              <div class="dropdown">
+                <button class="btn bg-white dropdown-toggle shadow" type="button"  (click)="getAllProducts()" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <b> <i class="fa fa-user" aria-hidden="true"></i> {{username}}     </b>       
 
-                              <div style="border-bottom: 1px solid blue;"> Wishlist</div>
-                              <div > About ur profile</div>
-                             </div>
-                             <div class="modal-footer">
-                               <button class="btn btn-sm bg-success text-light p-2 mt-2 mb-2" (click)="logout()"><h4> logout</h4>  </button>
-                             </div>
-                             </div>
-                             </div>
-                             </div>
-                             </div>
-                             </div>
+
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-heart ml-1"></i> Wishlist</a></li>
+                  <li><a class="dropdown-item" href="#"> <i class="fa fa-user ml-1" aria-hidden="true"></i> Profile</a></li>
+                  <li> <a class="dropdown-item " href="#"  *ngIf="username!=null">
+                    <i class="fa fa-shopping-cart ml-1" aria-hidden="true"></i> Cart 
+                     <button type="button" class="btn btn-primary bg-secondary" style="border-radius: 10px;" (click)="cart()"> 
+                    
+                    {{userCartSize}}  </button> </a></li>
+                  <li><hr class="dropdown-divider"></li>
+
+                  <li> <a class="dropdown-item" href="#"> <button class="btn btn-sm bg-white text-dark" (click)="logout()"><h5> <i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</h5>  </button></a></li>  
+                  
+                  
+                </ul>
+              </div>
+            </div>
+            
                         
 
               

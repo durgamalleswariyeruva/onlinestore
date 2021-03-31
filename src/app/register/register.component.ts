@@ -21,7 +21,7 @@ constructor(private rt:Router, private us:UserService) { }
       username:new FormControl(null,Validators.required),
       fname:new FormControl(null,Validators.required),
       lname:new FormControl(null,Validators.required),
-
+      email:new FormControl(null,Validators.required),
       password:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
   
     })

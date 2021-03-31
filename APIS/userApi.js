@@ -56,10 +56,24 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     let userCredObj = req.body;
     //verify  username
     let user = await userCollectionObj.findOne({username:userCredObj.username})
-
+    console.log(user)
     if(user == null){
         res.send({message:"Invalid username"})
     }
+    else if(user.username =="admin"){
+        let status = await bcryptjs.compare(userCredObj.password,user.password);
+
+        //if pswd matched
+        if(status == true){
+            //create a token
+            let token = await jwt.sign({username:user.username},process.env.secretKey,{expiresIn:1});
+
+            //send token
+            res.send({message:"admin login",signedToken:token,username:user.username});
+        }
+        else{
+            res.send({message:"Invalid password"});
+        }    }
     else{
         //verify password
         let status = await bcryptjs.compare(userCredObj.password,user.password);
@@ -67,7 +81,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10});
+            let token = await jwt.sign({username:user.username},process.env.secretKey,{expiresIn:1});
 
             //send token
             res.send({message:"success",signedToken:token,username:user.username});

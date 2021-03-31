@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   data:any;
   userCredObj:any;
+  username:any;
   registerForm: FormGroup=new FormGroup({});
     submitted: boolean=false;
   constructor(private rt:Router, private us:UserService) { }
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   
     })
   }
-  onRegister()
+  register()
   {
     this.rt.navigateByUrl("/register")
   }
@@ -42,6 +43,8 @@ export class LoginComponent implements OnInit {
     if(this.registerForm.valid)
     {
       this.userCredObj=this.registerForm.value
+      console.log("name is:",this.userCredObj)
+      
       this.us.loginUser(this.userCredObj).subscribe(
         res=>{
           if(res["message"]=="success"){
@@ -49,8 +52,26 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("token",res["signedToken"])
             localStorage.setItem("username",res["username"])
             //navigate to user component
+            this.rt.navigateByUrl("/userdashboard")
+            .then(() => {
+              window.location.reload();
+            });
+            //window.location.reload ();
 
-            window.location.reload ();
+
+          }
+          else if(res["message"]=="admin login"){
+            
+            //store token and username in local storage
+            localStorage.setItem("token",res["signedToken"])
+            localStorage.setItem("username",res["username"])
+           // this.rt.navigateByUrl("/admindashboard")
+            this.rt.navigateByUrl("/admindashboard")
+            .then(() => {
+              window.location.reload();
+            });
+            //navigate to user component
+           // window.location.reload()
 
 
           }

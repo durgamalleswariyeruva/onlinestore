@@ -13,6 +13,9 @@ export class ResetComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  back(){
+    this.router.navigateByUrl("/login")
+  }
   onSubmit(formRef:any){
     let obj=formRef.value;
     if(obj.password1==obj.password2){
@@ -20,10 +23,11 @@ export class ResetComponent implements OnInit {
            this.us.changePassword(obj).subscribe(
              res=>{
                if(res["message"]=="nouser"){
+                 
                  alert("username is invalid")
                }
               if(res["message"]=="success"){
-                 this.router.navigateByUrl("/logincomp")
+                 this.router.navigateByUrl("/login")
                  
                }
              },

@@ -1,8 +1,20 @@
-<div class="container-fluid">
+<div style="background-image: url('https://i.postimg.cc/yYPJy0bv/assam-india-february-flipkart-logo-phone-screen-stock-image-assam-india-february-flipkart-logo-phone.jpg');
+background-size: cover;width: 100%;height: 100%;background-repeat: no-repeat; ">
+<div class="container">
     <div class="row ">
-        <div class="col-md-3 col-sm-2"></div>
-        <div class="col-md-6 col-sm-6 one">
+            <div class="card shadow d-block mx-auto col-sm-7 one m-5">
+                <div class="card-body">
+
+                
             <form  #formRef="ngForm" (ngSubmit)="onSubmit(formRef)">
+                <section class="row col-sm-12">
+                    <h3 class=" text-dark d-block mx-auto mt-3 mb-4" style="text-align: center;"> Reset Password</h3> 
+
+                    <div class="col-sm-1">                   
+                     </div>
+             
+
+                    <div class="row col-sm-6">
                 <div class="form-group">
                     <label for="inputAddress" class="form-label">Username</label>
                     <input type="text" class="form-control" id="inputAddress" name="username" placeholder="Enter username" ngModel>
@@ -17,13 +29,28 @@
                     <input type="password" class="form-control" id="inputPassword2" placeholder="Re-type new password" name="password2" ngModel>
                 </div>      
                
-              <div class="col-12">
-                    <button type="submit" class="btn btn-light d-block mx-auto m-3" >update</button>
+              <div class="card-footer border-0 bg-white">
+                    <button type="submit" class="btn btn-success d-block mx-auto m-3 shadow float-start" >Update</button>
+                    <button type="button" class="btn btn-danger d-block mx-auto m-3 shadow pull-right" (click)="back()" >Back</button>
+
                 </div>
+            </div>
+            <div class="row col-sm-5">
+                <img src="https://i.postimg.cc/7LBNwtrG/flipkart-logo-3-F33927-DAA-seeklogo-com.png" width="100%">
+    
+            </div>
+        </section>
+        
             </form>
+
             <h6 class="text-center text-danger" *ngIf="status">passwords are not same</h6>
+        
+
+        
+        </div>
+    </div>
         </div>
         <div class="col-md-3 col-sm-2"></div>
     
     </div>
-    </div>
+</div>

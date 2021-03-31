@@ -9,24 +9,75 @@ import { UserService } from '../user.service';
 })
 export class HomeComponent implements OnInit {
  searchTerm:any
+ selectedLevel:any;
   username:any;
   products:any;
+  product:any;
+  products1:any;
+
   userCartSize:any;
   cart=null;
+  category:any=[];
+  pCategory:any;
+  obj:any;
+  cat:any=[];
+  ctg:any;
+  status:boolean=false;
   constructor(private us:UserService,private router:Router) { }
-  cat=["Television","laptop","Watches","Mobile phone"]
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.getAllProducts();
     this.cartStatus();
     
   }
-
+  getOneProduct(j:any){
+     this.pCategory= j
+    console.log(this.pCategory)
+    this.us.getItem(this.pCategory).subscribe(
+      res=>{
+        this.product=res["message"]
+        this.status=true;
+        this.ctg=this.product.pCategory
+        console.log(this.ctg)
+        console.log("cat:",this.product)
+        
+      },
+      err=>{
+        alert("Something went wrong in getting all products")
+        console.log(err)
+      }
+    )
+  }
+  getOneProducts(j:any){
+    this.pCategory= j
+   console.log(this.pCategory)
+   this.us.getItem(this.pCategory).subscribe(
+     res=>{
+       this.products1=res["message"]
+       
+       console.log("cat:",this.products1)
+       
+     },
+     err=>{
+       alert("Something went wrong in getting all products")
+       console.log(err)
+     }
+   )
+ }
   
   getAllProducts(){
     this.us.getProducts().subscribe(
       res=>{
         this.products=res["message"]
+        for (let i in this.products){
+          this.category.push(this.products[i].pCategory)
+      
+         }
+         //for displaying unique values
+         this.cat = this.category.filter((x:any, j:any, a:any) =>
+         x && a.indexOf(x) === j);
+         console.log(this.cat)
+    
       },
       err=>{
         alert("Something went wrong in getting all products")
@@ -83,7 +134,7 @@ export class HomeComponent implements OnInit {
       colour:this.products[n].pcol,
       cost:this.products[n].pprice,
       description:this.products[n].pdescription,
-      productImgLink:this.products[n].userImgLink
+      productImgLink:this.products[n].ImgLink
       }
       
       //console.log("this new obj is ",obj)
