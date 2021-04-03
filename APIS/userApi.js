@@ -2,6 +2,7 @@ const exp=require("express");
 const userApiObj=exp.Router();
 
 const asyncHandler=require("express-async-handler")
+const verifyToken=require("./middlewares/verifyToken")
 
 //extract body of req obj
 userApiObj.use(exp.json());
@@ -66,7 +67,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},process.env.secretKey,{expiresIn:1});
+            let token = await jwt.sign({username:user.username},process.env.secretKey,{expiresIn:10});
 
             //send token
             res.send({message:"admin login",signedToken:token,username:user.username});
@@ -81,7 +82,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},process.env.secretKey,{expiresIn:1});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10});
 
             //send token
             res.send({message:"success",signedToken:token,username:user.username});
@@ -99,7 +100,7 @@ userApiObj.post("/addtocart",asyncHandler(async(req,res,next)=>{
     let cardCollectionObj= req.app.get("cardCollectionObj");
 
     let cartObj=req.body;
-    console.log("name",cartObj.username)
+    console.log("name",cartObj.productname)
     let cart = await cardCollectionObj.findOne({username:cartObj.username,productname:cartObj.productname})
     console.log("the cart is ",cart)
     if(cart!==null){

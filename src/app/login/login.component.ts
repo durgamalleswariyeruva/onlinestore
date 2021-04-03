@@ -9,7 +9,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  status:any
+  s1:any;
   data:any;
   userCredObj:any;
   username:any;
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("token",res["signedToken"])
             localStorage.setItem("username",res["username"])
             //navigate to user component
-            this.rt.navigateByUrl("/userdashboard")
+            this.rt.navigateByUrl("/home")
             .then(() => {
               window.location.reload();
             });
@@ -77,19 +78,21 @@ export class LoginComponent implements OnInit {
           }
           else{
             if(res["message"]=="Invalid username")
-            {
-              alert("Invalid Username")
+            {   status="success";
+                this.s1="Invalid Username"
             }
             if(res["message"]=="Invalid password")
             {
-              alert("Invalid Password")
+              status="success";
+              this.s1="Invalid Password"
             }
 
             this.rt.navigateByUrl("/login")
           }
         },
         err=>{
-          alert("Something went wrong in user login")
+          status="fail"
+          this.s1="Something went wrong in user login"
           console.log(err)
         }
       )

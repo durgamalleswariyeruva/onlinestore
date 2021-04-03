@@ -11,6 +11,9 @@ import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ResetComponent } from './reset/reset.component';
 import { SearchPipe } from './search.pipe';
+import { UsersModule } from './users/users.module';
+
+
 import { AuthorizationService } from './authorization.service';
 
 @NgModule({
@@ -29,7 +32,8 @@ import { AuthorizationService } from './authorization.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    UsersModule
   ],
   providers: [
     {

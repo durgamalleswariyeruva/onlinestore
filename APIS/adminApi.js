@@ -1,87 +1,35 @@
 const exp=require("express");
 const adminApiObj=exp.Router();
+const errorHandler=require("express-async-handler");
+const { ErrorHandler } = require("@angular/core");
+//import 
+const verifyToken=require("./middlewares/verifyToken")
 
-const asyncHandler=require("express-async-handler")
-
-//extract body of req obj
-adminApiObj.use(exp.json());
-
-//import bcrypt
-const bcryptjs=require("bcryptjs");
-
-const jwt=require("jsonwebtoken")
-
-
-//import cloudinary
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary")
-const multer=require("multer")
-
-
-
+const multer = require("multer")
 //configure cloudinary
 cloudinary.config({
-    cloud_name: 'diqtn7ozg',
-    api_key: '512249956943975',
-    api_secret: 'k2WkjpyCn8toi2WNROdsbNoA3U8'
+    cloud_name: 'dtrhafbol',
+    api_key: '471847945156575',
+    api_secret: 'H7vKMedZ5nAeWlIjbjtNebdk3OY'
 });
-
-
 //configure cloudinary storage
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'E-Commerce',
-        format: async (req, file) => 'png', // supports promises as well
+        folder: 'adminproduct',
+        format: async (req, file) => 'jpg', // supports promises as well
         public_id: (req, file) => file.fieldname + '-' + Date.now()
     },
 });
-
 //congigure multer
 var upload = multer({ storage: storage });
+//extract body of req obj
+adminApiObj.use(exp.json())
 
-
-
-
-
-
-
-
-
-//post req handler for user register
-adminApiObj.post("/addproduct",upload.single('photo'), asyncHandler(async(req,res,next)=>{
-    //console.log("the user is ",req.body)
-    //get user collection object
-    let productCollectionObj = req.app.get("productCollectionObj");
-    
-    
-    let productObj =  JSON.parse(req.body.productObj)
-    
-    //console.log("user object is",productObj);
-    //check for user in db
-    let product = await productCollectionObj.findOne({productname:productObj.productname});
-
-    //if username alreaddy taken
-    if(product!==null){
-        res.send({message:"product existed"});
-    }
-    else{
-        
-        //add userImagelink
-        productObj.productImgLink = req.file.path;
-
-        //create product
-        let success=await productCollectionObj.insertOne(productObj);
-        res.send({message:"product added"})
-        console.log("product added")
-        
-    }
-   //console.log("user obj is",req.body);
-}))
-
-//get all products
-adminApiObj.get("/allproducts",asyncHandler(async(req,res,next)=>{
+adminApiObj.get("/allproducts",errorHandler(async(req,res,next)=>{
 
     let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
     let products = await adminProductCollectionObj.find().toArray();
@@ -90,7 +38,7 @@ adminApiObj.get("/allproducts",asyncHandler(async(req,res,next)=>{
 }))
 
 //get one products
-adminApiObj.get("/oneproduct/:pCategory",asyncHandler(async(req,res,next)=>{
+adminApiObj.get("/oneproduct/:pCategory",errorHandler(async(req,res,next)=>{
     
     let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
     //console.log(adminProductCollectionObj)
@@ -100,60 +48,69 @@ adminApiObj.get("/oneproduct/:pCategory",asyncHandler(async(req,res,next)=>{
     res.send({message:products})
 }))
 
-adminApiObj.post("/viewitem",asyncHandler(async(req,res,next)=>{
-    let productCollectionObj=req.app.get("productCollectionObj");
-    //console.log("In ViewItem ",req.body)
-    let Obj=req.body;
-    let viewItem=await productCollectionObj.findOne({productname:Obj.productname});
-    if(viewItem!==null){
-        //create a token
-        let token = await jwt.sign({productname:viewItem.productname},"abcd",{expiresIn:10});
+adminApiObj.post("/productdetails",upload.single('photo'),errorHandler(async (req,res,next)=>{
+    console.log("url is ",req.file.path);
+    //get product collectionobject
 
-        //send token
-        res.send({message:true,signedToken:token,productname:viewItem.productname});
-    }
+    let adminProductCollectionObj=req.app.get("adminProductCollectionObj");
+   console.log("product details obj is",req.body)
+   let proObj=JSON.parse(req.body.proObj);
+    //add Imagelink
+    proObj.ImgLink = req.file.path;
+let success=await adminProductCollectionObj.insertOne(proObj)
+        res.send({message:"product created"})
+
     
 }))
+adminApiObj.get("/getlist",errorHandler(async (req,res,next)=>{
+    let adminProductCollectionObj = req.app.get("adminProductCollectionObj") 
+  
+    let proObj=await adminProductCollectionObj.find().toArray();
+    console.log("list is",proObj);
 
-//edit product details
-adminApiObj.post("/editproduct",asyncHandler(async(req,res,next)=>{
-
-    let productCollectionObj = req.app.get("productCollectionObj");
-    let productObj =  req.body;
+    res.send({message:"success",list:proObj})
     
-    //console.log("user object is",productObj);
-    //check for user in db
-    let product = await productCollectionObj.findOne({productname:productObj.productname});
-
-    //if username alreaddy taken
-    if(product!==null){
-        let edit=await productCollectionObj.updateOne({productname:productObj.productname},{$set:{
-            productID:edit.productID,
-            colour:edit.colour,
-            mfddate:edit.mfddate,
-            cost:edit.cost
-        }});
-        res.send({message:true});
-    }
-
-}))
-
-//delete from all products
-adminApiObj.post("/delete",asyncHandler(async(req,res,next)=>{
+    }))
+adminApiObj.post("/delete",errorHandler(async(req,res,next)=>{
     
-    let productCollectionObj = req.app.get("productCollectionObj");
-    let productObj =  req.body;
+        let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
+        let productObj =  req.body;
+        
+        console.log("product object is",productObj);
+        //check for product in db
+        let product = await adminProductCollectionObj.findOne({pname:productObj.pname});
     
-    //console.log("user object is",productObj);
-    //check for user in db
-    let product = await productCollectionObj.findOne({productname:productObj.productname});
+        if(product!==null){
+            let remove=await adminProductCollectionObj.deleteOne({pname:productObj.pname});
+            res.send({message:true});
+        }
+    
+    }))
 
-    //if username alreaddy taken
-    if(product!==null){
-        let remove=await productCollectionObj.deleteOne({productname:productObj.productname});
-        res.send({message:true});
-    }
 
-}))
-//export
-module.exports = adminApiObj;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports=adminApiObj;

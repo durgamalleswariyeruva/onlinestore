@@ -22,6 +22,9 @@ export class HomeComponent implements OnInit {
   obj:any;
   cat:any=[];
   ctg:any;
+  pro:any=[];
+  img:any=[];
+  imgs:any=[];
   status:boolean=false;
   constructor(private us:UserService,private router:Router) { }
   ngOnInit(): void {
@@ -40,7 +43,7 @@ export class HomeComponent implements OnInit {
         this.ctg=this.product.pCategory
         console.log(this.ctg)
         console.log("cat:",this.product)
-        
+
       },
       err=>{
         alert("Something went wrong in getting all products")
@@ -56,7 +59,6 @@ export class HomeComponent implements OnInit {
        this.products1=res["message"]
        
        console.log("cat:",this.products1)
-       
      },
      err=>{
        alert("Something went wrong in getting all products")
@@ -77,6 +79,13 @@ export class HomeComponent implements OnInit {
          this.cat = this.category.filter((x:any, j:any, a:any) =>
          x && a.indexOf(x) === j);
          console.log(this.cat)
+         for (let i in this.products){
+          this.imgs.push(this.products[i].ImgLink)
+      
+         }
+         this.img = this.imgs.filter((x:any, j:any, a:any) =>
+         x && a.indexOf(x) === j);
+         console.log(this.img)
     
       },
       err=>{
@@ -126,7 +135,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  additem(n:number){
+  additems(n:number){
     if(this.username!==null){
       let obj={
       username:this.username,
@@ -137,7 +146,44 @@ export class HomeComponent implements OnInit {
       productImgLink:this.products[n].ImgLink
       }
       
-      //console.log("this new obj is ",obj)
+      console.log("this new obj is ",obj)
+      this.us.usercart(obj).subscribe(
+        res=>{
+          if(res["message"]=="product exist"){
+            alert("Product is already added to cart")
+            
+          }
+          else{
+            alert("Product added to cart")
+            this.cartStatus();
+          }
+          
+        },
+        err=>{
+          alert("Something went wrong in Adding Course")
+        console.log(err)
+        }
+      )
+      
+    }
+    else{
+      alert("please login first to add items")
+      this.router.navigateByUrl("/login")
+    }
+  }
+    
+  additem(n:number){
+    if(this.username!==null){
+      let obj={
+      username:this.username,
+      productname:this.product[n].pname,
+      colour:this.product[n].pcol,
+      cost:this.product[n].pprice,
+      description:this.product[n].pdescription,
+      productImgLink:this.product[n].ImgLink
+      }
+      
+      console.log("this new obj is ",obj)
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){

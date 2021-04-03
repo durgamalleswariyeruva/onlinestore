@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
@@ -9,14 +10,30 @@ import { UserService } from '../user.service';
 })
 export class ResetComponent implements OnInit {
    status:boolean=false;
+   formRef: FormGroup=new FormGroup({});
+  submitted: boolean=false;
   constructor( private us:UserService, private router:Router) { }
 
   ngOnInit(): void {
+    this.formRef=new FormGroup({
+    
+      username:new FormControl(null,Validators.required),
+     
+      pwd:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
+      pwd1:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
+
+    })
+  }
+  getControls(){
+    return this.formRef.controls;
   }
   back(){
     this.router.navigateByUrl("/login")
   }
   onSubmit(formRef:any){
+    this.submitted=true;
+  if(this.formRef.valid)
+  {
     let obj=formRef.value;
     if(obj.password1==obj.password2){
       console.log("password same")
@@ -41,5 +58,5 @@ export class ResetComponent implements OnInit {
       this.status=true;
     }
   }
-
+  }
 }

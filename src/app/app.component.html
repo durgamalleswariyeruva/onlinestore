@@ -2,34 +2,34 @@
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg bg-primary navbar-light" >
     
-  <a class="navbar-brand  "  routerLink="home" routerLinkActive="active" style="color: cornsilk;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 30px; padding-left: 3%; ">Online Shopping 
+  <a class="navbar-brand col-sm-6 "  routerLink="home" routerLinkActive="active" style="color: cornsilk;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 30px; padding-left: 3%; ">Online Shopping 
     <img src="https://tse4.mm.bing.net/th?id=OIP.SH2rt-Ivx6ONeEopEDbbzAHaHa&pid=Api&P=0&w=300&h=300" alt="..." height="30px" width="30px"></a>
 
-  <div class="col-sm-3 nav-item search-icon ml-5 mr-5" >
+  <!--<div class="col-sm-3 nav-item search-icon ml-5 mr-5"  >
     <input type="search"  placeholder=" Search for products,brands and more" [(ngModel)]="searchTerm">
     <label class="icon"><a routerLink="home" class="search-btn"  >
      <i class="fa fa-search  " aria-hidden="true"></i></a></label>
 
-  </div>
+  </div>-->
 
   
     
 
 
   
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon pull-end"></span>
+  <button class="navbar-toggler text-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon text-right"></span>
   </button>
-  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+  <div class="collapse navbar-collapse col-sm-6 " id="navbarSupportedContent">
            
-    <ul class="navbar-nav text-center">
+    <ul class="navbar-nav text-right">
       
        <!--home-->
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="username!='admin'">
         <a class="nav-link mt-2 text-white ml-5"  routerLink="home" routerLinkActive="active"><i class="fa fa-home pl-1" aria-hidden="true" ></i> Home </a>
       </li>
       <!--Cart-->
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="username!='admin'">
         <a class="nav-link mt-2 mr-2 ml-5 text-white"  routerLink="users/usercart" routerLinkActive="active" *ngIf="username==null" >
           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 
@@ -61,9 +61,9 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
                   <li><a class="dropdown-item" href="#"><i class="fas fa-heart ml-1"></i> Wishlist</a></li>
                   <li><a class="dropdown-item" href="#"> <i class="fa fa-user ml-1" aria-hidden="true"></i> Profile</a></li>
-                  <li> <a class="dropdown-item " href="#"  *ngIf="username!=null">
+                  <li> <a class="dropdown-item " routerLink="users/usercart" routerLinkActive="active"  *ngIf="username!=null">
                     <i class="fa fa-shopping-cart ml-1" aria-hidden="true"></i> Cart 
-                     <button type="button" class="btn btn-primary bg-secondary" style="border-radius: 10px;" (click)="cart()"> 
+                     <button type="button" class="btn btn-primary bg-secondary" style="border-radius: 10px;" > 
                     
                     {{userCartSize}}  </button> </a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -81,6 +81,14 @@
                  </a>
 
       </li>
+      <li class="nav-item" *ngIf="username=='admin'" >
+        <a class="nav-link mt-3 mx-5 text-white" routerLink="admindashboard"  routerLinkActive="active" style="font-size: 1.2rem;font-weight: 500;"><i class="fa fa-edit"></i>Add product</a>
+
+    </li>
+    <li class="nav-item" *ngIf="username=='admin'">
+        <a class="nav-link mt-3 mx-5 text-white" routerLink="admindashboard/viewadminproducts"  routerLinkActive="active" style="font-size: 1.2rem;font-weight: 500;" ><i class="fa fa-xs fa-eye"></i>View products</a>
+
+    </li>
           
      
 

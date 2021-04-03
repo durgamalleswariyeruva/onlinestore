@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ResetComponent } from './reset/reset.component';
 import { RouteGuard } from './route.guard';
 import { UserdashboardComponent } from './users/userdashboard/userdashboard.component';
+import { UsersModule } from './users/users.module';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"home", component:HomeComponent},
-  {path:"userdashboard",component:UserdashboardComponent,canActivate :[RouteGuard]},
+  {path:"userdashboard",component:UserdashboardComponent},
   {path:"footer", component:FooterComponent},
   {path:"logout",component:LogoutComponent},
   {path:"reset",component:ResetComponent},
@@ -27,5 +28,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
+        
 })
 export class AppRoutingModule { }

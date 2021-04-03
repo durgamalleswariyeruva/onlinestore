@@ -24,6 +24,7 @@ export class UserService {
   }
   
   usercart(obj:any):Observable<any>{
+    console.log(obj)
     return this.hc.post("user/addtocart",obj);
   }
   getProducts():Observable<any>{

@@ -99,7 +99,7 @@
                       <form [formGroup] ="registerForm"  (ngSubmit)="onSubmit()">
   
                              <section class="row col-sm-12" >
-                                <h3 class=" text-dark d-block mx-auto mt-3 mb-4" style="text-align: center;"> Login</h3> 
+                                <h3 class=" text-dark d-block mx-auto mt-3 mb-4" style="text-align: center;"><i class="fas fa-user"></i> Login</h3> 
 
                                 <div class="col-sm-1">                   
                                  </div>
@@ -107,7 +107,7 @@
   
                                     <div class="form-group">
   
-                                    <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Username"
+                                       <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Username"
                                      style="text-align:center;border: 0px;border-bottom: 1px solid black;border-radius: 1px;"
                                      formControlName="username" required >
                                      
@@ -139,10 +139,18 @@
   
                                   </div>
   
-                                    <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;">Login</button>
+                                    <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;" [disabled]="registerForm.invalid">Login</button>
+                                    <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" *ngIf="status=='success'">
+                                      <div class="d-flex">
+                                        <div class="toast-body">
+                                          {{s1}}
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                      </div>
+                                    </div>
                                     <div class="row  m-1 text-dark d-block mx-auto " style="text-align: center;">OR</div>
                                     <button class="btn btn-white d-block mx-auto shadow " style="text-shadow: black; " (click)="forgot()" >Forgot Password</button>
-                                    <div class=" text-primary mt-4 mb-3 ml-2" style="display: flex;"> New to Flipcart ?  <button type="button" class="btn btn-primary text-primary border-0 bg-white d-block mx-auto  " (click)="register()" >Create an Account</button> </div>
+                                    <div class=" text-primary mt-4 mb-3 ml-2" style="display: flex;"> New to Flipcart ?  <a style="text-decoration: none;" href="" routerLink="register" (click)="register()" > New to Flipcart</a> </div>
 
                                 </div>
                                 <div class="row col-sm-5 m-1">

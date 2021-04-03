@@ -5,15 +5,15 @@
           <div class="modal-body">
             <form [formGroup] ="registerForm"  (ngSubmit)="onSubmit()">
                  
-            <section class="row col-sm-12">
-                <h2 class="text-primary mt-3 d-block mx-auto" style="text-align: center;"> Register </h2>
+            <section class="row col-sm-12 text-center">
+                <h2 class="text-primary mt-3 d-block mx-auto" style="text-align: center;"> <i class="fas fa-user-plus"></i> Register </h2>
 
                <div class="row col-sm-7">
                    <!--username-->
 
-                 <div class="form-group">
+                 <div class="form-group ">
     
-                   <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Username" 
+                   <input class="form-control p-1 m-1 ml-2" type="text" placeholder="Username " 
                    style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;"
                    formControlName="username" required>
                    <div *ngIf =" getControls().username.touched|| submitted && (getControls().username.dirty||getControls().username.invalid)" >
@@ -88,7 +88,7 @@
                    
                   </div>
     
-                   <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;">Register</button>
+                   <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;" [disabled]="registerForm.invalid">Register</button>
                    
     
        </div>
