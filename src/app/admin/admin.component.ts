@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminserviceService } from '../adminservice.service';
 
+
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -34,6 +36,9 @@ ngOnInit(): void {
     pdescription:new FormControl(null,Validators.required),
     pInstructions:new FormControl(null,Validators.required),
     pdisclaimer:new FormControl(null,Validators.required),
+    pquantity:new FormControl(null,Validators.required),
+    prating:new FormControl(null,Validators.required),
+    pdiscount:new FormControl(null,Validators.required),
   })
 }
 onSubmit(){
@@ -47,7 +52,7 @@ onSubmit(){
     res=>{
    
     
-        alert("product added successfully");
+      console.log("product added successfully");
         this.router.navigateByUrl("/admindashboard/viewadminproducts");
      
        
@@ -62,5 +67,9 @@ onSubmit(){
 viewproducts(){
   this.router.navigateByUrl("/admindashboard/viewadminproducts");
 }
+getcontrol(){
+  return this.registerForm.controls;
+}
+
 
 }

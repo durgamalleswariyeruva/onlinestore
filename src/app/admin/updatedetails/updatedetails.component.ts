@@ -65,25 +65,21 @@ export class UpdatedetailsComponent implements OnInit {
 
   })
 }
-  onSubmit(){
-    console.log(this.registerForm.value);
-    let proObj=this.registerForm.value;
-    this.as.editproduct(proObj).subscribe(
-      res=>{
-        if(res["message"]){
-          alert("product details are updated")
-          this.router.navigateByUrl("/admindashboard/viewadminproducts")
-        }
-      },
-      err=>{
-        alert("Something went wrong")
-        console.log(err)
+onSubmit(){
+  console.log(this.registerForm.value);
+  let proObj=this.registerForm.value;
+  this.as.editproduct(proObj).subscribe(
+    res=>{
+      if(res["message"]){
+        console.log("product details are updated")
+        this.router.navigateByUrl("/admindashboard/viewadminproducts")
       }
-    )
-   
-  }
-  viewproducts(){
-    this.router.navigateByUrl("/admindashboard/viewadminproducts");
-  }
-
+    },
+    err=>{
+      alert("Something went wrong")
+      console.log(err)
+    }
+  )
+ 
+}
 }
