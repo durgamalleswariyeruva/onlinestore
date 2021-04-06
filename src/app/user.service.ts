@@ -48,16 +48,16 @@ export class UserService {
     return this.hc.post("/user/deleteproduct",obj);
   }
   viewItem(pCategory:any):Observable<any>{
-    console.log("in US1 ",pCategory)
+    //console.log("in US1 ",pCategory)
 
     return this.hc.post("/admin/viewitem",pCategory)
   }
   getItem(pCategory:any):Observable<any>{
-    console.log("in US ",pCategory)
+    //console.log("in US ",pCategory)
     return this.hc.get("/admin/oneproduct/"+pCategory);
   }
   getProduct(pname:any):Observable<any>{
-    console.log("in US ",pname)
+   // console.log("in US ",pname)
     return this.hc.get("/admin/getitem/"+pname);
   }
   

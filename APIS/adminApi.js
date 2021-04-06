@@ -58,7 +58,7 @@ adminApiObj.post("/viewitem",errorHandler(async(req,res,next)=>{
 adminApiObj.get("/getitem/:pname",errorHandler(async(req,res,next)=>{
     
     let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
-    //console.log(adminProductCollectionObj)
+    console.log(adminProductCollectionObj)
     let products = await adminProductCollectionObj.find({pname :req.params.pname}).toArray();
     console.log("products are",products)
     

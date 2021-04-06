@@ -23,8 +23,8 @@ const routes: Routes = [
   {path:"logout",component:LogoutComponent},
   {path:"reset",component:ResetComponent},
   {path:"category",component:CategoryComponent},
-  {path:"", redirectTo:"/home", pathMatch:"full"}
- // { path: 'admindashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
+  {path:"", redirectTo:"/home", pathMatch:"full"},
+ { path: 'admindashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
 ];
 
 @NgModule({

@@ -18,7 +18,7 @@ export class ViewcartComponent implements OnInit {
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.pname=localStorage.getItem("pname")
-    console.log("PRODUCT NAME IS ",this.pname)
+    //console.log("PRODUCT NAME IS ",this.pname)
     this.getProduct();
   }
   back(){
@@ -28,7 +28,7 @@ export class ViewcartComponent implements OnInit {
     this.us.getProduct(this.pname).subscribe(
       res=>{
         this.product=res["message"]
-        console.log("the wish product product is",this.product)
+        //console.log("the view product is",this.product)
       },
       err=>{
         this.ts.warning("Something went wrong in getting all products")
