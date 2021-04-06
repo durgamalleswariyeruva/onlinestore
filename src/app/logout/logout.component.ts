@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from '../user.service';
 })
 export class LogoutComponent implements OnInit {
   username:any
-  constructor(private us:UserService,private rt:Router) { }
+  constructor(private us:UserService,private rt:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
    this.username=localStorage.getItem(this.username)
@@ -23,6 +24,7 @@ export class LogoutComponent implements OnInit {
    localStorage.clear();
 
    this.rt.navigateByUrl("/home");
+   this.ts.success("Logout successfully")
    //window.location.reload();
 
 

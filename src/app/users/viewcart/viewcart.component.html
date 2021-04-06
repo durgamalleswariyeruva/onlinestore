@@ -1,0 +1,33 @@
+
+    
+<body style="background-image: linear-gradient(lightblue,lightgreen); ">
+    <div class="container " >
+
+            <div class="card mx-auto  text-black" *ngFor="let product of product" style="width: 80%;"> 
+                <div class="row">
+
+                <div class="col-md-5 mb-4 mt-2 text-center d-block mx-auto">
+                  <img [src]=product.ImgLink class="card-img-top" style="height: 500px; border-radius: 10%;" alt="..."> 
+                  <div class="text-center"><button class="btn btn-warning  m-2 mt-3 mb-3" (click)="additem()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                  <button class="btn btn-danger  mt-3 mb-3 " (click)="back()"><i class="fas fa-undo-alt"></i> Back</button></div>
+
+                </div>
+                <div class="col-md-7 mb-4 mt-2">
+                  <div class="card-body p-1"> 
+                    <p class="card-title text-center" style="font-size: 16px;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-transform: capitalize;"><b> {{product.pname}} </b></p>
+                    <p class="card-title text-center mt-3 text-success"> <b style="font-size: 20px;"> {{(product.pprice)| currency:"INR"}} | </b>  <button class="btn btn-warning pl-3 pr-3 ml-3 mr-3" style="border-radius: 50px 50px;font-size: 12px;"> {{product.prating}} <i class="fas fa-star ml-3"></i></button> <b style="font-size: 20px;">  | {{product.pbrand}} Brand</b> </p>
+
+                    <p class="card-title p-1"><b > Product Description : </b> </p>
+                      <p class="ml-5 mr-4 pl-2 ">  {{product.pdescription}}</p> 
+                      <p class="card-title p-1"><b > Product Warenty : </b> </p>
+                      <p class="ml-5 mr-2 pl-2 "> <i class="fas fa-wrench text-warning"></i>  {{product.pwarranty}}</p> 
+                      <p class="card-title p-1"><b > Product Instructions : </b> </p>
+                      <p class="ml-5 mr-2 pl-2 "><i class="fas fa-tags text-success"></i>  {{product.pInstructions}}</p> 
+                      <p class="card-title p-1"><b > Product Disclaimer : </b> </p>
+                      <p class="ml-5 mr-2 pl-2 "> <i class="fas fa-exclamation-triangle text-danger"></i>  {{product.pdisclaimer}}</p> 
+                  </div>
+                </div>
+              </div> 
+          </div>
+    </div>
+  </body>

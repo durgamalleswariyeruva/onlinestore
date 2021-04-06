@@ -114,6 +114,45 @@ userApiObj.post("/addtocart",asyncHandler(async(req,res,next)=>{
     
 }))
 
+
+
+
+
+//store wishlist products
+
+userApiObj.post("/wishlist",asyncHandler(async(req,res,next)=>{
+
+    //console.log("the cart obj is ",req.body)
+    let wishlistCollectionObj= req.app.get("wishlistCollectionObj");
+
+    let wishObj=req.body;
+    console.log("name",wishObj.pname)
+    let wishcart = await wishlistCollectionObj.findOne({username:wishObj.username,productname:wishObj.productname})
+    console.log("the cart is ",wishcart)
+    if(wishcart!==null){
+        res.send({message:"product exist"})
+    }
+    else{
+        await wishlistCollectionObj.insertOne(wishObj);
+        res.send({message:"product added"})
+    }
+    
+    
+}))
+
+
+//retrive wishlist products
+userApiObj.get("/getWishlist/:username",asyncHandler(async(req,res,next)=>{
+
+    let wishlistCollectionObj = req.app.get("wishlistCollectionObj");
+    let wishObj=req.body;
+    console.log("name",wishObj)
+    let products = await wishlistCollectionObj.find({username:req.params.username}).toArray();
+    console.log("wishlist products:",products)
+
+    res.send({message:products})
+}))
+
 //get all products
 userApiObj.get("/getcartitems/:username",asyncHandler(async(req,res,next)=>{
 

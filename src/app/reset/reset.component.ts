@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class ResetComponent implements OnInit {
    status:boolean=false;
    formRef: FormGroup=new FormGroup({});
   submitted: boolean=false;
-  constructor( private us:UserService, private router:Router) { }
+  constructor( private us:UserService, private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.formRef=new FormGroup({
@@ -41,15 +42,17 @@ export class ResetComponent implements OnInit {
              res=>{
                if(res["message"]=="nouser"){
                  
-                 alert("username is invalid")
+                 this.ts.warning("username is invalid")
                }
               if(res["message"]=="success"){
+                this.ts.success("Registration is successfull")
+
                  this.router.navigateByUrl("/login")
                  
                }
              },
              err=>{
-               alert("something went wrong in reset password");
+               this.ts.warning("something went wrong in reset password");
                console.log(err)
              }
            )

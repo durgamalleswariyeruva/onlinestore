@@ -8,10 +8,12 @@ import { UserdashboardComponent } from './userdashboard/userdashboard.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorizationService } from '../authorization.service';
+import { ViewcartComponent } from './viewcart/viewcart.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 
 @NgModule({
-  declarations: [UsersComponent, UsercartComponent, UserdashboardComponent],
+  declarations: [UsersComponent, UsercartComponent, UserdashboardComponent, ViewcartComponent, WishlistComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

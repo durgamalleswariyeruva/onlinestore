@@ -1,0 +1,24 @@
+<div class="container mt-3">
+    <div class="row "  >
+        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products, let i=index "   style="width: 20rem; height: 100%;"    > 
+
+          <div class="card-header p-1 mt-1 bg-white" style="border-bottom:0px;">
+            <img [src]=p.productImgLink class="card-img-top mt-1 d-block mx-auto bg-white  mb-1"  alt="..."style=" width:200px; height:160px; border-radius:8% ;"> 
+
+          </div>
+          <div class="card-body p-1  " style="text-transform: capitalize;height: 250px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;          "> 
+            <p class="card-title mt-2" style="font-size: 15px;"><b>{{p.productname}} </b></p>
+
+            <h5 class="card-title d-block mx-auto mt-2 pt-2 text-center"><strong> {{(p.cost)| currency:"INR"}} </strong> </h5> 
+
+          </div>
+          <div class="card-footer bg-white mb-2 pb-2" style="border: 0px; height: 60px;">  
+            <button id="b1" class="btn btn-success p-2  shadow float-start" data-bs-target="#md1"  (click)="additems(i)"><i class="fas fa-shopping-cart text-warning"></i> Add to Cart</button>
+           
+            <button id="b2" class="btn btn-primary p-2 shadow pull-right" (click)="back()"><i class="fas fa-undo-alt text-danger"></i> Back</button> 
+          </div> 
+      </div>
+    </div>
+
+</div>
+

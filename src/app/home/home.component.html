@@ -1,23 +1,46 @@
 <body >
-    <nav class="navbar navbar-expand-lg bg-light" style="background-image:url('https://i.postimg.cc/wT9L3xgC/bggg.jpg'); background-size: cover;width: 100%;height: 100%;background-repeat: no-repeat;"  >
+    <nav class="navbar navbar-expand-lg bg-light"   >
         
       
       <div class="col-sm-2"></div>
-      <div class="col-sm-4 pull-right d-block mx-auto">
+      <div class="col-sm-2 pull-right d-block mx-auto">
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button"   [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-primary dropdown-toggle" type="button"   [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             Category
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
-            <li *ngFor="let j of cat " [value]=j><a class="dropdown-item" href="#" (click)="getOneProduct(j)"><i class="fas fa-{{j}}"></i> {{j}}</a></li>
+            <li *ngFor="let j of cat " [value]=j><a class="dropdown-item" href="#" (click)="getOneProduct(j)" style="text-transform: capitalize;"><i class="far fa-{{j}}"></i> {{j}}</a></li>
             
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-2 pull-right d-block mx-auto">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button"   [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Brands
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+            
+
+            <li *ngFor="let j of brand2 " [value]=j>
+              <div *ngFor="let p of cat, let i=index"> 
+                <a class="dropdown-item" href="#" *ngIf="j!=p && i==0"> {{j}}
+                </a>
+              <a class="dropdown-item" href="#" *ngIf="j==p" ><strong style="text-transform: uppercase;">{{j}}</strong>
+                <li><hr class="dropdown-divider"></li>
+              </a>
+             
+            </div>
+          </li>
+
+
           </ul>
         </div>
       </div>
       
     
    
-    <div class="form-group col-sm-5 nav-item search-icon ml-3 mr-5" >
+    <div class="form-group col-sm-5 nav-item search-icon ml-3 mr-5 d-block mx-auto mt-3" >
       <input type="search"  placeholder=" Search for products,brands and more"  [(ngModel)]="searchTerm">
       <label class="icon"><a routerLink="home" class="search-btn "  >
         <i class="fa fa-search   " aria-hidden="true"></i> </a></label>
@@ -52,48 +75,25 @@
       </div>
      
       <!--category wise products-->
-      <div style="background-image:url('https://i.postimg.cc/wT9L3xgC/bggg.jpg'); background-size: cover;width: 100%;height: 100%;background-repeat: no-repeat;">
-      <div class="container mt-3" *ngIf="status==true">
-        <div class="row ml-2" >
-
-          <h4 class="text-secondary mt-1 "  ><b>  {{pCategory}} Category </b></h4>
-            <div class="card mx-2 mb-4 pb-3 mr-2 ml-2 pr-3  border-0 shadow d-block mx-auto" *ngFor="let p of product  , let i=index"  style="width: 22rem; height: 100%;"    > 
-    
-              <div class="card-header p-1 mt-1 bg-white" style="border-bottom:0px;">
-                <img [src]=p.ImgLink class="card-img-top mt-1 d-block mx-auto bg-white shadow mb-1"  alt="..."style=" width:200px; height:200px; border-radius:8% ;"> 
-    
-              </div>
-              <div class="card-body p-1 " style="height: 200px;"> 
-                <h6 class="card-title">{{p.pname}}</h6>
-                <p class="card-title">Brand : {{p.pbrand}}</p> 
-    
-                <h6 class="card-title">Cost : {{(p.pprice)| currency:"INR"}}</h6> 
-              </div>
-              <div class="card-footer bg-white mb-2 pb-2" style="border: 0px; height: 60px;">  
-                <button id="b1" class="btn btn-success p-2  shadow float-start" data-bs-target="#md1"  (click)="additem(i)"> <i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                <button id="b2" class="btn btn-primary p-2 shadow pull-right" (click)="viewitem(i)"><i class="fas fa-eye"></i> View</button> 
-              </div> 
-            </div>
-
-        </div> 
-    </div>
-        
-
+      <div style="background-image: linear-gradient(lightblue,#a2d1a2); ">
+     
 <!-- Cards -->
 <div class="container mt-3">
     <div class="row "  >
-        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3   d-block mx-auto shadow " *ngFor="let p of products | search:searchTerm , let i=index "   style="width: 20rem; height: 100%;"    > 
+        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products | search:searchTerm , let i=index "   style="width: 20rem; height: 100%;"    > 
 
           <div class="card-header p-1 mt-1 bg-white" style="border-bottom:0px;">
+            <button class="btn float-right border-0 " style="border-radius: 10%;opacity: .9;transition: 0.3s;" (click)="wishList(i)"><i class="fas fa-heart " style="font-size: 23px;color: rgb(6, 41, 105);"></i></button>
             <img [src]=p.ImgLink class="card-img-top mt-1 d-block mx-auto bg-white  mb-1"  alt="..."style=" width:200px; height:160px; border-radius:8% ;"> 
 
           </div>
-          <div class="card-body p-1  " style="height: 250px;font-family: 'Fira Sans Condensed', sans-serif;          "> 
-            <p class="card-title mt-2">{{p.pname}}</p>
-            <h6 class="card-title mt-2 pt-2 text-center"> {{p.pbrand}} Brand</h6> 
+          <div class="card-body p-1  " style="text-transform: capitalize;height: 250px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;          "> 
+            <p class="card-title mt-2" style="font-size: 15px;"><b>{{p.pname}} </b></p>
+            <h6 class="card-title mt-2 pt-2 text-center" > {{p.pbrand}} Brand</h6> 
 
             <h5 class="card-title d-block mx-auto mt-2 pt-2 text-center"><strong> {{(p.pprice)| currency:"INR"}} </strong> </h5> 
-            
+            <h5 class="card-title d-block mx-auto mt-2 pt-2 text-center"><strong><ngb-rating [max]=5 style="color: rgb(51, 80, 22);"[(rate)]=p.prating [readonly]="true" ></ngb-rating>  </strong> </h5> 
+
           </div>
           <div class="card-footer bg-white mb-2 pb-2" style="border: 0px; height: 60px;">  
             <button id="b1" class="btn btn-success p-2  shadow float-start" data-bs-target="#md1"  (click)="additems(i)"><i class="fas fa-shopping-cart"></i> Add to Cart</button>

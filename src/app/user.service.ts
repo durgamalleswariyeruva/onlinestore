@@ -27,6 +27,15 @@ export class UserService {
     console.log(obj)
     return this.hc.post("user/addtocart",obj);
   }
+  wishList(obj:any):Observable<any>{
+    console.log(obj)
+    return this.hc.post("user/wishlist",obj);
+  }
+  getwishlist(username:any):Observable<any>{
+    console.log("wishlist",username)
+    return this.hc.get("user/getWishlist/"+username);
+
+  }
   getProducts():Observable<any>{
     return this.hc.get("/admin/allproducts");
   }
@@ -38,12 +47,18 @@ export class UserService {
   deleteCartProduct(obj:any):Observable<any>{
     return this.hc.post("/user/deleteproduct",obj);
   }
-  viewItem(obj:any):Observable<any>{
-    return this.hc.post("/admin/viewitem",obj)
+  viewItem(pCategory:any):Observable<any>{
+    console.log("in US1 ",pCategory)
+
+    return this.hc.post("/admin/viewitem",pCategory)
   }
   getItem(pCategory:any):Observable<any>{
     console.log("in US ",pCategory)
     return this.hc.get("/admin/oneproduct/"+pCategory);
+  }
+  getProduct(pname:any):Observable<any>{
+    console.log("in US ",pname)
+    return this.hc.get("/admin/getitem/"+pname);
   }
   
   getInitialCartSize(username:any){

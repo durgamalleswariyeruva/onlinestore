@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -26,7 +27,13 @@ export class HomeComponent implements OnInit {
   img:any=[];
   imgs:any=[];
   status:boolean=false;
-  constructor(private us:UserService,private router:Router) { }
+
+  //brands
+  brand:any=[];
+  brand1:any=[];
+  brand2:any=[];
+
+  constructor(private us:UserService,private router:Router, private ts:ToastrService) { }
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.getAllProducts();
@@ -38,15 +45,18 @@ export class HomeComponent implements OnInit {
     console.log(this.pCategory)
     this.us.getItem(this.pCategory).subscribe(
       res=>{
-        this.product=res["message"]
+       /* this.product=res["message"]
         this.status=true;
         this.ctg=this.product.pCategory
         console.log(this.ctg)
-        console.log("cat:",this.product)
+        console.log("cat:",this.product)*/
+          localStorage.setItem("pCategory",this.pCategory)
+          this.router.navigateByUrl("/category")
+        
 
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.ts.warning("Something went wrong in getting all products")
         console.log(err)
       }
     )
@@ -57,58 +67,109 @@ export class HomeComponent implements OnInit {
    this.us.getItem(this.pCategory).subscribe(
      res=>{
        this.products1=res["message"]
-       
-       console.log("cat:",this.products1)
+      
      },
      err=>{
-       alert("Something went wrong in getting all products")
+       this.ts.warning("Something went wrong in getting all products")
        console.log(err)
      }
    )
  }
   
+ onBrand(i:any){
+  this.pCategory= i
+  console.log("category is:",this.pCategory)
+  this.us.getItem(this.pCategory).subscribe(
+    res=>{
+      this.products1=res["message"]
+      
+    },
+    err=>{
+      this.ts.warning("Something went wrong in getting all products")
+      console.log(err)
+    }
+  )
+    
+ }
   getAllProducts(){
     this.us.getProducts().subscribe(
       res=>{
         this.products=res["message"]
         for (let i in this.products){
           this.category.push(this.products[i].pCategory)
-      
+          this.brand.push(this.products[i].pCategory,this.products[i].pbrand)
+
          }
          //for displaying unique values
          this.cat = this.category.filter((x:any, j:any, a:any) =>
          x && a.indexOf(x) === j);
          console.log(this.cat)
-         for (let i in this.products){
-          this.imgs.push(this.products[i].ImgLink)
-      
-         }
-         this.img = this.imgs.filter((x:any, j:any, a:any) =>
+         this.brand2 = this.brand.filter((x:any, j:any, a:any) =>
          x && a.indexOf(x) === j);
-         console.log(this.img)
+         console.log(this.brand2)
+         
     
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.ts.warning("Something went wrong in getting all products")
         console.log(err)
       }
     )
+  }
+  wishList(n:any){
+    if(this.username!==null){
+      let obj={
+      username:this.username,
+      productname:this.products[n].pname,
+      colour:this.products[n].pcol,
+      cost:this.products[n].pprice,
+      description:this.products[n].pdescription,
+      quantity:this.products[n].pquantity,
+      rate:this.products[n].prating,
+      productImgLink:this.products[n].ImgLink
+      }
+      
+      console.log("this new obj is ",obj)
+      this.us.wishList(obj).subscribe(
+        res=>{
+          if(res["message"]=="product exist"){
+            this.ts.warning("Product is already added to wishcart")
+            
+          }
+          else{
+            this.ts.success("Product added to wishcart")
+            this.cartStatus();
+          }
+          
+        },
+        err=>{
+          this.ts.warning("Something went wrong in Adding wishcart")
+        console.log(err)
+        }
+      )
+      
+    }
+    else{
+      this.ts.warning("please login first to add items")
+      this.router.navigateByUrl("/login")
+    }
+
   }
 
   viewitem(n:number){
     
     let viewObj=this.products[n];
-    console.log(viewObj);
+    console.log("viewobj",viewObj);
     this.us.viewItem(viewObj).subscribe(
       res=>{
         if(res["message"]){
           localStorage.setItem("token",res["signedToken"])
-          localStorage.setItem("productname",res["productname"])
-          this.router.navigateByUrl("/view");
+          localStorage.setItem("pname",viewObj.pname)
+          this.router.navigateByUrl("/viewcart");
         }
       },
       err=>{
-        alert("Something went wrong in getting details")
+        this.ts.warning("Something went wrong in getting details")
         console.log(err)
       }
     )
@@ -128,7 +189,7 @@ export class HomeComponent implements OnInit {
        // window.location.reload()
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.ts.warning("Something went wrong in getting all products")
         console.log(err)
       }
     )
@@ -143,6 +204,8 @@ export class HomeComponent implements OnInit {
       colour:this.products[n].pcol,
       cost:this.products[n].pprice,
       description:this.products[n].pdescription,
+      quantity:this.products[n].pquantity,
+      rate:this.products[n].prating,
       productImgLink:this.products[n].ImgLink
       }
       
@@ -150,24 +213,24 @@ export class HomeComponent implements OnInit {
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){
-            alert("Product is already added to cart")
+            this.ts.warning("Product is already added to cart")
             
           }
           else{
-            alert("Product added to cart")
+            this.ts.success("Product added to cart")
             this.cartStatus();
           }
           
         },
         err=>{
-          alert("Something went wrong in Adding Course")
+          this.ts.warning("Something went wrong in Adding product")
         console.log(err)
         }
       )
       
     }
     else{
-      alert("please login first to add items")
+      this.ts.warning("please login first to add items")
       this.router.navigateByUrl("/login")
     }
   }
@@ -179,6 +242,8 @@ export class HomeComponent implements OnInit {
       productname:this.product[n].pname,
       colour:this.product[n].pcol,
       cost:this.product[n].pprice,
+      quantity:this.products[n].pquantity,
+      rate:this.products[n].prating,
       description:this.product[n].pdescription,
       productImgLink:this.product[n].ImgLink
       }
@@ -187,17 +252,17 @@ export class HomeComponent implements OnInit {
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){
-            alert("Product is already added to cart")
+            this.ts.warning("Product is already added to cart")
             
           }
           else{
-            alert("Product added to cart")
+            this.ts.success("Product added to cart")
             this.cartStatus();
           }
           
         },
         err=>{
-          alert("Something went wrong in Adding Course")
+          this.ts.warning("Something went wrong in Adding cart")
         console.log(err)
         }
       )
@@ -205,7 +270,7 @@ export class HomeComponent implements OnInit {
     }
     
     else{
-      alert("please login first to add items")
+      this.ts.warning("please login first to add items")
       this.router.navigateByUrl("/login")
     }
   }
