@@ -54,6 +54,12 @@ additem(i:any){
    
 
  }
+ usercart(){
+   this.rt.navigateByUrl("users/usercart")
+ }
+ wishlist(){
+   this.rt.navigateByUrl("users/wishlist")
+ }
  cart(){
    this.rt.navigateByUrl("users/usercart")
  }

@@ -37,6 +37,34 @@ adminApiObj.get("/allproducts",errorHandler(async(req,res,next)=>{
     res.send({message:products})
 }))
 
+
+//view cart
+
+adminApiObj.post("/viewitem",errorHandler(async(req,res,next)=>{
+    let adminProductCollectionObj=req.app.get("adminProductCollectionObj");
+    //console.log("In ViewItem ",req.body)
+    let Obj=req.body;
+    let viewItem=await adminProductCollectionObj.findOne({pname:Obj.pname});
+    if(viewItem!==null){
+        //create a token
+        let token = await jwt.sign({pname:viewItem.pname},"abcd",{expiresIn:10});
+
+        //send token
+        res.send({message:true,signedToken:token,pname:viewItem.pname});
+    }
+    
+}))
+//get one item
+adminApiObj.get("/getitem/:pname",errorHandler(async(req,res,next)=>{
+    
+    let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
+    //console.log(adminProductCollectionObj)
+    let products = await adminProductCollectionObj.find({pname :req.params.pname}).toArray();
+    console.log("products are",products)
+    
+    res.send({message:products})
+}))
+
 //get one products
 adminApiObj.get("/oneproduct/:pCategory",errorHandler(async(req,res,next)=>{
     
@@ -44,9 +72,10 @@ adminApiObj.get("/oneproduct/:pCategory",errorHandler(async(req,res,next)=>{
     //console.log(adminProductCollectionObj)
     let products = await adminProductCollectionObj.find({pCategory :req.params.pCategory}).toArray();
     //console.log("products are",products)
-
+    
     res.send({message:products})
 }))
+
 
 adminApiObj.post("/productdetails",upload.single('photo'),errorHandler(async (req,res,next)=>{
     console.log("url is ",req.file.path);

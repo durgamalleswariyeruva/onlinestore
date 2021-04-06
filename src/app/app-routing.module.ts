@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CategoryComponent } from './category/category.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -21,8 +22,9 @@ const routes: Routes = [
   {path:"footer", component:FooterComponent},
   {path:"logout",component:LogoutComponent},
   {path:"reset",component:ResetComponent},
-  {path:"", redirectTo:"/home", pathMatch:"full"},
-  { path: 'admindashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
+  {path:"category",component:CategoryComponent},
+  {path:"", redirectTo:"/home", pathMatch:"full"}
+ // { path: 'admindashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
 ];
 
 @NgModule({

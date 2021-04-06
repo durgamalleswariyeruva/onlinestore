@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   username:any;
   registerForm: FormGroup=new FormGroup({});
     submitted: boolean=false;
-  constructor(private rt:Router, private us:UserService) { }
+  constructor(private rt:Router, private us:UserService, private ts:ToastrService) { }
   ngOnInit(): void {
     this.registerForm=new FormGroup({
     
@@ -39,7 +40,6 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(){
     this.submitted=true;
-    this.rt.navigateByUrl("/home")
 
     if(this.registerForm.valid)
     {
@@ -53,6 +53,9 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("token",res["signedToken"])
             localStorage.setItem("username",res["username"])
             //navigate to user component
+            this.ts.success("Login Successfful")
+
+
             this.rt.navigateByUrl("/home")
             .then(() => {
               window.location.reload();
@@ -67,6 +70,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("token",res["signedToken"])
             localStorage.setItem("username",res["username"])
            // this.rt.navigateByUrl("/admindashboard")
+           this.ts.success('Admin Login Successfful')
+
             this.rt.navigateByUrl("/admindashboard")
             .then(() => {
               window.location.reload();
@@ -78,21 +83,19 @@ export class LoginComponent implements OnInit {
           }
           else{
             if(res["message"]=="Invalid username")
-            {   status="success";
-                this.s1="Invalid Username"
+            {   
+            this.ts.warning("Invalid Username")
             }
             if(res["message"]=="Invalid password")
             {
-              status="success";
-              this.s1="Invalid Password"
+              this.ts.warning("Invalid Password")
             }
 
-            this.rt.navigateByUrl("/login")
           }
         },
         err=>{
-          status="fail"
-          this.s1="Something went wrong in user login"
+          this.ts.warning("Something went wrong in user login")
+
           console.log(err)
         }
       )

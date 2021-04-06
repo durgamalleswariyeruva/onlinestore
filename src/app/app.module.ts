@@ -12,9 +12,13 @@ import { LogoutComponent } from './logout/logout.component';
 import { ResetComponent } from './reset/reset.component';
 import { SearchPipe } from './search.pipe';
 import { UsersModule } from './users/users.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 
 import { AuthorizationService } from './authorization.service';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { AuthorizationService } from './authorization.service';
     FooterComponent,
     LogoutComponent,
     ResetComponent,
-    SearchPipe
+    SearchPipe,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,16 @@ import { AuthorizationService } from './authorization.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UsersModule
+    UsersModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut:1500,
+      positionClass: 'toast-top-center',
+      closeButton: true
+    })
+
+    
   ],
   providers: [
     {

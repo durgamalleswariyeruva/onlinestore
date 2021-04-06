@@ -28,12 +28,16 @@ mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
     //get database object
     const databaseObj=client.db("projectDatabase");
     const userCollectionObj=databaseObj.collection("usercollection");
+    const wishlistCollectionObj=databaseObj.collection("wishlistcollection")
     const cardCollectionObj=databaseObj.collection("cardcollection")
+
     const adminProductCollectionObj=databaseObj.collection("adminproductcollection")
 
     //sharing collection object
     app.set("userCollectionObj",userCollectionObj)
     app.set("cardCollectionObj",cardCollectionObj)
+    app.set("wishlistCollectionObj",wishlistCollectionObj)
+
     app.set("adminProductCollectionObj",adminProductCollectionObj)
     console.log("DB Server Started")
 })

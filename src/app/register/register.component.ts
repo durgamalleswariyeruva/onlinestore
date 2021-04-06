@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user.service';
 
 @Component({
@@ -13,7 +14,7 @@ data:any;
 userObj:any;
 registerForm: FormGroup=new FormGroup({});
   submitted: boolean=false;
-constructor(private rt:Router, private us:UserService) { }
+constructor(private rt:Router, private us:UserService,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
@@ -42,17 +43,17 @@ onSubmit(){
     this.us.createUser(this.userObj).subscribe(
       res=>{
         if(res["message"] =="user existed"){
-          alert("Username is already existed..choose another");
+          this.ts.warning("Username is already existed..choose another");
         }
         else{
-          alert("Registration succesfull");
+          this.ts.success("Registration succesfull");
 
           //navigate to login component
           this.rt.navigateByUrl("/login");
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.ts.warning("Something went wrong in user creation");
         console.log(err);
       }  
     )
