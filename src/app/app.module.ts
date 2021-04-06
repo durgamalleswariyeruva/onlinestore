@@ -12,6 +12,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { ResetComponent } from './reset/reset.component';
 import { SearchPipe } from './search.pipe';
 import { UsersModule } from './users/users.module';
+import{ToastrModule} from 'ngx-toastr';
 
 
 import { AuthorizationService } from './authorization.service';
@@ -33,7 +34,12 @@ import { AuthorizationService } from './authorization.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UsersModule
+    UsersModule,
+    ToastrModule.forRoot({
+      timeOut:2000,
+      positionClass :'toast-top-center',
+      closeButton:true
+    })
   ],
   providers: [
     {

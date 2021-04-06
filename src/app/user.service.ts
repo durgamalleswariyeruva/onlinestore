@@ -31,13 +31,7 @@ export class UserService {
     return this.hc.get("/admin/allproducts");
   }
 
-  getCartItems(username:any):Observable<any>{
-    //console.log("the username is ",username)
-    return this.hc.get("/user/getcartitems/"+username);
-  }
-  deleteCartProduct(obj:any):Observable<any>{
-    return this.hc.post("/user/deleteproduct",obj);
-  }
+  
   viewItem(obj:any):Observable<any>{
     return this.hc.post("/admin/viewitem",obj)
   }
@@ -68,4 +62,30 @@ export class UserService {
     return this.hc.get("/user/getsize/"+username);
   }
   
+
+  getCartItems(username:any):Observable<any>{
+    //console.log("the username is ",username)
+    return this.hc.get("/user/getcartitems/"+username);
+  }
+  deleteCartProduct(obj4:any):Observable<any>{
+    return this.hc.post("/user/deleteproduct",obj4);
+  }
+   
+  placeOrder(obj:any):Observable<any>{
+    return this.hc.post("/user/orders",obj);
+  }
+  
+  getOrderItems(username:any):Observable<any>{
+    //console.log("the username is ",username)
+    return this.hc.get("/user/getOrderitem/"+username);
+  }
+  deleteOrderProduct(obj5:any):Observable<any>{
+    return this.hc.post("/user/deleteOrder",obj5);
+  }
+
+  deleteOrder1(obj:any):Observable<any>{
+    console.log("service delete is",obj)
+    return this.hc.post("/user/deleteOrder1",obj);
+    
+  }
 }

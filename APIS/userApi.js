@@ -114,23 +114,7 @@ userApiObj.post("/addtocart",asyncHandler(async(req,res,next)=>{
     
 }))
 
-//get all products
-userApiObj.get("/getcartitems/:username",asyncHandler(async(req,res,next)=>{
 
-    let cardCollectionObj = req.app.get("cardCollectionObj");
-    
-    let products = await cardCollectionObj.find({username:req.params.username}).toArray();
-    res.send({message:products})
-    //console.log(products)
-}))
-/*userApiObj.get("/getsize/:username", asyncHandler(async (req, res, next) => {
-    let cardCollectionObj = req.app.get("cardCollectionObj");
-
-    let userCart = await cardCollectionObj.find({ username: req.params.username }).toArray();
-    let userCartSize = userCart.length;
-    res.send({ cartsize: userCartSize, userCart: userCart })
-
-}))*/
 userApiObj.get("/getsize/:username",asyncHandler(async(req,res,next)=>{
     let cardCollectionObj = req.app.get("cardCollectionObj");
     
@@ -140,22 +124,7 @@ userApiObj.get("/getsize/:username",asyncHandler(async(req,res,next)=>{
     //console.log("the size is ",cart);
 }))
 
-userApiObj.post("/deleteproduct",asyncHandler(async(req,res,next)=>{
-    
-    let cardCollectionObj = req.app.get("cardCollectionObj");
-    let cartObj =  req.body;
-    
-    //console.log("user object is",cartObj);
-    //check for user in db
-    let product = await cardCollectionObj.findOne({productname:cartObj.productname});
 
-    //product is there
-    if(product!==null){
-        let remove=await cardCollectionObj.deleteOne({productname:cartObj.productname});
-        res.send({message:true});
-    }
-
-}))
 
 userApiObj.post("/resetpassword",asyncHandler(async(req,res,next)=>
 {
@@ -181,6 +150,107 @@ else{
 }
 }
 ))
+
+
+//get all products
+userApiObj.get("/getcartitems/:username",asyncHandler(async(req,res,next)=>{
+
+    let cardCollectionObj = req.app.get("cardCollectionObj");
+    
+    let products = await cardCollectionObj.find({username:req.params.username}).toArray();
+    res.send({message:products})
+    console.log(products)
+}))
+
+userApiObj.post("/deleteproduct",asyncHandler(async(req,res,next)=>{
+    
+    let cardCollectionObj = req.app.get("cardCollectionObj");
+    let cartObj =  req.body;
+    
+    console.log("user object is",cartObj);
+    //check for user in db
+    let product = await cardCollectionObj.findOne({productname:cartObj.productname});
+     console.log("product removed in usercart is",product)
+    //product is there
+    if(product!==null){
+        let remove=await cardCollectionObj.deleteOne({productname:cartObj.productname});
+        res.send({message:true});
+    }
+
+}))
+
+// delete product in addtocart when we place order
+
+userApiObj.post("/deleteOrder1",asyncHandler(async(req,res,next)=>{
+    
+    let cardCollectionObj = req.app.get("cardCollectionObj");
+    let cartObj =  req.body;
+    
+    console.log("user object is",cartObj);
+
+    //check for user in db
+    let product = await cardCollectionObj.findOne({productname:cartObj.productname});
+
+    console.log("product delete in add to cart ",product)
+    //product is there
+    if(product!==null){
+        let remove=await cardCollectionObj.deleteOne({productname:cartObj.productname});
+        res.send({message:true});
+    }
+
+}))
+  //place order
+
+  userApiObj.post("/orders",asyncHandler(async(req,res,next)=>{
+
+    //console.log("the cart obj is ",req.body)
+    let orderCollectionObj= req.app.get("orderCollectionObj");
+
+    let cartObj=req.body;
+  
+    
+    
+    let cart = await orderCollectionObj.findOne({productname:cartObj.productname,username:cartObj.username})
+    //console.log("the cart is ",cart)
+    if(cart!==null){
+        res.send({message:"product exist"})
+    }
+   else{
+    await orderCollectionObj.insertOne(cartObj);
+    res.send({message:true})
+   }
+    
+}))
+
+userApiObj.get("/getOrderitem/:username",asyncHandler(async(req,res,next)=>{
+
+    let orderCollectionObj = req.app.get("orderCollectionObj");
+    
+    let products = await orderCollectionObj.find({username:req.params.username}).toArray();
+    res.send({message:products})
+    console.log(products)
+}))
+
+
+userApiObj.post("/deleteOrder",asyncHandler(async(req,res,next)=>{
+    
+    let orderCollectionObj = req.app.get("orderCollectionObj");
+    let orderObj =  req.body;
+    
+    console.log("order object is",orderObj);
+    //check for user in db
+    let product = await orderCollectionObj.findOne({productname:orderObj.productname});
+
+    console.log("product in placeorder delete is",product);
+
+    //product is there
+    if(product!==null){
+        let remove=await orderCollectionObj.deleteOne({productname:orderObj.productname});
+        res.send({message:true});
+    }
+
+}))
+
 
 //export
 module.exports = userApiObj;
