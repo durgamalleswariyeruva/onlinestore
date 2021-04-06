@@ -10,7 +10,6 @@ import { AdminserviceService } from 'src/app/adminservice.service';
 })
 export class UpdatedetailsComponent implements OnInit {
   pname: any;
-  submitted: boolean=false;
   registerForm=new FormGroup({
     pname:new FormControl(null,Validators.required),
     pbrand:new FormControl(null,Validators.required),
@@ -37,7 +36,7 @@ export class UpdatedetailsComponent implements OnInit {
  
     
   }
-  getControls(){
+  getcontrol(){
     return this.registerForm.controls;
   }
   getcurrentdata(){
@@ -66,27 +65,21 @@ export class UpdatedetailsComponent implements OnInit {
 
   })
 }
-  onSubmit(){
-    this.submitted=true;
-
-    console.log(this.registerForm.value);
-    let proObj=this.registerForm.value;
-    this.as.editproduct(proObj).subscribe(
-      res=>{
-        if(res["message"]){
-          alert("product details are updated")
-          this.router.navigateByUrl("/admindashboard/viewadminproducts")
-        }
-      },
-      err=>{
-        alert("Something went wrong")
-        console.log(err)
+onSubmit(){
+  console.log(this.registerForm.value);
+  let proObj=this.registerForm.value;
+  this.as.editproduct(proObj).subscribe(
+    res=>{
+      if(res["message"]){
+        console.log("product details are updated")
+        this.router.navigateByUrl("/admindashboard/viewadminproducts")
       }
-    )
-   
-  }
-  viewproducts(){
-    this.router.navigateByUrl("/admindashboard/viewadminproducts");
-  }
-
+    },
+    err=>{
+      alert("Something went wrong")
+      console.log(err)
+    }
+  )
+ 
+}
 }

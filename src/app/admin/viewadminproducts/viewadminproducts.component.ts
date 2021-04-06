@@ -8,7 +8,7 @@ import { AdminserviceService } from 'src/app/adminservice.service';
   styleUrls: ['./viewadminproducts.component.css']
 })
 export class ViewadminproductsComponent implements OnInit {
-
+  lengthofarray : any;
   listObj:any;
   constructor( private as:AdminserviceService,private router:Router) { }
 
@@ -18,14 +18,15 @@ export class ViewadminproductsComponent implements OnInit {
         if(res["message"]=="success"){
           this.listObj=res.list;
           console.log(this.listObj);
+          this.lengthofarray=this.listObj.length;
           }
         else{
-          alert(res["message"])
+          console.log(res["message"])
          
         }
       }, 
       err=>{ 
-        alert("Something went wrong") 
+        console.log("Something went wrong") 
         console.log(err)
        }
   ) 
@@ -37,13 +38,13 @@ export class ViewadminproductsComponent implements OnInit {
     this.as.deleteProduct(obj).subscribe(
       res=>{
         if(res["message"]){
-          alert("Product removed successfully");
+          console.log("Product removed successfully");
           window.location.reload();
         
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        console.log("Something went wrong in user creation");
         console.log(err);
       }
     )
@@ -54,8 +55,13 @@ export class ViewadminproductsComponent implements OnInit {
   }
   edit(one:any){
     console.log(one);
+    localStorage.setItem("pname",one["pname"]);
+    this.router.navigateByUrl("/admindashboard/updatedetails");
     
   }
+  reloadPage() {
+    window.location.reload();
+ }
   
 
 }

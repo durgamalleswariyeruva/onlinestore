@@ -1,196 +1,172 @@
 <div class="container-fluid">
-    <span style="margin-left: 0px;">
-        <button class="btn btn-primary mt-2 " (click)="viewproducts()" style="position: absolute; right: 5rem;"><i class="fa fa-xs fa-eye"></i>View all products</button>
-    </span>
-    <div class="row">
-        
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 mt-5">
-            <div class="card bg-light" >
-                <div class="card-body">
-                    <h2><span><img src="/assets/ad-1.jpg" alt="" height="50px" weight="50px"></span> Admin</h2>
-                    <form  [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                        <!--product name-->
-                        <div class="form-group ">
-                            <label>Product name</label>
-                            <input type="text" class="form-control"  name="pname" formControlName="pname" placeholder="Enter product name..." >
-                            <div *ngIf =" getControls().pname.touched|| submitted && (getControls().pname.dirty||getControls().pname.invalid)" >
-  
-                                <p *ngIf="getControls().pname.errors?.required" class="text-danger"> Name is Requied*</p>
-                            </div>                            
-                        </div>
-        
-                        <!--product brand-->
-                        <div class="form-group">
-                            <label>Product brand</label>
-                            <input type="text" class="form-control"  name="pbrand" formControlName="pbrand" placeholder="Enter brand name...">
-                            <div *ngIf =" getControls().pbrand.touched|| submitted && (getControls().pbrand.dirty||getControls().pbrand.invalid)" >
-  
-                                <p *ngIf="getControls().pbrand.errors?.required" class="text-danger"> Name is Requied*</p>
-                            </div>                              
-                        </div>
-        
-                        <!--product model-->
-                        <div class="form-group">
-                            <label>Model</label>
-                            <input type="text" class="form-control"  name="pmodel" formControlName="pmodel"placeholder="Enter  model..." >
-                            <div *ngIf =" getControls().pmodel.touched|| submitted && (getControls().pmodel.dirty||getControls().pmodel.invalid)" >
-  
-                                <p *ngIf="getControls().pmodel.errors?.required" class="text-danger"> Name is Requied*</p>
-                            </div>                              
-                        </div>
-        
-                         <!--product model-->
-                        <div class="form-group px-3  " style="width: 50%;position: absolute;left: 0px;" >
-                            <label>Category</label>
-                            <input type="text" class="form-control"  name="pCategory" formControlName="pCategory" placeholder="Enter category">
-                            <div *ngIf =" getControls().pCategory.touched|| submitted && (getControls().pCategory.dirty||getControls().pCategory.invalid)" >
-  
-                                <p *ngIf="getControls().pCategory.errors?.required" class="text-danger"> Name is Requied*</p>
-                            </div>                              
-                        </div>
+
+    <div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 mt-5">
+                <div class="card bg-light" >
+                    <div class="card-body" style="background-image: url(https://i.postimg.cc/9MF44nmj/bg-8.jpg);">
+                        <h2> Update details</h2>
+                <form  [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <!--product name-->
+                    <div class="form-group ">
+                        <label>Product name</label>
+                        <input type="text" class="form-control"  name="pname" formControlName="pname" placeholder="Enter product name..." >
+                        <p class="text text-danger" *ngIf="getcontrol().pname.errors?.required && getcontrol().pname.touched">name is required</p>
                         
-        
-                         <!--product model-->
-                        <div class="form-group px-3 mb-3" style="width: 50%;position: absolute;right: 0px;">
-                            <label>Manufacturing date</label>
-                            <input type="date" class="form-control"  name="pdate" formControlName="pdate" placeholder="Enter date..." >
-                            <div *ngIf =" getControls().pdate.touched|| submitted && (getControls().pdate.dirty||getControls().pdate.invalid)" >
-  
-                                <p *ngIf="getControls().pdate.errors?.required" class="text-danger"> Name is Requied*</p>
-                            </div>                              
-                        </div>
-        
-        
-                         <!--product model-->
-                        <br>
-                        <div class="form-group mt-5 px-3 " style="width: 50%;position: absolute;left: 0px;padding-top: 1.4rem;padding-bottom: 1.4rem;">
-                            <label>Product colour</label>
-                            <input type="text" class="form-control"  name="pcol" formControlName="pcol" placeholder="Enter colour..." >
-                            <div *ngIf =" getControls().pcol.touched|| submitted && (getControls().pcol.dirty||getControls().pcol.invalid)" >
-  
-                                <p *ngIf="getControls().pcol.errors?.required" class="text-danger"> Name is Requied*</p>
-                            </div>                              
-                        </div>
-        
-        
-                         <!--product model-->
-                        <div class="form-group mt-5 px-3" style="width: 50%;position: absolute;right: 0px;padding-top: 1.4rem;padding-bottom: 1.4rem;">
-                          <label>price</label>
-                          <input type="number" class="form-control"  name="pprice"  formControlName="pprice" placeholder="Enter price...">
-                          <div *ngIf =" getControls().pprice.touched|| submitted && (getControls().pprice.dirty||getControls().pprice.invalid)" >
-  
-                            <p *ngIf="getControls().pprice.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                            
-                      </div>
-        
-        
-                       <!--product model-->
-                      <div class="form-group " style="margin-top: 170px;">
-                        <label>warranty</label>
-                        <input type="text" class="form-control"  name="pwarranty" formControlName="pwarranty" placeholder="Enter warranty...">
-                        <div *ngIf =" getControls().pwarranty.touched|| submitted && (getControls().pwarranty.dirty||getControls().pwarranty.invalid)" >
-  
-                            <p *ngIf="getControls().pwarranty.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
                     </div>
-        
-        
-        
-                     <!--product model-->
+                    <!--product brand-->
                     <div class="form-group">
-                        <label>Soldby</label>
-                        <input type="text" class="form-control" name="psoldby" formControlName="psoldby" placeholder="Enter sold by">
-                        <div *ngIf =" getControls().psoldby.touched|| submitted && (getControls().psoldby.dirty||getControls().psoldby.invalid)" >
-  
-                            <p *ngIf="getControls().psoldby.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
+                        <label>Product brand</label>
+                        <input type="text" class="form-control"  name="pbrand" formControlName="pbrand" placeholder="Enter brand name...">
+                        <p class="text text-danger" *ngIf="getcontrol().pbrand.errors?.required && getcontrol().pbrand.touched">Brand is required</p>
+                           
                     </div>
-        
-        
-                     <!--product model-->
-                    <div class="form-group px-3" style="width: 50%;position: absolute;left: 0px;padding-top: 1rem;padding-bottom: 1rem;">
-                        <label>Quantity</label>
-                        <input type="number" class="form-control" name="pquantity" formControlName="pquantity" placeholder="Enter quantity" >
-                        <div *ngIf =" getControls().pquantity.touched|| submitted && (getControls().pquantity.dirty||getControls().pquantity.invalid)" >
-  
-                            <p *ngIf="getControls().pquantity.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
-                    </div>
-        
-                     <!--product model-->
-                    <div class="form-group px-3" style="width: 50%;position: absolute;right: 0px;padding-top: 1rem;padding-bottom: 1rem;">
-                        <label>Rating</label>
-                        <input type="number" class="form-control" name="prating" formControlName="prating" placeholder="Enter Rating" >
-                        <div *ngIf =" getControls().prating.touched|| submitted && (getControls().prating.dirty||getControls().prating.invalid)" >
-  
-                            <p *ngIf="getControls().prating.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
-                    </div>
-        
-        
-                     <!--product model-->
-                    
-                    <div class="form-group" style="margin-top: 130px;">
-                        <label>Discount</label>
-                        <input type="text" class="form-control" name="pdiscount" formControlName="pdiscount" placeholder="Enter Discount">
-                        <div *ngIf =" getControls().pdiscount.touched|| submitted && (getControls().pdiscount.dirty||getControls().pdiscount.invalid)" >
-  
-                            <p *ngIf="getControls().pdiscount.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
-                    </div>
-        
-        
-                     <!--product model-->
-        
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea cols="100" rows="5"  class="form-control"  name="pdescription" formControlName="pdescription" placeholder="Enter your description" ></textarea>
-                        <div *ngIf =" getControls().pdescription.touched|| submitted && (getControls().pdescription.dirty||getControls().pdescription.invalid)" >
-  
-                            <p *ngIf="getControls().pdescription.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
-                    </div>
-        
-        
-                     <!--product model-->
-                    <div class="form-group">
-                        <label>Instructions</label>
-                        <textarea cols="100" rows="5"  class="form-control"  name="pInstructions" formControlName="pInstructions" placeholder="Enter Instructions"></textarea>
-                        <div *ngIf =" getControls().pInstructions.touched|| submitted && (getControls().pInstructions.dirty||getControls().pInstructions.invalid)" >
-  
-                            <p *ngIf="getControls().pInstructions.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>                          
-                    </div>
-                 
-        
-                     <!--product model-->
-                    <div class="form-group">
-                        <label>Disclaimer</label>
-                        <textarea cols="100" rows="5" class="form-control"  name="pdisclaimer" formControlName="pdisclaimer" placeholder="Enter Disclaimer"></textarea>
-                        <div *ngIf =" getControls().pdisclaimer.touched|| submitted && (getControls().pdisclaimer.dirty||getControls().pdisclaimer.invalid)" >
-  
-                            <p *ngIf="getControls().pdisclaimer.errors?.required" class="text-danger"> Name is Requied*</p>
-                        </div>  
-                                        </div>
-        
-        
+    
                     <!--product model-->
+                    <div class="form-group">
+                        <label>Model</label>
+                        <input type="text" class="form-control"  name="pmodel" formControlName="pmodel"placeholder="Enter  model..." >
+                        <p class="text text-danger" *ngIf="getcontrol().pmodel.errors?.required && getcontrol().pmodel.touched">Model is required</p>
+                            
+                    </div>
+    
+                     <!--product category-->
+                    <div class="form-group px-3  " style="width: 50%;position: absolute;left: 0px;" >
+                        <label>Category</label>
+                        <input type="text" class="form-control"  name="pCategory" formControlName="pCategory" placeholder="Enter category">
+                        <p class="text text-danger" *ngIf="getcontrol().pCategory.errors?.required && getcontrol().pCategory.touched">Category is required</p>   
+                        
+                    </div>
                     
-                        <div class="col-12">
-                    
-                        </div>
+    
+                     <!--product date-->
+                    <div class="form-group px-3 mb-3" style="width: 50%;position: absolute;right: 0px;">
+                        <label>Manufacturing date</label>
+                        <input type="date" class="form-control"  name="pdate" formControlName="pdate" placeholder="Enter date..." >
+                        <p class="text text-danger" *ngIf="getcontrol().pdate.errors?.required && getcontrol().pdate.touched">Date is required</p>
+                        
+                        
+                    </div>
+    
+    
+                     <!--product colour-->
                     <br>
-                            <div class="form-group" style="text-align: center;" >
-                             <button type="submit" class="btn btn-danger" [disabled]="registerForm.invalid">Update product</button>
-                             </div> 
-                    </form>
-            
+                    <div class="form-group mt-5 px-3 " style="width: 50%;position: absolute;left: 0px;padding-top: 1.4rem;padding-bottom: 1.4rem;">
+                        <label>Product colour</label>
+                        <input type="text" class="form-control"  name="pcol" formControlName="pcol" placeholder="Enter colour..." >
+                        <p class="text text-danger" *ngIf="getcontrol().pcol.errors?.required && getcontrol().pcol.touched">colour is required</p>
+                        
+                        
+                        
+                    </div>
+    
+    
+                     <!--product price-->
+                    <div class="form-group mt-5 px-3" style="width: 50%;position: absolute;right: 0px;padding-top: 1.4rem;padding-bottom: 1.4rem;">
+                      <label>price</label>
+                      <input type="number" class="form-control"  name="pprice"  formControlName="pprice" placeholder="Enter price...">
+                      <p class="text text-danger" *ngIf="getcontrol().pprice.errors?.required && getcontrol().pprice.touched">Price is required</p>
+                      
+                      
+                  </div>
+    
+    
+                   <!--product warranty-->
+                  <div class="form-group " style="margin-top: 170px;">
+                    <label>warranty</label>
+                    <input type="text" class="form-control"  name="pwarranty" formControlName="pwarranty" placeholder="Enter warranty...">
+                    <p class="text text-danger" *ngIf="getcontrol().pwarranty.errors?.required && getcontrol().pwarranty.touched">Warranty is required</p>
+                    
+                    
+                </div>
+    
+    
+    
+                 <!--product sold by-->
+                <div class="form-group">
+                    <label>Soldby</label>
+                    <input type="text" class="form-control" name="psoldby" formControlName="psoldby" placeholder="Enter sold by">
+                    <p class="text text-danger" *ngIf="getcontrol().psoldby.errors?.required && getcontrol().psoldby.touched">Soldby is required</p>
+                    
+                    
+                </div>
+    
+    
+                 <!--product Quantity-->
+                <div class="form-group px-3" style="width: 50%;position: absolute;left: 0px;padding-top: 1rem;padding-bottom: 1rem;">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" name="pquantity" formControlName="pquantity" placeholder="Enter quantity" >
+                    <p class="text text-danger" *ngIf="getcontrol().pquantity.errors?.required && getcontrol().pquantity.touched">Quantity is required</p>
+                    
+                    
+                </div>
+    
+                 <!--product rating-->
+                <div class="form-group px-3" style="width: 50%;position: absolute;right: 0px;padding-top: 1rem;padding-bottom: 1rem;">
+                    <label>Rating</label>
+                    <input type="number" class="form-control" name="prating" formControlName="prating" placeholder="Enter Rating" >
+                    <p class="text text-danger" *ngIf="getcontrol().prating.errors?.required && getcontrol().prating.touched">Rating is required</p>
+                    
+                    
+                </div>
+    
+    
+                 <!--product discount-->
+                
+                <div class="form-group" style="margin-top: 130px;">
+                    <label>Discount</label>
+                    <input type="text" class="form-control" name="pdiscount" formControlName="pdiscount" placeholder="Enter Discount">
+                    <p class="text text-danger" *ngIf="getcontrol().pdiscount.errors?.required && getcontrol().pdiscount.touched">Discount is required</p>
+                    
+                    
+                </div>
+    
+    
+                 <!--product Highlights-->
+    
+                <div class="form-group">
+                    <label>Highlights</label>
+                    <textarea cols="100" rows="5"  class="form-control"  name="pdescription" formControlName="pdescription" placeholder="Enter your Highlights" ></textarea>
+                    <p class="text text-danger" *ngIf="getcontrol().pdescription.errors?.required && getcontrol().pdescription.touched">Highlights is required</p>
+                    
+                    
+                </div>
+    
+    
+                 <!--product model-->
+                <div class="form-group">
+                    <label>Instructions</label>
+                    <textarea cols="100" rows="5"  class="form-control"  name="pInstructions" formControlName="pInstructions" placeholder="Enter Instructions"></textarea>
+                    <p class="text text-danger" *ngIf="getcontrol().pInstructions.errors?.required && getcontrol().pInstructions.touched">Instructions is required</p>
+                    
+                    
+                </div>
+             
+    
+                 <!--product Description-->
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea cols="100" rows="5" class="form-control"  name="pdisclaimer" formControlName="pdisclaimer" placeholder="Enter Description"></textarea>
+                    <p class="text text-danger" *ngIf="getcontrol().pdisclaimer.errors?.required && getcontrol().pdisclaimer.touched">Description is required</p>
+                   
+                </div>
+    
+    
+                  
+                <br>
+                        <div class="form-group" style="text-align: center;" >
+                         <button type="submit" class="btn btn-danger" [disabled]="registerForm.invalid">Update product</button>
+                         </div> 
+                </form>
+                
+                </div>
             </div>
+            </div>
+            
+    
         </div>
-        </div>
-        
-
     </div>
-
-</div>
+    
+    </div>
+    

@@ -115,6 +115,44 @@ adminApiObj.post("/delete",errorHandler(async(req,res,next)=>{
         }
     
     }))
+    adminApiObj.get("/getproductdata/:pname",errorHandler(async (req,res,next)=>{
+        console.log("haii");
+        let adminProductCollectionObj = req.app.get("adminProductCollectionObj") ;
+        let proObj=await adminProductCollectionObj.findOne({pname:req.params.pname});
+        console.log(proObj);
+        if(proObj!==null){
+            res.send({Details:proObj})
+        }
+        else{
+            res.send({message:"product not found"})
+        }
+        
+        }))
+      
+adminApiObj.put("/updateproduct",errorHandler(async(req,res,next)=>{
+            //console.log(req.body)
+            let Allproducts=req.app.get("adminProductCollectionObj")
+            let productDetails=await Allproducts.findOne({pname:req.body.pname})
+            if(productDetails!==null){
+                let edit=await Allproducts.updateOne({pname:req.body.pname},{$set:{
+                    pname:req.body.pname,
+                    pbrand:req.body.pbrand,
+                    pmodel:req.body.pmodel,
+                    pCategory:req.body.pCategory,
+                    pdate:req.body.pdate,
+                    pcol:req.body.pcol,
+                    pprice:req.body.pprice,
+                    psoldby:req.body.psoldby,
+                    pdescription:req.body.pdescription,
+                    pInstructions:req.body.pInstructions,
+                    pdisclaimer:req.body.pdisclaimer,
+                }});
+                res.send({message:true});
+            }
+            else{
+                res.send({message:"product not found"})
+            }
+        }))
 
 
 
