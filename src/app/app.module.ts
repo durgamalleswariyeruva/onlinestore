@@ -14,7 +14,9 @@ import { SearchPipe } from './search.pipe';
 import { UsersModule } from './users/users.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ToastrModule } from 'ngx-toastr';
+
 import { AuthorizationService } from './authorization.service';
 import { CategoryComponent } from './category/category.component';
 
