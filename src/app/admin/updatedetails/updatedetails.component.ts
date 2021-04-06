@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminserviceService } from 'src/app/adminservice.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class UpdatedetailsComponent implements OnInit {
     pdiscount:new FormControl(null,Validators.required),
   })
 
-  constructor(private as:AdminserviceService,private router:Router) { }
+  constructor(private as:AdminserviceService,private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.pname=localStorage.getItem("pname");
@@ -72,11 +73,12 @@ onSubmit(){
     res=>{
       if(res["message"]){
         console.log("product details are updated")
+        this.ts.success("product details are updated")
         this.router.navigateByUrl("/admindashboard/viewadminproducts")
       }
     },
     err=>{
-      alert("Something went wrong")
+      this.ts.warning("Something went wrong")
       console.log(err)
     }
   )

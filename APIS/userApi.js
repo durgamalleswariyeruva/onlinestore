@@ -100,7 +100,7 @@ userApiObj.post("/addtocart",asyncHandler(async(req,res,next)=>{
     let cardCollectionObj= req.app.get("cardCollectionObj");
 
     let cartObj=req.body;
-    console.log("name",cartObj.productname)
+    console.log("name",cartObj)
     let cart = await cardCollectionObj.findOne({username:cartObj.username,productname:cartObj.productname})
     console.log("the cart is ",cart)
     if(cart!==null){
@@ -126,9 +126,9 @@ userApiObj.post("/wishlist",asyncHandler(async(req,res,next)=>{
     let wishlistCollectionObj= req.app.get("wishlistCollectionObj");
 
     let wishObj=req.body;
-    console.log("name",wishObj.pname)
+   // console.log("name",wishObj.pname)
     let wishcart = await wishlistCollectionObj.findOne({username:wishObj.username,productname:wishObj.productname})
-    console.log("the cart is ",wishcart)
+     //console.log("the cart is ",wishcart)
     if(wishcart!==null){
         res.send({message:"product exist"})
     }
@@ -146,11 +146,31 @@ userApiObj.get("/getWishlist/:username",asyncHandler(async(req,res,next)=>{
 
     let wishlistCollectionObj = req.app.get("wishlistCollectionObj");
     let wishObj=req.body;
-    console.log("name",wishObj)
+   // console.log("name",wishObj)
     let products = await wishlistCollectionObj.find({username:req.params.username}).toArray();
-    console.log("wishlist products:",products)
+    //console.log("wishlist products:",products)
 
     res.send({message:products})
+}))
+
+
+//delete wish product
+
+userApiObj.post("/deletewishproduct",asyncHandler(async(req,res,next)=>{
+    
+    let wishlistCollectionObj = req.app.get("wishlistCollectionObj");
+    let wishObj =  req.body;
+    
+    //console.log("user object is",cartObj);
+    //check for user in db
+    let product = await wishlistCollectionObj.findOne({productname:wishObj.productname});
+
+    //product is there
+    if(product!==null){
+        let remove=await wishlistCollectionObj.deleteOne({productname:wishObj.productname});
+        res.send({message:true});
+    }
+
 }))
 
 //get all products
@@ -160,7 +180,7 @@ userApiObj.get("/getcartitems/:username",asyncHandler(async(req,res,next)=>{
     
     let products = await cardCollectionObj.find({username:req.params.username}).toArray();
     res.send({message:products})
-    //console.log(products)
+    console.log(products)
 }))
 /*userApiObj.get("/getsize/:username", asyncHandler(async (req, res, next) => {
     let cardCollectionObj = req.app.get("cardCollectionObj");

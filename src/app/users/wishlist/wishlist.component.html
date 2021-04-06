@@ -1,12 +1,14 @@
 <div class="container mt-3">
     <div class="row "  >
-        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products, let i=index "   style="width: 20rem; height: 100%;"    > 
+        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products, let i=index "   style="width: 17rem; height: 100%;"    > 
 
           <div class="card-header p-1 mt-1 bg-white" style="border-bottom:0px;">
+            <button class="btn float-right border-0 " style="border-radius: 10%;opacity: 0.9;transition: 0.3s;" (click)="deleteList(i)"><i class="fas fa-trash-alt " id="icon" style="font-size: 23px;color: #96a704;"></i></button>
+
             <img [src]=p.productImgLink class="card-img-top mt-1 d-block mx-auto bg-white  mb-1"  alt="..."style=" width:200px; height:160px; border-radius:8% ;"> 
 
           </div>
-          <div class="card-body p-1  " style="text-transform: capitalize;height: 250px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;          "> 
+          <div class="card-body p-1  " style="text-transform: capitalize;height: 200px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;          "> 
             <p class="card-title mt-2" style="font-size: 15px;"><b>{{p.productname}} </b></p>
 
             <h5 class="card-title d-block mx-auto mt-2 pt-2 text-center"><strong> {{(p.cost)| currency:"INR"}} </strong> </h5> 

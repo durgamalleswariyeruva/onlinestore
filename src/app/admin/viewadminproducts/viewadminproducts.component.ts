@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminserviceService } from 'src/app/adminservice.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AdminserviceService } from 'src/app/adminservice.service';
 export class ViewadminproductsComponent implements OnInit {
   lengthofarray : any;
   listObj:any;
-  constructor( private as:AdminserviceService,private router:Router) { }
+  constructor( private as:AdminserviceService,private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.listObj=this.as.getlist().subscribe(
@@ -21,12 +22,12 @@ export class ViewadminproductsComponent implements OnInit {
           this.lengthofarray=this.listObj.length;
           }
         else{
-          console.log(res["message"])
+          this.ts.warning(res["message"])
          
         }
       }, 
       err=>{ 
-        console.log("Something went wrong") 
+        this.ts.warning("Something went wrong") 
         console.log(err)
        }
   ) 
@@ -38,13 +39,13 @@ export class ViewadminproductsComponent implements OnInit {
     this.as.deleteProduct(obj).subscribe(
       res=>{
         if(res["message"]){
-          console.log("Product removed successfully");
+          this.ts.success("Product removed successfully");
           window.location.reload();
         
         }
       },
       err=>{
-        console.log("Something went wrong in user creation");
+        this.ts.warning("Something went wrong in user creation");
         console.log(err);
       }
     )

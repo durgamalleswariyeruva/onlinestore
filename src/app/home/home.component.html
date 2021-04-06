@@ -1,23 +1,26 @@
 <body >
-    <nav class="navbar navbar-expand-lg bg-light"   >
+    <nav class="navbar navbar-expand-lg bg-light navbar-dark text-dark"   >
         
-      
-      <div class="col-sm-2"></div>
+      <button class="navbar-toggler text-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-dark bg-dark float-end pull-right " style="text-align: right;"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+               
       <div class="col-sm-2 pull-right d-block mx-auto">
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button"   [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
+          <button class="btn border-0 dropdown-toggle" type="button" style="font-size: 30px;font-family:Georgia, 'Times New Roman', Times, serif;"   [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-clipboard-list text-primary"></i>  Category
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
-            <li *ngFor="let j of cat " [value]=j><a class="dropdown-item" href="#" (click)="getOneProduct(j)" style="text-transform: capitalize;"><i class="far fa-{{j}}"></i> {{j}}</a></li>
+            <li *ngFor="let j of cat " [value]=j style="text-transform: capitalize;"><a class="dropdown-item" href="#" (click)="getOneProduct(j)" style="text-transform: capitalize;"> {{j}}</a></li>
             
           </ul>
         </div>
       </div>
       <div class="col-sm-2 pull-right d-block mx-auto">
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button"   [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Brands
+          <button class="btn dropdown-toggle border-0" type="button" style="font-size: 30px;font-family:Georgia, 'Times New Roman', Times, serif"  [(ngModel)]="selectedLevel" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+           <img src="https://i.postimg.cc/T3q6CwtJ/brand-tag-2198726-1832739.webp" width="40px" height="40px"> Brands
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
             
@@ -38,15 +41,20 @@
         </div>
       </div>
       
+      <div class="form-group col-sm-6 d-block mx-auto mt-3 search-icon" >
+        <input type="search" class=" pt-1 pb-2 pr-5 pl-5 ml-5" placeholder=" Search for products,brands and more"  [(ngModel)]="searchTerm">
+         <button type="button" class="bg-white pt-2 pb-2 pr-3 pl-3">  <i class="fa fa-search   "  aria-hidden="true"></i> </button>
     
+      </div>
    
-    <div class="form-group col-sm-5 nav-item search-icon ml-3 mr-5 d-block mx-auto mt-3" >
+    <!--<div class="form-group col-sm-5 nav-item search-icon ml-3 mr-5 d-block mx-auto mt-3" >
       <input type="search"  placeholder=" Search for products,brands and more"  [(ngModel)]="searchTerm">
       <label class="icon"><a routerLink="home" class="search-btn "  >
         <i class="fa fa-search   " aria-hidden="true"></i> </a></label>
   
-    </div>
+    </div>-->
     <div class="col-sm-1"></div>
+    </div>
   </nav>
 
   
@@ -80,14 +88,14 @@
 <!-- Cards -->
 <div class="container mt-3">
     <div class="row "  >
-        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products | search:searchTerm , let i=index "   style="width: 20rem; height: 100%;"    > 
+        <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products | search:searchTerm , let i=index "   style="width: 17rem; height: 90%;"    > 
+          <button class="btn float-right border-0 " style="border-radius: 10%;opacity: 0.9;transition: 0.3s;" (click)="wishList(i)"><i class="fas fa-heart " id="icon" style="font-size: 23px;color: rgb(6, 41, 105);"></i></button>
 
-          <div class="card-header p-1 mt-1 bg-white" style="border-bottom:0px;">
-            <button class="btn float-right border-0 " style="border-radius: 10%;opacity: .9;transition: 0.3s;" (click)="wishList(i)"><i class="fas fa-heart " style="font-size: 23px;color: rgb(6, 41, 105);"></i></button>
-            <img [src]=p.ImgLink class="card-img-top mt-1 d-block mx-auto bg-white  mb-1"  alt="..."style=" width:200px; height:160px; border-radius:8% ;"> 
+          <div class="card-header p-1 mt-1 bg-white" style="border-bottom:0px;" (click)="viewitem(i)">
+            <img [src]=p.ImgLink class="card-img-top mt-1 d-block mx-auto bg-white  mb-1"  alt="..."style=" width:200px; height:160px; border-radius:8% ;" > 
 
           </div>
-          <div class="card-body p-1  " style="text-transform: capitalize;height: 250px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;          "> 
+          <div class="card-body p-1  text-center " (click)="viewitem(i)" style="text-transform: capitalize;height: 220px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif          "> 
             <p class="card-title mt-2" style="font-size: 15px;"><b>{{p.pname}} </b></p>
             <h6 class="card-title mt-2 pt-2 text-center" > {{p.pbrand}} Brand</h6> 
 
@@ -95,11 +103,11 @@
             <h5 class="card-title d-block mx-auto mt-2 pt-2 text-center"><strong><ngb-rating [max]=5 style="color: rgb(51, 80, 22);"[(rate)]=p.prating [readonly]="true" ></ngb-rating>  </strong> </h5> 
 
           </div>
-          <div class="card-footer bg-white mb-2 pb-2" style="border: 0px; height: 60px;">  
+         <!---<div class="card-footer bg-white mb-2 pb-2" style="border: 0px; height: 60px;">  
             <button id="b1" class="btn btn-success p-2  shadow float-start" data-bs-target="#md1"  (click)="additems(i)"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
            
             <button id="b2" class="btn btn-primary p-2 shadow pull-right" (click)="viewitem(i)"><i class="fas fa-eye"></i> View</button> 
-          </div> 
+          </div> -->
       </div>
     </div>
 

@@ -156,6 +156,7 @@ export class HomeComponent implements OnInit {
 
   }
 
+  
   viewitem(n:number){
     
     let viewObj=this.products[n];

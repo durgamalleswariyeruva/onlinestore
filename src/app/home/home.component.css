@@ -7,16 +7,15 @@ card-img-top{
 .nav-link{
     font-size: 20px;
 }
-nav .search-icon{
+/*nav .search-icon{
     height: 40px;
     width: 50%;
     display: flex;
     background: #f1f1f8;
-    border-radius: 5px;
-}
+}*/
 nav .search-icon input{
     height: 100%;
-    width: 90%;
+    width: 80%;
     border: 1px solid #ebe5e5;
     color: #000;
     font-size: 16px;
@@ -44,6 +43,6 @@ nav ul li a:hover{
 nav ul li a{
     font-size: 20px;
 }
-.btn:hover{opacity: 2;
+.icon:hover{opacity: 2;
             background: #e6e1e1;
         color: blue; }

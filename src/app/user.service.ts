@@ -47,6 +47,10 @@ export class UserService {
   deleteCartProduct(obj:any):Observable<any>{
     return this.hc.post("/user/deleteproduct",obj);
   }
+  deleteWishProduct(obj:any):Observable<any>{
+    return this.hc.post("/user/deletewishproduct",obj);
+
+  }
   viewItem(pCategory:any):Observable<any>{
     //console.log("in US1 ",pCategory)
 

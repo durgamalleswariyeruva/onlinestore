@@ -58,9 +58,9 @@ adminApiObj.post("/viewitem",errorHandler(async(req,res,next)=>{
 adminApiObj.get("/getitem/:pname",errorHandler(async(req,res,next)=>{
     
     let adminProductCollectionObj = req.app.get("adminProductCollectionObj");
-    console.log(adminProductCollectionObj)
+   // console.log(adminProductCollectionObj)
     let products = await adminProductCollectionObj.find({pname :req.params.pname}).toArray();
-    console.log("products are",products)
+   // console.log("products are",products)
     
     res.send({message:products})
 }))
@@ -82,7 +82,7 @@ adminApiObj.post("/productdetails",upload.single('photo'),errorHandler(async (re
     //get product collectionobject
 
     let adminProductCollectionObj=req.app.get("adminProductCollectionObj");
-   console.log("product details obj is",req.body)
+  // console.log("product details obj is",req.body)
    let proObj=JSON.parse(req.body.proObj);
     //add Imagelink
     proObj.ImgLink = req.file.path;

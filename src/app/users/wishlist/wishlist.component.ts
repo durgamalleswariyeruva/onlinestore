@@ -49,20 +49,34 @@ export class WishlistComponent implements OnInit {
   back(){
     this.router.navigateByUrl("/home")
   }
+  deleteList(n:any){
+    let obj=this.products[n];
+    console.log("the deleted obj is ",obj)
+
+    this.us.deleteWishProduct(obj).subscribe(
+      res=>{
+        if(res["message"]){
+          this.ts.success("Product removed from wishing cart")
+          window.location.reload()
+        }}
+        )
+      }
+  
   additems(n:number){
+    console.log("hello",this.products[n])
     if(this.username!==null){
       let obj={
       username:this.username,
-      productname:this.products[n].pname,
-      colour:this.products[n].pcol,
-      cost:this.products[n].pprice,
-      quantity:this.products[n].pquantity,
-      rate:this.products[n].prating,
-      description:this.products[n].pdescription,
-      productImgLink:this.products[n].ImgLink
+      productname:this.products[n].productname,
+      colour:this.products[n].colour,
+      cost:this.products[n].cost,
+      quantity:this.products[n].quantity,
+      rate:this.products[n].rate,
+      description:this.products[n].description,
+      productImgLink:this.products[n].productImgLink
       }
       
-      console.log("this new obj is ",obj)
+      console.log("this new wish obj is ",obj)
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){

@@ -16,6 +16,7 @@ export class UsercartComponent implements OnInit {
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
+    
     this.getCart();
   }
 

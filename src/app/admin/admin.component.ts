@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminserviceService } from '../adminservice.service';
 
 
@@ -20,7 +21,7 @@ export class AdminComponent implements OnInit {
     this.file= event.target.files[0];
    }
 
-constructor(private as:AdminserviceService,private router:Router) { }
+constructor(private as:AdminserviceService,private router:Router,private ts:ToastrService) { }
 
 ngOnInit(): void {
   this.registerForm=new FormGroup({
@@ -52,7 +53,7 @@ onSubmit(){
     res=>{
    
     
-      console.log("product added successfully");
+      this.ts.success("product added successfully");
         this.router.navigateByUrl("/admindashboard/viewadminproducts");
      
        
