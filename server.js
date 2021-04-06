@@ -32,6 +32,7 @@ mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
     const cardCollectionObj=databaseObj.collection("cardcollection")
 
     const adminProductCollectionObj=databaseObj.collection("adminproductcollection")
+    const orderCollectionObj=databaseObj.collection("placeordercollection");
 
     //sharing collection object
     app.set("userCollectionObj",userCollectionObj)
@@ -39,6 +40,8 @@ mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
     app.set("wishlistCollectionObj",wishlistCollectionObj)
 
     app.set("adminProductCollectionObj",adminProductCollectionObj)
+    app.set("orderCollectionObj",orderCollectionObj)
+
     console.log("DB Server Started")
 })
 .catch(err=>console.log("err in db connection",err))

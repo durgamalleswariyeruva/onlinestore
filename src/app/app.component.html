@@ -26,18 +26,18 @@
       
        <!--home-->
       <li class="nav-item" *ngIf="username!='admin'">
-        <a class="nav-link mt-2 text-white ml-4"  routerLink="home" routerLinkActive="active"><i class="fa fa-home pl-1" style="color: coral;" aria-hidden="true" ></i> Home </a>
+        <a class="nav-link mt-2 text-white ml-2"  routerLink="home" routerLinkActive="active"><i class="fa fa-home pl-1" aria-hidden="true" ></i> Home </a>
       </li>
       <!--Cart-->
       <li class="nav-item" *ngIf="username!='admin'">
-        <a class="nav-link mt-2 mr-2 ml-4 text-white"  routerLink="users/usercart" routerLinkActive="active" *ngIf="username==null" >
-          <i class="fa fa-shopping-cart text-warning" aria-hidden="true"></i>
+        <a class="nav-link mt-2 mr-2 ml-2 text-white"  routerLink="users/usercart" routerLinkActive="active" *ngIf="username==null" >
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 
      Cart 
       <button type="button" class="btn btn-white bg-white" style="border-radius: 10px;">0</button> </a>
 
-      <a class="nav-link mt-2 mr-2 ml-4 text-white" href="#" routerLink="users/usercart" routerLinkActive="active" *ngIf="username!=null">
-        <i class="fa fa-shopping-cart text-warning" aria-hidden="true"></i>
+      <a class="nav-link mt-2 mr-2 ml-2 text-white" href="#" routerLink="users/usercart" routerLinkActive="active" *ngIf="username!=null">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         Cart 
          <button type="button" class="btn btn-white bg-white" style="border-radius: 10px;" (click)="cartStatus()"> 
         
@@ -55,6 +55,20 @@
       <a class="nav-link mt-3 mx-2 text-white" routerLink="admindashboard/viewadminproducts"  routerLinkActive="active" style="font-size: 1.2rem;font-weight: 500;" ><i class="fa fa-xs fa-eye"></i>View products</a>
 
   </li>
+  <!--placeorder-->
+
+  <li class="nav-item" *ngIf="username!='admin'">
+    <a class="nav-link mt-2 mr-2 ml-2 text-white"  routerLink="users/placeorder" routerLinkActive="active" *ngIf="username==null" >
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i> Placeorder
+      </a>
+
+
+  <a class="nav-link mt-2 mr-2 ml-2 text-white" href="#" routerLink="users/placeorder" routerLinkActive="active" *ngIf="username!=null">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+   PlaceOrder
+    </a>
+  
+</li>
  <!--login-->
       <li class="nav-item" >
         
