@@ -10,6 +10,7 @@ import { AdminserviceService } from 'src/app/adminservice.service';
 })
 export class UpdatedetailsComponent implements OnInit {
   pname: any;
+  submitted: boolean=false;
   registerForm=new FormGroup({
     pname:new FormControl(null,Validators.required),
     pbrand:new FormControl(null,Validators.required),
@@ -36,7 +37,7 @@ export class UpdatedetailsComponent implements OnInit {
  
     
   }
-  getcontrol(){
+  getControls(){
     return this.registerForm.controls;
   }
   getcurrentdata(){
@@ -66,6 +67,8 @@ export class UpdatedetailsComponent implements OnInit {
   })
 }
   onSubmit(){
+    this.submitted=true;
+
     console.log(this.registerForm.value);
     let proObj=this.registerForm.value;
     this.as.editproduct(proObj).subscribe(
