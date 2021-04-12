@@ -20,7 +20,7 @@ export class UsercartComponent implements OnInit {
   amount:any;
   carts:any=[]
   productname: any=[];
-  costs:any;
+  costs:any
   spinning:any=0
   constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
 
@@ -28,7 +28,7 @@ export class UsercartComponent implements OnInit {
     this.userid=localStorage.getItem("userid")
     this.username=localStorage.getItem("username")
 
-   
+
    this.getCart();
         this.totalamount();
   }
@@ -42,12 +42,10 @@ export class UsercartComponent implements OnInit {
     this.us.getCartItems(this.userid).subscribe(
       res=>{
       if(res["message"]=="success")
-      { 
-        this.spinning=1
-
+      {
+           this.spinning=1
         this.cart=res["product"]
         this.productname=res["product1"]
-
         for( let i in this.cart){
           for( let j in this.productname)
           {
@@ -57,16 +55,20 @@ export class UsercartComponent implements OnInit {
             }
           }
         }
+        console.log("available products",this.check)
        
         this.unavail=this.cart.filter((item: any) => this.check.indexOf(item) < 0)
+        console.log("unavailable products",this.unavail)
 
+       
         
+
         this.totalamount()
     }
         else{
           this.toastr.warning(res["message"])
 
-          this.router.navigateByUrl("/login")
+          this.router.navigateByUrl("/usercart")
 
         }
       },
@@ -77,6 +79,7 @@ export class UsercartComponent implements OnInit {
     )
   }
 
+  
   
   delete(n:number){
     let obj4=this.check[n];
@@ -97,7 +100,7 @@ export class UsercartComponent implements OnInit {
   }
 
   goTo(){
-    this.router.navigateByUrl("/home")
+    this.router.navigateByUrl("/login")
   }
 
   additem(n:number){
@@ -115,7 +118,6 @@ export class UsercartComponent implements OnInit {
       quantity:this.check[n].quantity
       }
       
-      //console.log("this new obj is ",obj)
       this.us.placeOrder(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){
@@ -129,7 +131,6 @@ export class UsercartComponent implements OnInit {
             setTimeout(function(){
               window.location.reload();
            }, 1000);
-            //this.router.navigateByUrl("/usercart")
           }
          
         },
@@ -195,7 +196,6 @@ export class UsercartComponent implements OnInit {
         for(let i=0;i<this.cart.length;i++){
           let cost=this.cart[i].cost/this.cart[i].quantity;
           this.amount+=cost*this.cart[i].quantity
-
        
         }
 

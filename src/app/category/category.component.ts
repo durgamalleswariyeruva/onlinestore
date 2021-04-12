@@ -85,6 +85,8 @@ export class CategoryComponent implements OnInit {
       productname:this.product[n].pname,
       colour:this.product[n].pcol,
       cost:this.product[n].pprice,
+      quantity:this.product[n].pquantity,
+      rate:this.product[n].prating,
       description:this.product[n].pdescription,
       productImgLink:this.product[n].ImgLink
       }
