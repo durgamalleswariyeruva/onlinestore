@@ -20,7 +20,6 @@ export class ViewcartComponent implements OnInit {
   ngOnInit(): void {
     this.userid=localStorage.getItem("userid")
     this.pname=localStorage.getItem("pname")
-    //console.log("PRODUCT NAME IS ",this.pname)
     this.getProduct();
   }
   back(){
@@ -30,7 +29,6 @@ export class ViewcartComponent implements OnInit {
     this.us.getProduct(this.pname).subscribe(
       res=>{
         this.product=res["message"]
-       // console.log("the view product is",this.product)
       },
       err=>{
         this.ts.warning("Something went wrong in getting all products")
@@ -43,13 +41,11 @@ export class ViewcartComponent implements OnInit {
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
-        console.log(this.userCartSize)
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-       // localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
-
-       // window.location.reload()
+      
+        
       },
       err=>{
         this.ts.warning("Something went wrong in getting all products")
@@ -72,7 +68,7 @@ export class ViewcartComponent implements OnInit {
       productImgLink:this.product[i].ImgLink
       }
       
-      console.log("this new obj is ",obj)
+
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){

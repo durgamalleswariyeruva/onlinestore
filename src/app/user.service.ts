@@ -18,7 +18,6 @@ export class UserService {
     return this.hc.post("/user/login",userCredObj);
   }
   changePassword(obj:any):Observable<any>{
-    console.log("obj3 is",obj)
     return this.hc.post("/user/resetpassword",obj);
     
   }
@@ -28,15 +27,12 @@ export class UserService {
   }
 
   usercart(obj:any):Observable<any>{
-    console.log(obj)
     return this.hc.post("user/addtocart",obj);
   }
   wishList(obj:any):Observable<any>{
-    console.log(obj)
     return this.hc.post("user/wishlist",obj);
   }
   getwishlist(userid:any):Observable<any>{
-    console.log("wishlist",userid)
     return this.hc.get("user/getWishlist/"+userid);
 
   }
@@ -50,16 +46,13 @@ export class UserService {
 
   }
   viewItem(pCategory:any):Observable<any>{
-    //console.log("in US1 ",pCategory)
 
     return this.hc.post("/admin/viewitem",pCategory)
   }
   getItem(pCategory:any):Observable<any>{
-    //console.log("in US ",pCategory)
     return this.hc.get("/admin/oneproduct/"+pCategory);
   }
   getProduct(pname:any):Observable<any>{
-   // console.log("in US ",pname)
     return this.hc.get("/admin/getitem/"+pname);
   }
   
@@ -81,13 +74,11 @@ export class UserService {
 
 
   getCartSize(userid:any):Observable<any>{
-    console.log("the us is ",userid);
     return this.hc.get("/user/getsize/"+userid);
   }
   
 
   getCartItems(userid:any):Observable<any>{
-    //console.log("the username is ",username)
     return this.hc.get("/user/getcartitems/"+userid);
   }
   deleteCartProduct(obj4:any):Observable<any>{
@@ -99,7 +90,6 @@ export class UserService {
   }
   
   getOrderItems(userid:any):Observable<any>{
-    //console.log("the username is ",username)
     return this.hc.get("/user/getOrderitem/"+userid);
   }
   deleteOrderProduct(obj5:any):Observable<any>{
@@ -107,7 +97,6 @@ export class UserService {
   }
 
   deleteOrder1(obj:any):Observable<any>{
-    console.log("service delete is",obj)
     return this.hc.post("/user/deleteOrder1",obj);
     
   }

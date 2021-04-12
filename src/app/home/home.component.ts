@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   products:any;
   product:any;
   products1:any;
-
+  spinning:any=0
   userCartSize:any;
   cart=null;
   category:any=[];
@@ -24,9 +24,7 @@ export class HomeComponent implements OnInit {
   cat:any=[];
   ctg:any;
   pro:any=[];
-  img:any=[];
-  imgs:any=[];
-  status:boolean=false;
+    status:boolean=false;
 
   //brands
   brand:any=[];
@@ -35,7 +33,6 @@ export class HomeComponent implements OnInit {
   userid:any;
   constructor(private us:UserService,private router:Router, private ts:ToastrService) { }
   ngOnInit(): void {
-    //this.username=localStorage.getItem("username")
     this.userid=localStorage.getItem("userid")
 
     this.getAllProducts();
@@ -44,14 +41,9 @@ export class HomeComponent implements OnInit {
   }
   getOneProduct(j:any){
      this.pCategory= j
-    console.log(this.pCategory)
     this.us.getItem(this.pCategory).subscribe(
       res=>{
-       /* this.product=res["message"]
-        this.status=true;
-        this.ctg=this.product.pCategory
-        console.log(this.ctg)
-        console.log("cat:",this.product)*/
+      
           localStorage.setItem("pCategory",this.pCategory)
           this.router.navigateByUrl("/category")
         
@@ -63,24 +55,10 @@ export class HomeComponent implements OnInit {
       }
     )
   }
-  getOneProducts(j:any){
-    this.pCategory= j
-   console.log(this.pCategory)
-   this.us.getItem(this.pCategory).subscribe(
-     res=>{
-       this.products1=res["message"]
-      
-     },
-     err=>{
-       this.ts.warning("Something went wrong in getting all products")
-       console.log(err)
-     }
-   )
- }
+ 
   
  onBrand(i:any){
   this.pCategory= i
-  console.log("category is:",this.pCategory)
   this.us.getItem(this.pCategory).subscribe(
     res=>{
       this.products1=res["message"]
@@ -97,8 +75,7 @@ export class HomeComponent implements OnInit {
     this.us.getProducts().subscribe(
       res=>{
         this.products=res["message"]
-       // localStorage.setItem("productname",JSON.stringify(this.products))
-
+        this.spinning=1
         for (let i in this.products){
           this.category.push(this.products[i].pCategory)
           this.brand.push(this.products[i].pCategory,this.products[i].pbrand)
@@ -107,10 +84,8 @@ export class HomeComponent implements OnInit {
          //for displaying unique values
          this.cat = this.category.filter((x:any, j:any, a:any) =>
          x && a.indexOf(x) === j);
-         console.log(this.cat)
          this.brand2 = this.brand.filter((x:any, j:any, a:any) =>
          x && a.indexOf(x) === j);
-         console.log(this.brand2)
          
     
       },
@@ -133,7 +108,6 @@ export class HomeComponent implements OnInit {
       productImgLink:this.products[n].ImgLink
       }
       
-      console.log("this new obj is ",obj)
       this.us.wishList(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){
@@ -164,11 +138,9 @@ export class HomeComponent implements OnInit {
   viewitem(n:number){
     
     let viewObj=this.products[n];
-    console.log("viewobj",viewObj);
     this.us.viewItem(viewObj).subscribe(
       res=>{
         if(res["message"]){
-         // localStorage.setItem("token",res["signedToken"])
           localStorage.setItem("pname",viewObj.pname)
           this.router.navigateByUrl("/viewcart");
         }
@@ -185,13 +157,10 @@ export class HomeComponent implements OnInit {
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
-        console.log(this.userCartSize)
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-       // localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
-
-       // window.location.reload()
+      
       },
       err=>{
         this.ts.warning("Something went wrong in getting all products")
@@ -201,85 +170,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  additems(n:number){
-    if(this.userid!==null){
-      let obj={
-      userid:this.userid,
-      productname:this.products[n].pname,
-      colour:this.products[n].pcol,
-      cost:this.products[n].pprice,
-      description:this.products[n].pdescription,
-      quantity:this.products[n].pquantity,
-      rate:this.products[n].prating,
-      productImgLink:this.products[n].ImgLink
-      }
-      
-      console.log("this new obj is ",obj)
-      this.us.usercart(obj).subscribe(
-        res=>{
-          if(res["message"]=="product exist"){
-            this.ts.warning("Product is already added to cart")
-            
-          }
-          else{
-            this.ts.success("Product added to cart")
-            this.cartStatus();
-          }
-          
-        },
-        err=>{
-          this.ts.warning("Something went wrong in Adding product")
-        console.log(err)
-        }
-      )
-      
-    }
-    else{
-      this.ts.warning("please login first to add items")
-      this.router.navigateByUrl("/login")
-    }
-  }
-    
-  additem(n:number){
-    if(this.userid!==null){
-      let obj={
-      userid:this.userid,
-      productname:this.product[n].pname,
-      colour:this.product[n].pcol,
-      cost:this.product[n].pprice,
-      quantity:this.products[n].pquantity,
-      rate:this.products[n].prating,
-      description:this.product[n].pdescription,
-      productImgLink:this.product[n].ImgLink
-      }
-      
-      console.log("this new obj is ",obj)
-      this.us.usercart(obj).subscribe(
-        res=>{
-          if(res["message"]=="product exist"){
-            this.ts.warning("Product is already added to cart")
-            
-          }
-          else{
-            this.ts.success("Product added to cart")
-            this.cartStatus();
-          }
-          
-        },
-        err=>{
-          this.ts.warning("Something went wrong in Adding cart")
-        console.log(err)
-        }
-      )
-      
-    }
-    
-    else{
-      this.ts.warning("please login first to add items")
-      this.router.navigateByUrl("/login")
-    }
-  }
-
+  
+  
 
   
 

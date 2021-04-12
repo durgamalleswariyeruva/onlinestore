@@ -1,6 +1,18 @@
-<div *ngIf="userid==null">
+<div class="border d-flex align-items-center justify-content-center" *ngIf="spinning==0" style="height: 550px;">
+        
+      
+  <div class="spinner-border text-danger" role="status" >
+      
+    <span class="visually-hidden">Loading...</span>
+   
+  </div>
+  <div><h2>  Loading.... please wait</h2></div>
+</div>
+
+<div *ngIf="userid==null || cart.length<=0">
   <div clas="container">
-  
+    <h3 class=" text-info text-left mt-3 p-3 ml-5">My Cart({{username}})</h3>
+
           <div class="row">
               <div class="col-sm-3 m-3">
                   <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-shopping-cart" aria-hidden="true"></i>User cart</h1>
@@ -15,8 +27,8 @@
                 <div class="col-sm-4"></div>
           </div>
           <h6 class="display-6 text-center" >Missing Cart Items?</h6>
-      <p class="text-center">Login to see the items you add previously here</p>
-      <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;">Login</button>
+      <p class="text-center">Add products to card to see the card added Items</p>
+      <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;"><i class="fas fa-shopping-cart"></i>Click on Add to cart</button>
   
       <hr>
       
@@ -26,18 +38,19 @@
   
  
 <!--If user exists-->
-<body style="background-image: linear-gradient(lightblue,lightgreen);">
+<body style="background-image: linear-gradient(lightblue,lightgreen); "  >
 
 
-<div *ngIf="userid!=null">
+<div *ngIf="userid!=null && cart.length>0 ">
+
 <div class="bg-light px-5 text-right">
     <button class="btn btn-primary float-end px-2 my-2" (click)="logout()">BackToHome<i class="fa fa-home pl-1" aria-hidden="true"></i> </button>
 </div>
 
 
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="spinning==1">
     <h3 class=" text-dark text-left mt-3 p-3">My Cart({{username}})</h3>
-    <div class="row mt-5 gx-3 d-block mx-auto">
+    <div class="row mt-5 gx-3 d-block mx-auto" >
     <div class="card p-4 d-block mx-auto m-3" *ngFor="let p of check, let i=index" style="max-width: 700px;max-height: 100%;">
        
       
@@ -59,7 +72,6 @@
                 <li class="page-item">
                   <button class="page-link mt-4" href="#" (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
                 </li>  
-            <!--<li class="page-item"><input type="text" name=""  class="page-link" [value]=p.quantity id="textbox"></li>-->
            
            <span class="text-center p-1 mt-4" >{{p.quantity}} </span>
 
@@ -135,7 +147,6 @@
                   <li class="page-item disabled">
                     <button class="page-link mt-4" href="#"  (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
                   </li>  
-              <!--<li class="page-item"><input type="text" name=""  class="page-link" [value]=p.quantity id="textbox"></li>-->
              
              <span class="text-center p-1 mt-4" >{{p.quantity}}</span>
 

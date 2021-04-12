@@ -42,7 +42,6 @@ export class UpdatedetailsComponent implements OnInit {
   }
   getcurrentdata(){
   this.as.getcurrentdata(this.pname).subscribe(res=>{
-    console.log(res);
 
     this.registerForm=new FormGroup({
       pname:new FormControl(res.Details['pname']),
@@ -67,12 +66,10 @@ export class UpdatedetailsComponent implements OnInit {
   })
 }
 onSubmit(){
-  console.log(this.registerForm.value);
   let proObj=this.registerForm.value;
   this.as.editproduct(proObj).subscribe(
     res=>{
       if(res["message"]){
-        console.log("product details are updated")
         this.ts.success("product details are updated")
         this.router.navigateByUrl("/admindashboard/viewadminproducts")
       }

@@ -1,4 +1,40 @@
-<div class="container mt-3">
+<div class="border d-flex align-items-center justify-content-center" *ngIf="spinning==0" style="height: 550px;">
+        
+      
+  <div class="spinner-border text-danger" role="status" >
+      
+    <span class="visually-hidden">Loading...</span>
+   
+  </div>
+  <div><h2>  Loading.... please wait</h2></div>
+</div>
+<div *ngIf="userid==null || products.length<=0">
+  <div clas="container">
+    <h3 class=" text-info ml-5 text-left mt-3 p-3">My Cart ( {{username}} )</h3>
+
+          <div class="row">
+              <div class="col-sm-3 m-3">
+                  <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-heart text-danger" aria-hidden="true"></i> User wishList</h1>
+              </div>
+          
+          </div>
+          <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-4 m-3">
+                  <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"  width="100%" height="100%">
+              </div>
+                <div class="col-sm-4"></div>
+          </div>
+          <h6 class="display-6 text-center" >Missing Wish Cart Items?</h6>
+      <p class="text-center">Add Atleast one product to see the items you add here</p>
+      <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;">Add WishProducts</button>
+  
+      <hr>
+      
+  
+  </div>
+  </div>
+<div class="container mt-3" *ngIf="spinning==1 && products.length>0">
     <div class="row "  >
         <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products, let i=index "   style="width: 17rem; height: 100%;"    > 
 

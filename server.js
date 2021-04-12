@@ -19,7 +19,6 @@ app.use("/user",userApiObj)
 app.use("/admin",adminApiObj)
 
 //dburl
-//const dburl="mongodb+srv://CDB37:CDB37@express-mongo.mrv93.mongodb.net/ProjectDatabase?retryWrites=true&w=majority";
 const dburl=process.env.dburl;
 //db connectivity
 mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})

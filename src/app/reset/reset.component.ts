@@ -37,7 +37,6 @@ export class ResetComponent implements OnInit {
   {
     let obj=formRef.value;
     if(obj.password1==obj.password2){
-      console.log("password same")
            this.us.changePassword(obj).subscribe(
              res=>{
                if(res["message"]=="nouser"){

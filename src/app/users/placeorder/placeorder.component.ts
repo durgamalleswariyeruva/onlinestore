@@ -32,7 +32,6 @@ export class PlaceorderComponent implements OnInit {
         if(res["message"]=="success")
         {
         this.order=res["productList"]
-        console.log("placeorder data is",this.order)
         }
         else{
           this.ts.warning(res["message"])
@@ -46,6 +45,9 @@ export class PlaceorderComponent implements OnInit {
         console.log(err)
       }
     )
+  }
+  goTo(){
+    this.router.navigateByUrl("/users/usercart")
   }
 
 

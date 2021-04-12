@@ -14,15 +14,12 @@ const jwt=require("jsonwebtoken")
 
 //post req handler for user register
 userApiObj.post("/registration", asyncHandler(async(req,res,next)=>{
-    //console.log("the user is ",req.body)
     //get user collection object
     let userCollectionObj = req.app.get("userCollectionObj");
     
     
-    //let userObj =  JSON.parse(req.body.userObj)
     let userObj = req.body;
     console.log("user object is",userObj);
-    //console.log("user object is",userObj.username);
 
     //check for user in db
     let user = await userCollectionObj.findOne({userid:userObj.userid});
@@ -32,7 +29,6 @@ userApiObj.post("/registration", asyncHandler(async(req,res,next)=>{
         res.send({message:"user existed"});
     }
     else{
-        //console.log("user not there")
         //hash the password
         let hashedpwd = await bcryptjs.hash(userObj.password,6);
 
@@ -57,7 +53,6 @@ userApiObj.get("/userscount",asyncHandler(async(req,res,next)=>{
     
     let user=await userCollectionObj.find().toArray();
     let userlength=user.length;
-    console.log("length is",userlength)
     res.send({message:userlength})
 
 
@@ -71,7 +66,6 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     let userCredObj = req.body;
     //verify  username
     let user = await userCollectionObj.findOne({userid:userCredObj.userid})
-    console.log(user)
     if(user == null){
         res.send({message:"Invalid username"})
     }
@@ -81,7 +75,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({userid:user.userid},process.env.secretKey,{expiresIn:1800000});
+            let token = await jwt.sign({userid:user.userid},process.env.secretKey,{expiresIn:3000});
 
             //send token
             res.send({message:"admin login",signedToken:token,userid:user.userid,username:user.username});
@@ -96,7 +90,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({userid:user.userid},"abcd",{expiresIn:1800000});
+            let token = await jwt.sign({userid:user.userid},"abcd",{expiresIn:3000});
 
             //send token
             res.send({message:"success",signedToken:token,userid:user.userid,username:user.username});
@@ -110,13 +104,10 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
 
 userApiObj.post("/addtocart",asyncHandler(async(req,res,next)=>{
 
-    //console.log("the cart obj is ",req.body)
     let cardCollectionObj= req.app.get("cardCollectionObj");
 
     let cartObj=req.body;
-    console.log("name",cartObj)
     let cart = await cardCollectionObj.findOne({userid:cartObj.userid,productname:cartObj.productname})
-    console.log("the cart is ",cart)
     if(cart!==null){
         res.send({message:"product exist"})
     }
@@ -136,13 +127,10 @@ userApiObj.post("/addtocart",asyncHandler(async(req,res,next)=>{
 
 userApiObj.post("/wishlist",asyncHandler(async(req,res,next)=>{
 
-    //console.log("the cart obj is ",req.body)
     let wishlistCollectionObj= req.app.get("wishlistCollectionObj");
 
     let wishObj=req.body;
-   // console.log("name",wishObj.pname)
     let wishcart = await wishlistCollectionObj.findOne({userid:wishObj.userid,productname:wishObj.productname})
-     //console.log("the cart is ",wishcart)
     if(wishcart!==null){
         res.send({message:"product exist"})
     }
@@ -160,9 +148,7 @@ userApiObj.get("/getWishlist/:userid",verifyToken,asyncHandler(async(req,res,nex
 
     let wishlistCollectionObj = req.app.get("wishlistCollectionObj");
     let wishObj=req.body;
-   // console.log("name",wishObj)
     let products = await wishlistCollectionObj.find({userid:req.params.userid}).toArray();
-    //console.log("wishlist products:",products)
 
     res.send({message:"success",productList:products})
 }))
@@ -175,7 +161,6 @@ userApiObj.post("/deletewishproduct",asyncHandler(async(req,res,next)=>{
     let wishlistCollectionObj = req.app.get("wishlistCollectionObj");
     let wishObj =  req.body;
     
-    //console.log("user object is",cartObj);
     //check for user in db
     let product = await wishlistCollectionObj.findOne({productname:wishObj.productname});
 
@@ -196,16 +181,8 @@ userApiObj.get("/getcartitems/:userid",verifyToken,asyncHandler(async(req,res,ne
 
     let products = await cardCollectionObj.find({userid:req.params.userid}).toArray();
     res.send({message:"success" ,product:products, product1:product})
-    console.log(products)
 }))
-/*userApiObj.get("/getsize/:username", asyncHandler(async (req, res, next) => {
-    let cardCollectionObj = req.app.get("cardCollectionObj");
 
-    let userCart = await cardCollectionObj.find({ username: req.params.username }).toArray();
-    let userCartSize = userCart.length;
-    res.send({ cartsize: userCartSize, userCart: userCart })
-
-}))*/
 userApiObj.get("/getsize/:userid",verifyToken,asyncHandler(async(req,res,next)=>{
     let cardCollectionObj = req.app.get("cardCollectionObj");
     
@@ -221,8 +198,7 @@ userApiObj.post("/resetpassword",asyncHandler(async(req,res,next)=>
 {
     let userCollectionObj=req.app.get("userCollectionObj")
     let obj=req.body;
-    console.log("reset obj is",obj);
-    console.log("password obj is",obj);
+    
     let user=await userCollectionObj.findOne({userid:obj.userid})
     if(user!=null){
     let hash=await bcryptjs.hash(obj.password1,6)
@@ -243,25 +219,15 @@ else{
 ))
 
 
-//get all products
-/*userApiObj.get("/getcartitems/:username",asyncHandler(async(req,res,next)=>{
 
-    let cardCollectionObj = req.app.get("cardCollectionObj");
-    
-    let products = await cardCollectionObj.find({username:req.params.username}).toArray();
-    res.send({message:products})
-    console.log(products)
-}))*/
 
 userApiObj.post("/deleteproduct",asyncHandler(async(req,res,next)=>{
     
     let cardCollectionObj = req.app.get("cardCollectionObj");
     let cartObj =  req.body;
     
-    console.log("user object is",cartObj);
     //check for user in db
     let product = await cardCollectionObj.findOne({productname:cartObj.productname});
-     console.log("product removed in usercart is",product)
     //product is there
     if(product!==null){
         let remove=await cardCollectionObj.deleteOne({productname:cartObj.productname});
@@ -277,12 +243,9 @@ userApiObj.post("/deleteOrder1",asyncHandler(async(req,res,next)=>{
     let cardCollectionObj = req.app.get("cardCollectionObj");
     let cartObj =  req.body;
     
-    console.log("user object is",cartObj);
-
     //check for user in db
     let product = await cardCollectionObj.findOne({productname:cartObj.productname});
 
-    console.log("product delete in add to cart ",product)
     //product is there
     if(product!==null){
         let remove=await cardCollectionObj.deleteOne({productname:cartObj.productname});
@@ -319,7 +282,6 @@ userApiObj.get("/getOrderitem/:userid",verifyToken,asyncHandler(async(req,res,ne
     
     let products = await orderCollectionObj.find({userid:req.params.userid}).toArray();
     res.send({message:"success",productList:products})
-    console.log(products)
 }))
 
 
@@ -328,11 +290,8 @@ userApiObj.post("/deleteOrder",asyncHandler(async(req,res,next)=>{
     let orderCollectionObj = req.app.get("orderCollectionObj");
     let orderObj =  req.body;
     
-    console.log("order object is",orderObj);
     //check for user in db
     let product = await orderCollectionObj.findOne({productname:orderObj.productname});
-
-    console.log("product in placeorder delete is",product);
 
     //product is there
     if(product!==null){

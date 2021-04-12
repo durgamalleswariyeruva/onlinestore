@@ -23,7 +23,6 @@ export class CategoryComponent implements OnInit {
     this.username=localStorage.getItem("username")
     this.userid=localStorage.getItem("userid")
     this.pCategory=localStorage.getItem("pCategory")
-    console.log("PRODUCT NAME IS ",this.pCategory)
     this.getProduct();
     this.cartStatus();
   }
@@ -36,23 +35,21 @@ export class CategoryComponent implements OnInit {
         this.product=res["message"]
         this.status=true;
         this.ctg=this.product.pCategory
-        console.log(this.ctg)
-        console.log("cat:",this.product)
+        
 
       },
       err=>{
         this.ts.warning("Something went wrong in getting all products")
         console.log(err)
+
       }
     )
   }
   viewitem(i:any){
     let viewObj=this.product[i];
-    console.log(viewObj);
     this.us.viewItem(viewObj).subscribe(
       res=>{
         if(res["message"]){
-         // localStorage.setItem("token",res["signedToken"])
           localStorage.setItem("pname",viewObj.pname)
           this.rt.navigateByUrl("/viewcart");
         }
@@ -68,7 +65,6 @@ export class CategoryComponent implements OnInit {
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
-        console.log(this.userCartSize)
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
@@ -93,7 +89,6 @@ export class CategoryComponent implements OnInit {
       productImgLink:this.product[n].ImgLink
       }
       
-      console.log("this new obj is ",obj)
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){

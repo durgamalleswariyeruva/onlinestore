@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     if(this.registerForm.valid)
     {
       this.userCredObj=this.registerForm.value
-      console.log("name is:",this.userCredObj)
       
       this.us.loginUser(this.userCredObj).subscribe(
         res=>{
@@ -63,7 +62,6 @@ export class LoginComponent implements OnInit {
             .then(() => {
               window.location.reload();
             });
-            //window.location.reload ();
 
 
           }
@@ -74,16 +72,13 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("userid",res["userid"])
 
             localStorage.setItem("username",res["username"])
-           // this.rt.navigateByUrl("/admindashboard")
            this.ts.success('Admin Login Successfful')
 
             this.rt.navigateByUrl("/admindashboard")
             .then(() => {
               window.location.reload();
             });
-            //navigate to user component
-           // window.location.reload()
-
+            
 
           }
           else{

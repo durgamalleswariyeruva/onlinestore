@@ -15,12 +15,15 @@ export class WishlistComponent implements OnInit {
   username:any;
   products:any=[];
   userCartSize:any;
+  spinning:any=0
   ngOnInit(): void {
-  //  this.username=localStorage.getItem("username")
     this.userid=localStorage.getItem("userid")
 
   this.getwishlist();
     this.cartStatus();
+  }
+  goTo(){
+    this.router.navigateByUrl("/home")
   }
   getwishlist(){
     this.us.getwishlist(this.userid).subscribe(
@@ -28,7 +31,7 @@ export class WishlistComponent implements OnInit {
 
         if(res["message"]=="success")
         {
-
+             this.spinning=1
         this.products=res["productList"]
         }
 
@@ -44,13 +47,12 @@ export class WishlistComponent implements OnInit {
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
-        console.log(this.userCartSize)
+
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-       // localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
-
-       // window.location.reload()
+      
+        
       },
       err=>{
         this.ts.warning("Something went wrong in getting all products")
@@ -64,8 +66,8 @@ export class WishlistComponent implements OnInit {
   }
   deleteList(n:any){
     let obj=this.products[n];
-    console.log("the deleted obj is ",obj)
 
+    
     this.us.deleteWishProduct(obj).subscribe(
       res=>{
         if(res["message"]){
@@ -76,7 +78,6 @@ export class WishlistComponent implements OnInit {
       }
   
   additems(n:number){
-    console.log("hello",this.products[n])
     if(this.userid!==null){
       let obj={
       userid:this.userid,
@@ -89,7 +90,6 @@ export class WishlistComponent implements OnInit {
       productImgLink:this.products[n].productImgLink
       }
       
-      console.log("this new wish obj is ",obj)
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){

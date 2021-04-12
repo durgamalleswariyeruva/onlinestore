@@ -36,7 +36,6 @@ constructor(private rt:Router, private us:UserService,private ts:ToastrService) 
     this.us.userscount().subscribe(
       res=>{
         this.length=res.message
-        console.log("length",this.length)
       }
       ,
       err=>{
@@ -57,7 +56,6 @@ onSubmit(){
   if(this.registerForm.valid)
   {
     this.userObj=this.registerForm.value
-    console.log(this.registerForm.value);
 
     this.us.createUser(this.userObj).subscribe(
       res=>{

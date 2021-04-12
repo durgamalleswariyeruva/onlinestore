@@ -11,15 +11,16 @@ import { AdminserviceService } from 'src/app/adminservice.service';
 export class ViewadminproductsComponent implements OnInit {
   lengthofarray : any;
   listObj:any;
+  spinning:any=0
   constructor( private as:AdminserviceService,private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.listObj=this.as.getlist().subscribe(
       res=>{ 
-        if(res["message"]=="success"){
-          this.listObj=res.list;
-          console.log(this.listObj);
+        if(res.message){
+          this.listObj=res.message;
           this.lengthofarray=this.listObj.length;
+          this.spinning=1;
           }
         else{
           this.ts.warning(res["message"])
@@ -28,13 +29,11 @@ export class ViewadminproductsComponent implements OnInit {
       }, 
       err=>{ 
         this.ts.warning("Something went wrong") 
-        console.log(err)
        }
   ) 
   }
   delete(ing:number){
     let obj=this.listObj[ing];
-    console.log("the deleted obj is ",obj)
 
     this.as.deleteProduct(obj).subscribe(
       res=>{
@@ -46,7 +45,6 @@ export class ViewadminproductsComponent implements OnInit {
       },
       err=>{
         this.ts.warning("Something went wrong in user creation");
-        console.log(err);
       }
     )
 
@@ -55,7 +53,6 @@ export class ViewadminproductsComponent implements OnInit {
     this.router.navigateByUrl("/admindashboard")
   }
   edit(one:any){
-    console.log(one);
     localStorage.setItem("pname",one["pname"]);
     this.router.navigateByUrl("/admindashboard/updatedetails");
     

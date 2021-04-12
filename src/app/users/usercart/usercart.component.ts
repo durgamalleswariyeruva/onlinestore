@@ -20,17 +20,15 @@ export class UsercartComponent implements OnInit {
   amount:any;
   carts:any=[]
   productname: any=[];
-  costs:any
+  costs:any;
+  spinning:any=0
   constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.userid=localStorage.getItem("userid")
     this.username=localStorage.getItem("username")
 
-   // this.productname=JSON.parse(localStorage.getItem("productname") || '{}')
-   // console.log("product list",this.productname)
-
-
+   
    this.getCart();
         this.totalamount();
   }
@@ -44,10 +42,12 @@ export class UsercartComponent implements OnInit {
     this.us.getCartItems(this.userid).subscribe(
       res=>{
       if(res["message"]=="success")
-      {
+      { 
+        this.spinning=1
 
         this.cart=res["product"]
         this.productname=res["product1"]
+
         for( let i in this.cart){
           for( let j in this.productname)
           {
@@ -57,35 +57,16 @@ export class UsercartComponent implements OnInit {
             }
           }
         }
-        console.log("available products",this.check)
        
         this.unavail=this.cart.filter((item: any) => this.check.indexOf(item) < 0)
-        console.log("unavailable products",this.unavail)
 
-        //inorder to do entire price of product to 0
-       /* for(let i in this.unavail){
-
-          console.log("unavail",this.unavail[i])
-
-        this.us.unavial(this.unavail[i]).subscribe(
-          res=>{
-            this.carts=res["message"]
-            console.log("updated",this.carts)
-            //this.getCart()
-        },
-        err=>{
-          this.toastr.warning('Something went wrong in adding Products');
-          console.log(err)
-        }
-          )
-      }*/
-
+        
         this.totalamount()
     }
         else{
           this.toastr.warning(res["message"])
 
-          this.router.navigateByUrl("/usercart")
+          this.router.navigateByUrl("/login")
 
         }
       },
@@ -96,22 +77,7 @@ export class UsercartComponent implements OnInit {
     )
   }
 
-  /*getproducts(){
-    this.us.getProducts().subscribe(
-      res=>{
-        this.products=res["message"]
-        //console.log("product list",this.products)
-        localStorage.setItem("productname",JSON.stringify(this.products))
-
-
-      },
-      err=>{
-        this.toastr.warning("Something went wrong in getting all products")
-        console.log(err)
-      }
-    )
-
-  }*/
+  
   delete(n:number){
     let obj4=this.check[n];
     this.us.deleteCartProduct(obj4).subscribe(
@@ -131,7 +97,7 @@ export class UsercartComponent implements OnInit {
   }
 
   goTo(){
-    this.router.navigateByUrl("/login")
+    this.router.navigateByUrl("/home")
   }
 
   additem(n:number){

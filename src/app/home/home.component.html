@@ -39,27 +39,14 @@
           </ul>
         </div>
       </div>
-     <!-- <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for products,brands and more" aria-describedby="basic-addon2">
-        <span class="input-group-addon fa fa-search" id="basic-addon2"></span>
-      </div>-->
+     
       
      <div class="form-group col-sm-6 d-block mx-auto mt-3 search-icon " >
         <input type="search" style="border:1px solid gainsboro;border-right: 0px;" class=" pt-2 pb-2 pr-5 pl-5 ml-5 shadow" placeholder=" Search for products,brands and more"  [(ngModel)]="searchTerm">
          <button type="button" style="position: absolute;border-radius: 1%;border: 1px solid gainsboro;border-left: 0px;" class="form-group bg-white pt-2 pb-1 pr-3 pl-3 shadow">  <i class="fa fa-search  text-primary  "  ></i> </button>
     
       </div>
-      <!--<div class="club">
-        <input type="text" placeholder="Search.." name="search2">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </div>-->
-   
-    <!--<div class="form-group col-sm-5 nav-item search-icon ml-3 mr-5 d-block mx-auto mt-3" >
-      <input type="search"  placeholder=" Search for products,brands and more"  [(ngModel)]="searchTerm">
-      <label class="icon"><a routerLink="home" class="search-btn "  >
-        <i class="fa fa-search   " aria-hidden="true"></i> </a></label>
-  
-    </div>-->
+     
     <div class="col-sm-1"></div>
     </div>
   </nav>
@@ -92,11 +79,24 @@
         </a>
       </div>
      
-      <!--category wise products-->
-      <div style="background-image: linear-gradient(lightblue,#a2d1a2); ">
+
+      <div class="border d-flex align-items-center justify-content-center" *ngIf="spinning==0" style="height: 550px;">
+        
+      
+        <div class="spinner-border text-danger" role="status" >
+            
+          <span class="visually-hidden">Loading...</span>
+         
+        </div>
+        <div><h2>  Loading.... please wait</h2></div>
+      </div>
+
+
+      <!-- Cards -->
+
+ <div style="background-image: linear-gradient(lightblue,#a2d1a2); " *ngIf="spinning==1">
      
-<!-- Cards -->
-<div class="container mt-3">
+  <div class="container mt-3">
     <div class="row "  >
         <div class="card col-sm-2 mx-2 mb-4 pb-3 mr-2 ml-2 pr-3 mt-2  d-block mx-auto shadow " *ngFor="let p of products | search:searchTerm , let i=index "   style="width: 17rem; height: 90%;"    > 
 
@@ -114,11 +114,7 @@
             <h5 class="card-title d-block mx-auto mt-2 pt-2 text-center"><strong><ngb-rating [max]=5 style="color: rgb(51, 80, 22);"[(rate)]=p.prating [readonly]="true" ></ngb-rating>  </strong> </h5> 
 
           </div>
-         <!---<div class="card-footer bg-white mb-2 pb-2" style="border: 0px; height: 60px;">  
-            <button id="b1" class="btn btn-success p-2  shadow float-start" data-bs-target="#md1"  (click)="additems(i)"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-           
-            <button id="b2" class="btn btn-primary p-2 shadow pull-right" (click)="viewitem(i)"><i class="fas fa-eye"></i> View</button> 
-          </div> -->
+         
       </div>
     </div>
 
