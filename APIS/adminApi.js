@@ -47,10 +47,10 @@ adminApiObj.post("/viewitem",errorHandler(async(req,res,next)=>{
     let viewItem=await adminProductCollectionObj.findOne({pname:Obj.pname});
     if(viewItem!==null){
         //create a token
-        let token = await jwt.sign({pname:viewItem.pname},"abcd",{expiresIn:10});
+        //let token = await jwt.sign({pname:viewItem.pname},"abcd",{expiresIn:300000});
 
         //send token
-        res.send({message:true,signedToken:token,pname:viewItem.pname});
+        res.send({message:true,pname:viewItem.pname});
     }
     
 }))

@@ -14,10 +14,14 @@ export class AppComponent implements OnInit {
   products:any=[];
   searchTerm:any;
   userCartSize:number=0;
+  token:any;
+  userid:any
   constructor(private rt:Router, private us:UserService){}
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
-    
+    this.userid=localStorage.getItem("userid")
+
+    this.token=localStorage.getItem("token")
     console.log("username is", this.username)
     this.cartStatus();
 
@@ -54,17 +58,33 @@ additem(i:any){
    
 
  }
+ placeorder(){
+  this.rt.navigateByUrl("/placeorder")
+  .then(() => {
+    window.location.reload();
+  });
+
+
+ }
  usercart(){
-   this.rt.navigateByUrl("users/usercart")
+   this.rt.navigateByUrl("/usercart")
+   .then(() => {
+    window.location.reload();
+  });
+
  }
  wishlist(){
    this.rt.navigateByUrl("users/wishlist")
+   .then(() => {
+    window.location.reload();
+  });
+
  }
  cart(){
    this.rt.navigateByUrl("users/usercart")
  }
  cartStatus(){
-  this.us.getCartSize(this.username).subscribe(
+  this.us.getCartSize(this.userid).subscribe(
     res=>{
       this.us.setCartSubjectSize(res["cartsize"])
       this.userCartSize=res["cartsize"];
@@ -72,7 +92,7 @@ additem(i:any){
       this.us.getCartSubjectSize().subscribe(c=>{
         this.userCartSize=c;
       })
-      localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
+      //localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
 
      // window.location.reload()
     },

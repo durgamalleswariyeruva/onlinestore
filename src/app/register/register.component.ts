@@ -14,11 +14,15 @@ data:any;
 userObj:any;
 registerForm: FormGroup=new FormGroup({});
   submitted: boolean=false;
+  length:any;
+  userid:any;
+  status:boolean=false;
 constructor(private rt:Router, private us:UserService,private ts:ToastrService) { }
 
   ngOnInit(): void {
+   
     this.registerForm=new FormGroup({
-    
+      userid:new FormControl("OSIN2021"+(Math.floor(Math.random() * 501)),Validators.required),
       username:new FormControl(null,Validators.required),
       fname:new FormControl(null,Validators.required),
       lname:new FormControl(null,Validators.required),
@@ -26,6 +30,21 @@ constructor(private rt:Router, private us:UserService,private ts:ToastrService) 
       password:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
   
     })
+  }
+  
+  users(){
+    this.us.userscount().subscribe(
+      res=>{
+        this.length=res.message
+        console.log("length",this.length)
+      }
+      ,
+      err=>{
+        this.ts.warning("Something went wrong in user length");
+        console.log(err);
+      }  
+    
+    )
   }
 onLogin(){
 this.rt.navigateByUrl("/login")
@@ -46,8 +65,10 @@ onSubmit(){
           this.ts.warning("Username is already existed..choose another");
         }
         else{
-          this.ts.success("Registration succesfull");
-
+          this.userid=res["userId"]
+          this.status=true;
+          this.ts.success(this.userid,"Registration succesfull!....Your userId for login into portal is :") 
+           
           //navigate to login component
           this.rt.navigateByUrl("/login");
         }

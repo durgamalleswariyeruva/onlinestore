@@ -16,11 +16,12 @@ export class CategoryComponent implements OnInit {
   status:boolean=false
   ctg:any
   userCartSize:any;
-
+  userid:any;
   constructor( private us:UserService,private rt:Router ,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
+    this.userid=localStorage.getItem("userid")
     this.pCategory=localStorage.getItem("pCategory")
     console.log("PRODUCT NAME IS ",this.pCategory)
     this.getProduct();
@@ -51,7 +52,7 @@ export class CategoryComponent implements OnInit {
     this.us.viewItem(viewObj).subscribe(
       res=>{
         if(res["message"]){
-          localStorage.setItem("token",res["signedToken"])
+         // localStorage.setItem("token",res["signedToken"])
           localStorage.setItem("pname",viewObj.pname)
           this.rt.navigateByUrl("/viewcart");
         }
@@ -63,7 +64,7 @@ export class CategoryComponent implements OnInit {
     )
   }
   cartStatus(){
-    this.us.getCartSize(this.username).subscribe(
+    this.us.getCartSize(this.userid).subscribe(
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
@@ -71,7 +72,6 @@ export class CategoryComponent implements OnInit {
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-        localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
 
        // window.location.reload()
       },
@@ -83,9 +83,9 @@ export class CategoryComponent implements OnInit {
 
   }
   additem(n:number){
-    if(this.username!==null){
+    if(this.userid!==null){
       let obj={
-      username:this.username,
+      userid:this.userid,
       productname:this.product[n].pname,
       colour:this.product[n].pcol,
       cost:this.product[n].pprice,

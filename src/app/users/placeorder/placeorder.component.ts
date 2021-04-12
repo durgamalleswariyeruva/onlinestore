@@ -12,27 +12,36 @@ export class PlaceorderComponent implements OnInit {
 
   username:any;
   order:any;
-  constructor(private us:UserService,private router:Router,private toastr:ToastrService) { }
+  userid:any;
+  constructor(private us:UserService,private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
+    this.userid=localStorage.getItem("userid")
+
     this.getCart();
   }
 
   logout(){
-    localStorage.clear();
     this.router.navigateByUrl("/home");
   }
   
   getCart(){
-    this.us.getOrderItems(this.username).subscribe(
+    this.us.getOrderItems(this.userid).subscribe(
       res=>{
-        this.order=res["message"]
+        if(res["message"]=="success")
+        {
+        this.order=res["productList"]
         console.log("placeorder data is",this.order)
+        }
+        else{
+          this.ts.warning(res["message"])
+          this.router.navigateByUrl("/login")
+        }
       },
       err=>{
 
-        this.toastr.warning('Something went wrong in adding to myorders');
+        this.ts.warning('Something went wrong in adding to myorders');
         
         console.log(err)
       }
@@ -46,17 +55,19 @@ export class PlaceorderComponent implements OnInit {
       res=>{
         if(res["message"]){
 
-          this.toastr.success('Product removed from myorders');
-
-          console.log("deleted successfully")
-
-          this.router.navigateByUrl("/placeorder").then(() => {​​​​​
+          this.ts.success('Product removed from myorders') 
+          setTimeout(function(){
             window.location.reload();
-          }​​​​​);
+         }, 1000);
+
+         // console.log("deleted successfully")
+
+         //window.location.reload()
+
         }
       },
       err=>{
-        this.toastr.warning('Something went wrong in product deletion');
+        this.ts.warning('Something went wrong in product deletion');
         console.log(err);
       }
     )

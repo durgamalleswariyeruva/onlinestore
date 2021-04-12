@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm=new FormGroup({
     
-      username:new FormControl(null,Validators.required),
+      userid:new FormControl(null,Validators.required),
 
       password:new FormControl(null,Validators.required),
   
@@ -51,7 +51,10 @@ export class LoginComponent implements OnInit {
           if(res["message"]=="success"){
             //store token and username in local storage
             localStorage.setItem("token",res["signedToken"])
+            localStorage.setItem("userid",res["userid"])
+
             localStorage.setItem("username",res["username"])
+
             //navigate to user component
             this.ts.success("Login Successfful")
 
@@ -68,6 +71,8 @@ export class LoginComponent implements OnInit {
             
             //store token and username in local storage
             localStorage.setItem("token",res["signedToken"])
+            localStorage.setItem("userid",res["userid"])
+
             localStorage.setItem("username",res["username"])
            // this.rt.navigateByUrl("/admindashboard")
            this.ts.success('Admin Login Successfful')

@@ -1,118 +1,204 @@
-<div *ngIf="username==null">
-    <div clas="container">
-    
-            <div class="row">
-                <div class="col-sm-3 m-3">
-                    <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-shopping-cart" aria-hidden="true"></i>User cart</h1>
-                </div>
-            
-            </div>
-            <div class="row">
+<div *ngIf="userid==null">
+  <div clas="container">
+  
+          <div class="row">
+              <div class="col-sm-3 m-3">
+                  <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-shopping-cart" aria-hidden="true"></i>User cart</h1>
+              </div>
+          
+          </div>
+          <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-4 m-3">
+                  <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"  width="100%" height="100%">
+              </div>
                 <div class="col-sm-4"></div>
-                <div class="col-sm-4 m-3">
-                    <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"  width="100%" height="100%">
-            </div>
-            <div class="col-sm-4"></div>
-                </div>
-            <h6 class="display-6 text-center" >Missing Cart Items?</h6>
-        <p class="text-center">Login to see the items you add previously here</p>
-        <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;">Login</button>
-    
-        <hr>
-        
-    
-    </div>
-    </div>
-    
-   
+          </div>
+          <h6 class="display-6 text-center" >Missing Cart Items?</h6>
+      <p class="text-center">Login to see the items you add previously here</p>
+      <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;">Login</button>
+  
+      <hr>
+      
+  
+  </div>
+  </div>
+  
+ 
 <!--If user exists-->
 <body style="background-image: linear-gradient(lightblue,lightgreen);">
-  
 
-  <div *ngIf="username!=null">
-  <div class="bg-light px-5 text-right">
-      <button class="btn btn-primary float-end px-2 my-2" (click)="logout()">BackToHome<i class="fa fa-home pl-1" aria-hidden="true"></i> </button>
-  </div>
-  
-  
-  <div class="container-fluid">
-      <h3 class=" text-dark text-left mt-3 p-3">My Cart({{username}})</h3>
-      <div class="row mt-5 gx-3 d-block mx-auto">
-        <div class="col-md-9 col-lg-9 col-9 mx-auto mb-lg-0 mb-5">
-      <div class="card p-4 d-block mx-auto m-3" *ngFor="let p of cart, let i=index" style="max-width: 700px;max-height: 100%;">
-          <div class="row">
-            <div class="col-md-4 col-11 mx-auto bg-light d-flex justify-content-center align-items-center shadow "  >
-              <img [src]=p.productImgLink class="img-fluid" style="width: 200px; height: 200px;" alt="..."> 
-            </div>
-            <div class="col-md-7 col-11 mx-auto px-4 mt-2">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-7">
-                <h6 class="card-title mt-3">{{p.productname}}</h6> 
-              </div>
+
+<div *ngIf="userid!=null">
+<div class="bg-light px-5 text-right">
+    <button class="btn btn-primary float-end px-2 my-2" (click)="logout()">BackToHome<i class="fa fa-home pl-1" aria-hidden="true"></i> </button>
+</div>
+
+
+<div class="container-fluid">
+    <h3 class=" text-dark text-left mt-3 p-3">My Cart({{username}})</h3>
+    <div class="row mt-5 gx-3 d-block mx-auto">
+    <div class="card p-4 d-block mx-auto m-3" *ngFor="let p of check, let i=index" style="max-width: 700px;max-height: 100%;">
+       
       
-                  <!--increment decrement-->
-                <div class="col-5">
-                     
-                  <ul class="pagination justify-content-end set_quantity ">
-                    <li class="page-item">
-                      <button class="page-link" href="#" (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
-                    </li>  
-                <!--<li class="page-item"><input type="text" name=""  class="page-link" [value]=p.quantity id="textbox"></li>-->
-               
-               <span class="text-center p-1" >{{p.quantity}}</span>
+      <div class="row" >
+        <div class="col-md-4 col-11 mx-auto bg-light d-flex justify-content-center align-items-center shadow "  >
+          <img [src]=p.productImgLink class="img-fluid" style="width: 200px; height: 200px;" alt="..."> 
+        </div>
+        <div class="col-md-7 col-11 mx-auto px-4 mt-2">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-7">
+            <h6 class="card-title mt-3">{{p.productname}}</h6> 
+          </div>
   
-                     
-                       
-                     
-                    <li class="page-item">
-                      <button class="page-link" href="#" (click)="decr(p)"><i class="fa fa-minus" aria-hidden="true"></i>
-                      </button>
-                    </li>            
-                  </ul>
-                  
-               
-              </div>
-  
-                <p class="card-title p-2 ">Colour : <strong>{{p.colour}}</strong></p> 
-  
-                <p class="card-title p-2" >Cost : <strong>{{(p.cost)| currency:"INR"}}</strong></p> 
-        
-  
-                <p class="card-title p-2" *ngIf="p.rate<4">Rating: <span class="bg-warning text-light px-1 rounded-pill ">{{p.rate}}<i class="fas fa-star fa-xs"></i></span></p>
-                <p class="card-title p-2" *ngIf="p.rate>=4">Rating: <span class="bg-success text-light px-1 rounded-pill ">{{p.rate}}<i class="fas fa-star fa-xs"></i></span></p>
-      
-               
-              
-               
-                </div>
-  
-                <hr>
-              
-                <div class="row mt-3">
-                  <div class="col-sm-6 col-md-6">
-                    <td class="text-center"><button class="btn btn-success p-2 mt-1" style="display: block; width: 100%;" (click)="additem(i)">PlaceOrder</button></td>
-                </div>
-                  <div class="col-sm-6 col-md-6">
-                    <td class="text-center"><button class="btn btn-danger p-2 mt-1" style="display: block; width: 100%;" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"></i> Remove</button></td>
-  
-                  </div>
-                
-               </div>
-               </div>
-  
+              <!--increment decrement-->
+            <div class="col-5">
+                 
+              <ul class="pagination justify-content-end set_quantity ">
+                <li class="page-item">
+                  <button class="page-link mt-4" href="#" (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
+                </li>  
+            <!--<li class="page-item"><input type="text" name=""  class="page-link" [value]=p.quantity id="textbox"></li>-->
+           
+           <span class="text-center p-1 mt-4" >{{p.quantity}} </span>
+
+                 
+                   
+                 
+                <li class="page-item">
+                  <button class="page-link mt-4" href="#" (click)="decr(p)"><i class="fa fa-minus" aria-hidden="true"></i>
+                  </button>
+                </li>            
+              </ul>
               
            
+          </div>
+
+            <p class="card-title p-2 ">Colour : <strong>{{p.colour}}</strong></p> 
+
+            <p class="card-title p-2" >Cost : <strong>{{(p.cost)| currency:"INR"}}</strong></p> 
+    
+
+            <p class="card-title p-2" *ngIf="p.rate<4">Rating: <span class="bg-warning text-light px-1 rounded-pill ">{{p.rate}}<i class="fas fa-star fa-xs"></i></span></p>
+            <p class="card-title p-2" *ngIf="p.rate>=4">Rating: <span class="bg-success text-light px-1 rounded-pill ">{{p.rate}}<i class="fas fa-star fa-xs"></i></span></p>
+  
+           
+          
+           
             </div>
+
+            <hr>
+          
+            <div class="row mt-3">
+              <div class="col-sm-6 col-md-6">
+                <td class="text-center"><button class="btn btn-success p-2 mt-1" style="display: block; width: 100%;" (click)="additem(i)">PlaceOrder</button></td>
+            </div>
+              <div class="col-sm-6 col-md-6">
+                <td class="text-center"><button class="btn btn-danger p-2 mt-1" style="display: block; width: 100%;" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"></i> Remove</button></td>
+
+              </div>
+          
+           </div>
+           </div>
+
+          
+       
+        </div>
+      </div>
+</div>
+      
+      
+<div class="card p-4 d-block mx-auto m-3" *ngFor="let p of unavail, let i=index" style="max-width: 700px;max-height: 100%;">
+
+      
+      
+      <div class="row" >
+          <div class="col-md-4 col-11 mx-auto bg-light d-flex justify-content-center align-items-center shadow "  >
+            <img [src]=p.productImgLink class="img-fluid" style="width: 200px; height: 200px; filter: brightness(45%);" alt="..."> 
+            <div style="position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); color: lightyellow;"><h2> Product Unavailable </h2></div>
+          </div>
+          <div  class="col-md-7 col-11 mx-auto px-4 mt-2 disabled">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-7">
+              <h6 class="card-title mt-3 disabled " style="filter: brightness(10%);">{{p.productname}}</h6> 
+            </div>
+    
+                <!--increment decrement-->
+              <div class="col-5">
+                   
+                <ul class="pagination justify-content-end set_quantity ">
+                  <li class="page-item disabled">
+                    <button class="page-link mt-4" href="#"  (click)="incr(p)"><i class="fa fa-plus" aria-hidden="true"></i>  </button>
+                  </li>  
+              <!--<li class="page-item"><input type="text" name=""  class="page-link" [value]=p.quantity id="textbox"></li>-->
+             
+             <span class="text-center p-1 mt-4" >{{p.quantity}}</span>
+
+                   
+                     
+                   
+                  <li class="page-item disabled">
+                    <button class="page-link mt-4" href="#" (click)="decr(p)"><i class="fa fa-minus" aria-hidden="true"></i>
+                    </button>
+                  </li>            
+                </ul>
+                
+             
+            </div>
+
+              <p class="card-title p-2  ">Colour : <strong>{{p.colour}}</strong></p> 
+
+             <p class="card-title p-2 " >Cost : <del>{{(p.cost)| currency:"INR"}}</del> <b class="ml-2"> {{0 | currency:"INR"}} </b></p> 
+      
+
+              <p class="card-title p-2 " *ngIf="p.rate<4">Rating: <span class="bg-warning text-light px-1 rounded-pill ">{{p.rate}}<i class="fas fa-star fa-xs"></i></span></p>
+              <p class="card-title p-2 " *ngIf="p.rate>=4">Rating: <span class="bg-success text-light px-1 rounded-pill ">{{p.rate}}<i class="fas fa-star fa-xs"></i></span></p>
+    
+             
+            
+             
+              </div>
+
+              <hr>
+            
+              <div class="row mt-3">
+                <div class="col-sm-6 col-md-6">
+                  <td class="text-center"><button class="btn btn-success p-2 mt-1 disabled" style="display: block; width: 100%;" (click)="additem(i)">PlaceOrder</button></td>
+              </div>
+                <div class="col-sm-6 col-md-6">
+                  <td class="text-center"><button class="btn btn-danger p-2 mt-1" style="display: block; width: 100%;" (click)="delete(i)"><i class="fa fa-trash" aria-hidden="true"></i> Remove</button></td>
+
+                </div>
+              
+             </div>
+             </div>
+
+            
+         
           </div>
         </div>
+
+       
+
+
+
+      
+
+
+
+
   </div>
-  </div>
-   
-  <div class="container-fluid p-3 " *ngIf="cart.length!==0">
-    <h5 class="text-center amount ">TotalAmount:<strong>{{amount | currency:"INR"}}</strong></h5>
-  </div>
-  </div>
-  </div>
-  </body>
-  
+</div>
+         
+<div class="container-fluid p-3 " *ngIf="cart.length!==0">
+  <h5 class="text-center amount ">TotalAmount:<strong>{{amount | currency:"INR"}}</strong></h5>
+</div>
+</div>
+</div>
+
+</body>

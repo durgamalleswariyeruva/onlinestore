@@ -32,10 +32,12 @@ export class HomeComponent implements OnInit {
   brand:any=[];
   brand1:any=[];
   brand2:any=[];
-
+  userid:any;
   constructor(private us:UserService,private router:Router, private ts:ToastrService) { }
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
+    //this.username=localStorage.getItem("username")
+    this.userid=localStorage.getItem("userid")
+
     this.getAllProducts();
     this.cartStatus();
     
@@ -95,6 +97,8 @@ export class HomeComponent implements OnInit {
     this.us.getProducts().subscribe(
       res=>{
         this.products=res["message"]
+       // localStorage.setItem("productname",JSON.stringify(this.products))
+
         for (let i in this.products){
           this.category.push(this.products[i].pCategory)
           this.brand.push(this.products[i].pCategory,this.products[i].pbrand)
@@ -117,9 +121,9 @@ export class HomeComponent implements OnInit {
     )
   }
   wishList(n:any){
-    if(this.username!==null){
+    if(this.userid!==null){
       let obj={
-      username:this.username,
+      userid:this.userid,
       productname:this.products[n].pname,
       colour:this.products[n].pcol,
       cost:this.products[n].pprice,
@@ -164,7 +168,7 @@ export class HomeComponent implements OnInit {
     this.us.viewItem(viewObj).subscribe(
       res=>{
         if(res["message"]){
-          localStorage.setItem("token",res["signedToken"])
+         // localStorage.setItem("token",res["signedToken"])
           localStorage.setItem("pname",viewObj.pname)
           this.router.navigateByUrl("/viewcart");
         }
@@ -177,7 +181,7 @@ export class HomeComponent implements OnInit {
   }
 
   cartStatus(){
-    this.us.getCartSize(this.username).subscribe(
+    this.us.getCartSize(this.userid).subscribe(
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
@@ -185,7 +189,7 @@ export class HomeComponent implements OnInit {
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-        localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
+       // localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
 
        // window.location.reload()
       },
@@ -198,9 +202,9 @@ export class HomeComponent implements OnInit {
   }
 
   additems(n:number){
-    if(this.username!==null){
+    if(this.userid!==null){
       let obj={
-      username:this.username,
+      userid:this.userid,
       productname:this.products[n].pname,
       colour:this.products[n].pcol,
       cost:this.products[n].pprice,
@@ -237,9 +241,9 @@ export class HomeComponent implements OnInit {
   }
     
   additem(n:number){
-    if(this.username!==null){
+    if(this.userid!==null){
       let obj={
-      username:this.username,
+      userid:this.userid,
       productname:this.product[n].pname,
       colour:this.product[n].pcol,
       cost:this.product[n].pprice,

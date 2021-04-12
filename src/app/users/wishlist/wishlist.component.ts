@@ -11,23 +11,36 @@ import { UserService } from 'src/app/user.service';
 export class WishlistComponent implements OnInit {
 
   constructor(private us:UserService,private router:Router,private ts:ToastrService) { }
+  userid:any;
   username:any;
   products:any=[];
   userCartSize:any;
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
+  //  this.username=localStorage.getItem("username")
+    this.userid=localStorage.getItem("userid")
+
   this.getwishlist();
-    
+    this.cartStatus();
   }
   getwishlist(){
-    this.us.getwishlist(this.username).subscribe(
+    this.us.getwishlist(this.userid).subscribe(
       res=>{
-        this.products=res["message"]
+
+        if(res["message"]=="success")
+        {
+
+        this.products=res["productList"]
+        }
+
+        else{
+          this.ts.warning(res["message"])
+          this.router.navigateByUrl("/login")
+        }
       }
     )
   }
   cartStatus(){
-    this.us.getCartSize(this.username).subscribe(
+    this.us.getCartSize(this.userid).subscribe(
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
@@ -35,7 +48,7 @@ export class WishlistComponent implements OnInit {
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-        localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
+       // localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
 
        // window.location.reload()
       },
@@ -64,9 +77,9 @@ export class WishlistComponent implements OnInit {
   
   additems(n:number){
     console.log("hello",this.products[n])
-    if(this.username!==null){
+    if(this.userid!==null){
       let obj={
-      username:this.username,
+      userid:this.userid,
       productname:this.products[n].productname,
       colour:this.products[n].colour,
       cost:this.products[n].cost,
@@ -80,17 +93,17 @@ export class WishlistComponent implements OnInit {
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){
-            this.ts.warning("Product is already added to cart")
+            this.ts.warning("Product is already added to wishcart")
             
           }
           else{
-            this.ts.success("Product added to cart")
+            this.ts.success("Product added to wishcart")
             this.cartStatus();
           }
           
         },
         err=>{
-          this.ts.warning("Something went wrong in Adding cart")
+          this.ts.warning("Something went wrong in Adding product to wishcart")
         console.log(err)
         }
       )
@@ -98,7 +111,7 @@ export class WishlistComponent implements OnInit {
     }
     
     else{
-      this.ts.warning("please login first to add items")
+      this.ts.warning("please login first to add items to wishcart")
       this.router.navigateByUrl("/login")
     }
   }

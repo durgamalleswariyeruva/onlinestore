@@ -42,7 +42,7 @@ import { CategoryComponent } from './category/category.component';
     NgbModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut:1500,
+      timeOut:120000,
       positionClass: 'toast-top-center',
       closeButton: true
     })

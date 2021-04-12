@@ -14,7 +14,7 @@ const routes: Routes = [{ path:'', component: UsersComponent},
   {path:"userdashboard", component: UserdashboardComponent,canActivate :[RouteGuard]},
   {path:"viewcart", component:ViewcartComponent},
   {path:"wishlist", component:WishlistComponent,canActivate :[RouteGuard]},
-  {path:"placeorder",component:PlaceorderComponent,canActivate : [RouteGuard]}
+  {path:"placeorder",component:PlaceorderComponent,canActivate :[RouteGuard]}
 
   
 

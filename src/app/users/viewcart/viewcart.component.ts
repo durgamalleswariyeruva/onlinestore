@@ -10,7 +10,7 @@ import { UserService } from 'src/app/user.service';
 })
 export class ViewcartComponent implements OnInit {
 
-  username:any;
+  userid:any;
   userCartSize:any;
   pname:any;
   product:any;
@@ -18,7 +18,7 @@ export class ViewcartComponent implements OnInit {
   constructor(private us:UserService, private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
+    this.userid=localStorage.getItem("userid")
     this.pname=localStorage.getItem("pname")
     //console.log("PRODUCT NAME IS ",this.pname)
     this.getProduct();
@@ -39,7 +39,7 @@ export class ViewcartComponent implements OnInit {
     )
   }
   cartStatus(){
-    this.us.getCartSize(this.username).subscribe(
+    this.us.getCartSize(this.userid).subscribe(
       res=>{
         this.us.setCartSubjectSize(res["cartsize"])
         this.userCartSize=res["cartsize"];
@@ -47,7 +47,7 @@ export class ViewcartComponent implements OnInit {
         this.us.getCartSubjectSize().subscribe(c=>{
           this.userCartSize=c;
         })
-        localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
+       // localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
 
        // window.location.reload()
       },
@@ -60,9 +60,9 @@ export class ViewcartComponent implements OnInit {
   }
 
   additem(i:any){
-    if(this.username!==null){
+    if(this.userid!==null){
       let obj={
-      username:this.username,
+      userid:this.userid,
       productname:this.product[i].pname,
       colour:this.product[i].pcol,
       cost:this.product[i].pprice,

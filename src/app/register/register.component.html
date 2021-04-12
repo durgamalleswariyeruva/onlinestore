@@ -9,6 +9,22 @@
                 <h2 class="text-primary mt-3 d-block mx-auto" style="text-align: center;"> <i class="fas fa-user-plus"></i> Register </h2>
 
                <div class="row col-sm-7">
+
+                  <!--user id-->
+
+                 <div class="form-group ">
+    
+                  <input class="form-control p-1 m-1 ml-2 " type="hidden" placeholder="UserId " value="this.length"
+                  style="border: 0px; border-bottom: 1px solid blue; border-radius: 0px;"
+                  formControlName="userid" required>
+                  <div *ngIf =" getControls().userid.touched|| submitted && (getControls().userid.dirty||getControls().userid.invalid)" >
+
+                   <p *ngIf="getControls().userid.errors?.required" class="text-danger"> UserId is Requied*</p>
+                    </div>
+
+               </div>
+
+
                    <!--username-->
 
                  <div class="form-group ">
@@ -88,7 +104,7 @@
                    
                   </div>
     
-                   <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;" [disabled]="registerForm.invalid">Register</button>
+                   <button type="submit" class="btn btn-danger d-block mx-auto m-2 p-2" style="text-align: center;width: 100%;border-radius: 5px;" [disabled]="registerForm.invalid">  Register </button>
                    
     
        </div>
@@ -112,4 +128,26 @@
         </div>
       </div>
     </div>
+</div>
+
+
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Modal Body</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

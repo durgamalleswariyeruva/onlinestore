@@ -23,6 +23,10 @@ export class UserService {
     
   }
   
+  userscount():Observable<any>{
+    return this.hc.get("user/userscount");
+  }
+
   usercart(obj:any):Observable<any>{
     console.log(obj)
     return this.hc.post("user/addtocart",obj);
@@ -31,9 +35,9 @@ export class UserService {
     console.log(obj)
     return this.hc.post("user/wishlist",obj);
   }
-  getwishlist(username:any):Observable<any>{
-    console.log("wishlist",username)
-    return this.hc.get("user/getWishlist/"+username);
+  getwishlist(userid:any):Observable<any>{
+    console.log("wishlist",userid)
+    return this.hc.get("user/getWishlist/"+userid);
 
   }
   getProducts():Observable<any>{
@@ -59,8 +63,8 @@ export class UserService {
     return this.hc.get("/admin/getitem/"+pname);
   }
   
-  getInitialCartSize(username:any){
-    return this.hc.get("/user/getsize/"+username);
+  getInitialCartSize(userid:any){
+    return this.hc.get("/user/getsize/"+userid);
   }
 
   
@@ -76,15 +80,15 @@ export class UserService {
     }
 
 
-  getCartSize(username:any):Observable<any>{
-    console.log("the us is ",username);
-    return this.hc.get("/user/getsize/"+username);
+  getCartSize(userid:any):Observable<any>{
+    console.log("the us is ",userid);
+    return this.hc.get("/user/getsize/"+userid);
   }
   
 
-  getCartItems(username:any):Observable<any>{
+  getCartItems(userid:any):Observable<any>{
     //console.log("the username is ",username)
-    return this.hc.get("/user/getcartitems/"+username);
+    return this.hc.get("/user/getcartitems/"+userid);
   }
   deleteCartProduct(obj4:any):Observable<any>{
     return this.hc.post("/user/deleteproduct",obj4);
@@ -94,9 +98,9 @@ export class UserService {
     return this.hc.post("/user/orders",obj);
   }
   
-  getOrderItems(username:any):Observable<any>{
+  getOrderItems(userid:any):Observable<any>{
     //console.log("the username is ",username)
-    return this.hc.get("/user/getOrderitem/"+username);
+    return this.hc.get("/user/getOrderitem/"+userid);
   }
   deleteOrderProduct(obj5:any):Observable<any>{
     return this.hc.post("/user/deleteOrder",obj5);

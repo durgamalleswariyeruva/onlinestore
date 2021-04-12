@@ -1,11 +1,11 @@
-<div *ngIf="username!=null">
+<div *ngIf="userid!=null">
     <div class="bg-light px-5 text-right">
-        <button class="btn btn-success float-end px-4 my-2" (click)="logout()">Logout</button>
+        <button class="btn btn-success float-end px-4 my-2" (click)="logout()">Back to Home <i class="fas fa-home"></i></button>
     </div>
     
     
     <div class="container-fluid">
-        <h5 class=" text-dark text-left mt-3">My Orders({{username}})</h5>
+        <h5 class=" text-dark text-left mt-3">My Orders ( {{username}} )</h5>
         <div class="row mt-5 gx-3 d-block mx-auto">
           <div class="col-md-9 col-lg-9 col-9 mx-auto mb-lg-0 mb-5">
         <div class="card p-4 d-block mx-auto m-3" *ngFor="let p of order, let i=index" style="max-width: 1000px;max-height: 100%;">
