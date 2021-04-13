@@ -18,8 +18,9 @@ export class WishlistComponent implements OnInit {
   spinning:any=0
   ngOnInit(): void {
     this.userid=localStorage.getItem("userid")
+    this.username=localStorage.getItem("username")
 
-  this.getwishlist();
+    this.getwishlist();
     this.cartStatus();
   }
   goTo(){

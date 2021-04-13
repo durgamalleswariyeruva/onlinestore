@@ -74,8 +74,9 @@ export class HomeComponent implements OnInit {
   getAllProducts(){
     this.us.getProducts().subscribe(
       res=>{
-        this.products=res["message"]
         this.spinning=1
+
+        this.products=res["message"]
         for (let i in this.products){
           this.category.push(this.products[i].pCategory)
           this.brand.push(this.products[i].pCategory,this.products[i].pbrand)

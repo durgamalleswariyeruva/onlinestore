@@ -1,3 +1,15 @@
+<div class="border d-flex align-items-center justify-content-center" *ngIf="spinning==0" style="height: 550px;">
+        
+      
+  <div class="spinner-border text-danger" role="status" >
+      
+    <span class="visually-hidden">Loading...</span>
+   
+  </div>
+  <div><h2>  Loading.... please wait</h2></div>
+</div>
+
+
 <div *ngIf="userid==null || order.length<=0">
   <div clas="container">
     <h3 class=" text-info text-left mt-3 p-3 ml-5">My Cart({{username}})</h3>

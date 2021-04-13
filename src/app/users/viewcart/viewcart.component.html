@@ -1,6 +1,15 @@
 
-    
-<body style="background-image: linear-gradient(lightblue,lightgreen); ">
+<div class="border d-flex align-items-center justify-content-center" *ngIf="spinning==0" style="height: 550px;">
+        
+      
+  <div class="spinner-border text-danger" role="status" >
+      
+    <span class="visually-hidden">Loading...</span>
+   
+  </div>
+  <div><h2>  Loading.... please wait</h2></div>
+</div>     
+<body style="background-image: linear-gradient(lightblue,lightgreen); "  *ngIf="spinning==1">
     <div class="container " >
 
             <div class="card mx-auto  text-black shadow m-1" *ngFor="let product of product ,let i=index" style="width: 80%;"> 

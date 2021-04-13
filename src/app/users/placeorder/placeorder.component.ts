@@ -13,6 +13,7 @@ export class PlaceorderComponent implements OnInit {
   username:any;
   order:any;
   userid:any;
+  spinning:any=0;
   constructor(private us:UserService,private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
@@ -31,6 +32,7 @@ export class PlaceorderComponent implements OnInit {
       res=>{
         if(res["message"]=="success")
         {
+          this.spinning=1
         this.order=res["productList"]
         }
         else{

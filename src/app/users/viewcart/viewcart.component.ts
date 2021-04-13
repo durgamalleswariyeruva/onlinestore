@@ -14,7 +14,7 @@ export class ViewcartComponent implements OnInit {
   userCartSize:any;
   pname:any;
   product:any;
-  _id:any;
+spinning:any=0
   constructor(private us:UserService, private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
@@ -28,6 +28,7 @@ export class ViewcartComponent implements OnInit {
   getProduct(){
     this.us.getProduct(this.pname).subscribe(
       res=>{
+        this.spinning=1
         this.product=res["message"]
       },
       err=>{
