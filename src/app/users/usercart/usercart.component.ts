@@ -55,10 +55,8 @@ export class UsercartComponent implements OnInit {
             }
           }
         }
-        console.log("available products",this.check)
        
         this.unavail=this.cart.filter((item: any) => this.check.indexOf(item) < 0)
-        console.log("unavailable products",this.unavail)
 
        
         
@@ -68,7 +66,7 @@ export class UsercartComponent implements OnInit {
         else{
           this.toastr.warning(res["message"])
 
-          this.router.navigateByUrl("/usercart")
+          this.router.navigateByUrl("/login")
 
         }
       },

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from './user.service';
 
 @Component({
@@ -16,13 +17,12 @@ export class AppComponent implements OnInit {
   userCartSize:number=0;
   token:any;
   userid:any
-  constructor(private rt:Router, private us:UserService){}
+  constructor(private rt:Router, private us:UserService,private ts:ToastrService){}
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.userid=localStorage.getItem("userid")
 
     this.token=localStorage.getItem("token")
-    console.log("username is", this.username)
     this.cartStatus();
 
   }
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
       this.products=res.message
     },
     err=>{
-      alert("Something went wrong in getting all products")
+      this.ts.warning("Something went wrong in getting all products")
       console.log(err)
     }
   )
@@ -88,16 +88,13 @@ additem(i:any){
     res=>{
       this.us.setCartSubjectSize(res["cartsize"])
       this.userCartSize=res["cartsize"];
-      console.log(this.userCartSize)
       this.us.getCartSubjectSize().subscribe(c=>{
         this.userCartSize=c;
       })
-      //localStorage.setItem("userCart",JSON.stringify(res["userCart"]))
-
-     // window.location.reload()
+     
     },
     err=>{
-      alert("Something went wrong in getting all products")
+      this.ts.warning("Something went wrong in getting all products")
       console.log(err)
     }
   )
