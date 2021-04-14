@@ -19,11 +19,9 @@ userApiObj.post("/registration", asyncHandler(async(req,res,next)=>{
     
     
     let userObj = req.body;
-    console.log("user object is",userObj);
 
     //check for user in db
     let user = await userCollectionObj.findOne({userid:userObj.userid});
-    console.log(user)
     //if username alreaddy taken
     if(user!==null){
         res.send({message:"user existed"});
@@ -38,11 +36,9 @@ userApiObj.post("/registration", asyncHandler(async(req,res,next)=>{
         //create user
         let success=await userCollectionObj.insertOne(userObj);
         res.send({message:"user created",userId:userObj.userid})
-        console.log("user created")
         
         
     }
-   //console.log("user obj is",req.body);
 }))
 
 ///users count

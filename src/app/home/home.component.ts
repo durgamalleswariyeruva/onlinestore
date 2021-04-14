@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
     )
   }
   wishList(n:any){
-    if(this.userid!==null){
+    if(this.userid){
       let obj={
       userid:this.userid,
       productname:this.products[n].pname,

@@ -98,7 +98,7 @@ export class UsercartComponent implements OnInit {
   }
 
   goTo(){
-    this.router.navigateByUrl("/login")
+    this.router.navigateByUrl("/home")
   }
 
   additem(n:number){

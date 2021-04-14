@@ -6,7 +6,7 @@ background-size: cover;width: 100%;height: 100%;background-repeat: no-repeat; ">
                 <div class="card-body">
 
                 
-            <form  #formRef="ngForm" (ngSubmit)="onSubmit(formRef)">
+            <form  [formGroup]="formRef" (ngSubmit)="onSubmit()">
                 <section class="row col-sm-12">
                     <h3 class=" text-dark d-block mx-auto mt-3 mb-4" style="text-align: center;"><i class="fas fa-lock"></i> Reset Password</h3> 
 
@@ -16,46 +16,46 @@ background-size: cover;width: 100%;height: 100%;background-repeat: no-repeat; ">
 
                     <div class="row col-sm-6">
                 <div class="form-group">
-                    <label for="inputAddress" class="form-label"><i class="fas fa-user"></i> Username</label>
-                    <input type="text" class="form-control" id="inputAddress" name="username" placeholder="Enter username"  formControlName="username" required ngModel>
-                    <div *ngIf =" getControls().username.touched|| submitted && (getControls().username.dirty||getControls().username.invalid)" >
+                    <label for="inputAddress" class="form-label"><i class="fas fa-user"></i> UserId</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Enter UserId"  formControlName="userid"  >
+                    <div *ngIf =" getControls().userid.touched|| submitted && (getControls().userid.dirty||getControls().userid.invalid)" >
 
-                        <p *ngIf="getControls().username.errors?.required" class="text-danger"> Name is Requied*</p>
+                        <p *ngIf="getControls().userid.errors?.required" class="text-danger"> Name is Requied*</p>
                          </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="inputPassword1" class="form-label"><i class="fas fa-lock"></i> New password</label>
-                    <input type="password" class="form-control" id="inputPassword1" placeholder="Enter New Password" name="password1" ngModel  formControlName="pwd" required>
-                    <div *ngIf =" getControls().pwd.touched|| submitted && (getControls().pwd.dirty||getControls().pwd.invalid)" >
+                    <input type="password" class="form-control" id="inputPassword1" placeholder="Enter New Password"  formControlName="password1" >
+                    <div *ngIf =" getControls().password1.touched|| submitted && (getControls().password1.dirty||getControls().password1.invalid)" >
 
                         <span class="text-danger"
-                            *ngIf="getControls().pwd.errors?.required">
+                            *ngIf="getControls().password1.errors?.required">
                             Password is required *
                         </span>
                         <span class="text-danger"
-                            *ngIf="getControls().pwd.errors?.minlength">
+                            *ngIf="getControls().password1.errors?.minlength">
                             minimum length should be 6 
                         </span>
-                        <div class="text-danger mt-1" *ngIf="getControls().pwd.errors?.pattern">
+                        <div class="text-danger mt-1" *ngIf="getControls().password1.errors?.pattern">
                             password should have at least 1 uppercase letter and 1 number
                         </div>
                     </div>
                 </div>          
                 <div class="form-group">
                     <label for="inputPassword1" class="form-label"><i class="fas fa-lock"></i> Confirm Password</label>
-                    <input type="password" class="form-control" id="inputPassword2" placeholder="Re-type new password" name="password2" ngModel  formControlName="pwd1" required>
-                    <div *ngIf =" getControls().pwd1.touched|| submitted && (getControls().pwd1.dirty||getControls().pwd1.invalid)" >
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="Re-type new password"   formControlName="password2" >
+                    <div *ngIf =" getControls().password2.touched|| submitted && (getControls().password2.dirty||getControls().password2.invalid)" >
 
                         <span class="text-danger"
-                            *ngIf="getControls().pwd1.errors?.required">
+                            *ngIf="getControls().password2.errors?.required">
                             Password is required *
                         </span>
                         <span class="text-danger"
-                            *ngIf="getControls().pwd1.errors?.minlength">
+                            *ngIf="getControls().password2.errors?.minlength">
                             minimum length should be 6 
                         </span>
-                        <div class="text-danger mt-1" *ngIf="getControls().pwd1.errors?.pattern">
+                        <div class="text-danger mt-1" *ngIf="getControls().password2.errors?.pattern">
                             password should have at least 1 uppercase letter and 1 number
                         </div>
                     </div>

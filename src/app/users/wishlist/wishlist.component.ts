@@ -94,17 +94,17 @@ export class WishlistComponent implements OnInit {
       this.us.usercart(obj).subscribe(
         res=>{
           if(res["message"]=="product exist"){
-            this.ts.warning("Product is already added to wishcart")
+            this.ts.warning("Product is already added to cart")
             
           }
           else{
-            this.ts.success("Product added to wishcart")
+            this.ts.success("Product added to cart")
             this.cartStatus();
           }
           
         },
         err=>{
-          this.ts.warning("Something went wrong in Adding product to wishcart")
+          this.ts.warning("Something went wrong in Adding product to cart")
         console.log(err)
         }
       )
@@ -112,7 +112,7 @@ export class WishlistComponent implements OnInit {
     }
     
     else{
-      this.ts.warning("please login first to add items to wishcart")
+      this.ts.warning("please login first to add items to cart")
       this.router.navigateByUrl("/login")
     }
   }

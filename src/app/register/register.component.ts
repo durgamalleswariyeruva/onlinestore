@@ -16,7 +16,10 @@ registerForm: FormGroup=new FormGroup({});
   submitted: boolean=false;
   length:any;
   userid:any;
-  status:boolean=false;
+  status:any=0;
+  id:any;
+  closeAlert:boolean=false
+  alert:boolean=false
 constructor(private rt:Router, private us:UserService,private ts:ToastrService) { }
 
   ngOnInit(): void {
@@ -30,6 +33,12 @@ constructor(private rt:Router, private us:UserService,private ts:ToastrService) 
       password:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
   
     })
+
+    
+      setTimeout(() => {
+        
+      }, 60000);
+    
   }
   
   users(){
@@ -51,25 +60,23 @@ this.rt.navigateByUrl("/login")
 getControls(){
   return this.registerForm.controls;
 }
+
+
 onSubmit(){
   this.submitted=true;
   if(this.registerForm.valid)
   {
     this.userObj=this.registerForm.value
+    this. id=this.userObj.userid
+    this.status=1
+    console.log(this.id)
 
     this.us.createUser(this.userObj).subscribe(
       res=>{
         if(res["message"] =="user existed"){
-          this.ts.warning("Username is already existed..choose another");
+          this.ts.warning("userid is already existed..choose another");
         }
-        else{
-          this.userid=res["userId"]
-          this.status=true;
-          this.ts.success(this.userid,"Registration succesfull!....Your userId for login into portal is :") 
-           
-          //navigate to login component
-          this.rt.navigateByUrl("/login");
-        }
+       
       },
       err=>{
         this.ts.warning("Something went wrong in user creation");

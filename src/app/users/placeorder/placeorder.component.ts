@@ -10,15 +10,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PlaceorderComponent implements OnInit {
 
-  username:any;
-  order:any;
-  userid:any;
-  spinning:any=0;
+  username: any;
+  order: any;
+  userid: any;
+  spinning: any=0;
   constructor(private us:UserService,private router:Router,private ts:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
-    this.userid=localStorage.getItem("userid")
+    this.username = localStorage.getItem('username') ;
+    this.userid = localStorage.getItem('userid') ;
 
     this.getCart();
   }
@@ -29,8 +29,8 @@ export class PlaceorderComponent implements OnInit {
   
   getCart(){
     this.us.getOrderItems(this.userid).subscribe(
-      res=>{
-        if(res["message"]=="success")
+      res => {
+        if(res['message'] === 'success')
         {
           this.spinning=1
         this.order=res["productList"]
@@ -49,7 +49,7 @@ export class PlaceorderComponent implements OnInit {
     )
   }
   goTo(){
-    this.router.navigateByUrl("/users/usercart")
+    this.router.navigateByUrl("users/usercart")
   }
 
 
