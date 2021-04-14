@@ -24,6 +24,7 @@ export class ViewadminproductsComponent implements OnInit {
           }
         else{
           this.ts.warning(res["message"])
+          this.router.navigateByUrl("/login")
          
         }
       }, 
