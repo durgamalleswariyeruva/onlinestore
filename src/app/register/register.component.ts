@@ -10,73 +10,55 @@ import { UserService } from '../user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-data:any;
-userObj:any;
-registerForm: FormGroup=new FormGroup({});
-  submitted: boolean=false;
-  length:any;
-  userid:any;
-  status:boolean=false;
-constructor(private rt:Router, private us:UserService,private ts:ToastrService) { }
+userObj;
+registerForm: FormGroup = new FormGroup({});
+  submitted = false;
+  length;
+  userid;
+  id;
+constructor(private rt: Router, private us: UserService, private ts: ToastrService) { }
 
   ngOnInit(): void {
-   
-    this.registerForm=new FormGroup({
-      userid:new FormControl("OSIN2021"+(Math.floor(Math.random() * 501)),Validators.required),
-      username:new FormControl(null,Validators.required),
-      fname:new FormControl(null,Validators.required),
-      lname:new FormControl(null,Validators.required),
-      email:new FormControl(null,Validators.required),
-      password:new FormControl(null,[Validators.required,Validators.minLength(6),Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
-  
-    })
+    this.registerForm = new FormGroup({
+      userid: new FormControl('OSIN2021' + (Math.floor(Math.random() * 501)), Validators.required),
+      username: new FormControl(null, Validators.required),
+      fname: new FormControl(null, Validators.required),
+      lname: new FormControl(null, Validators.required),
+      email: new FormControl(null, Validators.required),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$')]),
+    });
   }
-  
-  users(){
+  users(): any {
     this.us.userscount().subscribe(
-      res=>{
-        this.length=res.message
-      }
-      ,
-      err=>{
-        this.ts.warning("Something went wrong in user length");
-        console.log(err);
-      }  
-    
-    )
-  }
-onLogin(){
-this.rt.navigateByUrl("/login")
-}
-getControls(){
-  return this.registerForm.controls;
-}
-onSubmit(){
-  this.submitted=true;
-  if(this.registerForm.valid)
-  {
-    this.userObj=this.registerForm.value
-
-    this.us.createUser(this.userObj).subscribe(
-      res=>{
-        if(res["message"] =="user existed"){
-          this.ts.warning("Username is already existed..choose another");
-        }
-        else{
-          this.userid=res["userId"]
-          this.status=true;
-          this.ts.success(this.userid,"Registration succesfull!....Your userId for login into portal is :") 
-           
-          //navigate to login component
-          this.rt.navigateByUrl("/login");
-        }
+      res => {
+        this.length = res.message;
       },
-      err=>{
-        this.ts.warning("Something went wrong in user creation");
+      err => {
+        this.ts.warning('Something went wrong in user length');
         console.log(err);
-      }  
-    )
-    
+      } );
+  }
+  onLogin(): any {
+    this.rt.navigateByUrl('/login');
+  }
+  getControls(): any {
+    return this.registerForm.controls;
+  }
+  onSubmit(): any {
+    this.submitted = true;
+    if (this.registerForm.valid)
+     {
+       this.userObj = this.registerForm.value;
+       this.id = this.userObj.userid;
+       this.us.createUser(this.userObj).subscribe(
+       res => {
+        if (res.message === 'user existed'){
+          this.ts.warning('userid is already existed..choose another');
+        }},
+      err => {
+        this.ts.warning('Something went wrong in user creation');
+        console.log(err);
+      }  );
   }
 }
 }

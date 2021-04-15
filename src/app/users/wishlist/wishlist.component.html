@@ -8,13 +8,13 @@
   </div>
   <div><h2>  Loading.... please wait</h2></div>
 </div>
-<div *ngIf="userid==null || products.length<=0">
+<div *ngIf="(userid==null || products.length<=0) && (spinning==1)">
   <div clas="container">
-    <h3 class=" text-info ml-5 text-left mt-3 p-3">My Cart ( {{username}} )</h3>
+    <h3 class=" text-info text-left mt-3 p-3 ml-5">My Cart({{username}})</h3>
 
           <div class="row">
               <div class="col-sm-3 m-3">
-                  <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-heart text-danger" aria-hidden="true"></i> User wishList</h1>
+                  <h1 class="text-center " style="font-family:'Times New Roman', Times, serif"><i class="fa fa-heart text-danger" aria-hidden="true"></i> User Wishlist</h1>
               </div>
           
           </div>
@@ -27,7 +27,7 @@
           </div>
           <h6 class="display-6 text-center" >Missing Wish Cart Items?</h6>
       <p class="text-center">Add Atleast one product to see the items you add here</p>
-      <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); width: 25%;">Add WishProducts</button>
+      <button class="btn d-block mx-auto text-light p-2" (click)="goTo()" style=" background-color: rgb(243, 131, 2); ">Add Wish Products</button>
   
       <hr>
       
