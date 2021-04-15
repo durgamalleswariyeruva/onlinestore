@@ -81,6 +81,7 @@ export class ViewcartComponent implements OnInit {
       );
     }
     else{
+      this.ts.warning('please login first to add items');
       this.router.navigateByUrl('/login');
     }
   }
